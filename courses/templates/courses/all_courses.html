@@ -1,0 +1,47 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row justify-content-around align-items-center bg-primary">
+        <div class="col-lg-7 col-md-8 col-11  text-center">
+            <h1 class="display-3 text-white mb-3">Courses</h1>
+            <h3 class="text-white">Tackle a topic. Learn a new skill. Have a blast.</h3>
+            <p class="lead text-white lh-180 mx-auto">
+                All courses are included in your ZappyCode membership. They can be viewed here online or downloaded for
+                offline viewing.
+            </p>
+        </div>
+    </div>
+
+    <div class="row bg-dark pt-5">
+
+    {% for course in courses %}
+        {% if not forloop.counter|divisibleby:"2" %}
+            <div class="col-md-4 offset-md-2 col-10 offset-1">
+        {% else %}
+            <div class="col-md-4 col-10 offset-md-0 offset-1">
+        {% endif %}
+
+    <a href="{% url 'course_landing_page' course.slug %}">
+        <div class="card mb-4 shadow-sm">
+            <img src="{{ course.image.url }}" class="card-img-top img-fluid" width="100%" height="225">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text">{{ course.subtitle }}</p>
+            </div>
+        </div>
+    </a>
+    </div>
+
+        {% if forloop.counter|divisibleby:"2" %}
+            <div class="w-100"></div>
+        {% endif %}
+    {% endfor %}
+
+
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="row justify-content-around align-items-center bg-light">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
+         <h1>{{ user.username }}'s Account</h1>
+    </div>
+</div>
+
+
+
+        <div class="row align-items-center justify-content-around bg-light">
+
+
+            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+
+
+                {% if user.cancel_at_period_end %}
+                    <br>
+                    <div class="alert alert-danger" role="alert">
+                        Your subscription has been canceled. You'll still have access to ZappyCode util the end of the billing cycle.
+                    </div>
+                {% endif %}
+                {% if user.active_membership and not user.cancel_at_period_end  %}
+                    <br>
+                    <form method="post" action="{% url 'cancel_subscription' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Cancel Subscription</button>
+                    </form>
+                {% elif not user.active_membership %}
+                    <br>
+                    <a class="btn btn-primary" href="{% url 'pricing' %}" role="button">Buy Subscription</a>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row justify-content-around align-items-center bg-success">
+        <div class="col-11 pt-4">
+            <h1 class="display-3 text-white mb-3 text-center">{{ month.title }}</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-around align-items-center bg-success">
+        <div class="col-lg-5 col-md-8 col-11 pt-4 pb-2">
+            {% if month.youtube_id %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe src="https://www.youtube.com/embed/{{ month.youtube_id }}" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row justify-content-around align-items-center bg-success">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
+            <h3 class="text-white">Revenue: ${{ month.revenue }}</h3>
+            <h3 class="text-white">Expenses: $<span class="underline-red">{{ month.expenses }}</span></h3>
+            {% if month.profit_or_loss > 0 %}
+                <h2 class="text-white">Profit: ${{ month.profit_or_loss_abs }}</h2>
+            {% else %}
+                <h2 class="text-white">Loss: -$<span class="underline-red">{{ month.profit_or_loss_abs }}</span></h2>
+            {% endif %}
+            <div class="lead text-white lh-180 pt-4">
+                {{ month.body|safe }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascript %}
+
+{% endblock %}

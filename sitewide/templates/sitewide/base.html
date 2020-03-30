@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>ZappyCode</title>
+
+    <link rel="stylesheet" href="{% static "sitewide/fontawesome-free/css/all.min.css" %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "sitewide/sitewide.css" %}" rel="stylesheet">
+
+    <!-- Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'sitewide/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'sitewide/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'sitewide/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'sitewide/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'sitewide/favicon/safari-pinned-tab.svg' %}" color="#7469e9">
+    <meta name="apple-mobile-web-app-title" content="ZappyCode">
+    <meta name="application-name" content="ZappyCode">
+    <meta name="msapplication-TileColor" content="#603cba">
+    <meta name="theme-color" content="#ffffff">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body class="h-100 bg-primary">
+
+<nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-primary" id="navbar-main">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'sitewide/ZappyCodeLogo2.svg' %}" width="40" height="40"
+                 class="d-inline-block align-middle" alt="ZappyCode Logo">
+            <span id="logo_text">ZappyCode</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse text-center" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_courses' %}">Courses</a>
+                </li>
+                {% if not user.active_membership %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'account' %}" class="nav-link">
+                            <i class="fas fa-cog"></i><span>Account</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                        <form style='display: none;' method="post" action="{% url 'account_logout' %}">
+                            {% csrf_token %}
+                            <button id="signOutBtn" type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% if messages %}
+    <div id="messages" class="row justify-content-around align-items-center bg-primary">
+        <div class="col-lg-7 col-md-8 col-11 text-center">
+            <div class="alert alert-success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<script src="{% static "sitewide/jquery.min.js" %}"></script>
+<script src="{% static "sitewide/bootstrap.bundle.min.js" %}"></script>
+
+<!-- Hide Messages -->
+{% if messages %}
+    <script>
+        window.setTimeout(function () {
+            $("#messages").slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 3000);
+    </script>
+{% endif %}
+
+{% block javascript %}{% endblock %}
+</body>
+
+</html>

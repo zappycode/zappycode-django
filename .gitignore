@@ -1,0 +1,13 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+/collected_static/
+/media
+/.idea
+zappycode/.env
+supervisord.conf
+celerybeat-schedule
+node_modules/

@@ -1,0 +1,130 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row justify-content-around align-items-center bg-primary">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="display-3 text-white mb-3">Coding Is Fun</h1>
+            <p class="lead text-white lh-180 mx-auto">
+                Learning to code should also be fun. That's why we built Zappycode! A community of learners that don't
+                like doing things the boring way. Join and see what it's all about.
+            </p>
+            <a href="{% url 'pricing' %}" class="btn btn-info btn-icon rounded-pill hover-translate-y-n3 mt-4">
+                <span class="btn-inner--text">Join Now</span>
+                <span class="btn-inner--icon"><i class="fas fa-sign-in-alt"></i></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-around align-items-center bg-dark">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="display-3 text-white mb-3">Dank Courses</h1>
+            <p class="lead text-white lh-180 mx-auto">
+                Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials
+                that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!
+            </p>
+            <img class="img-fluid pb-4" src="{% static 'sitewide/topCourses.png' %}">
+            <a href="{% url 'all_courses' %}" class="btn btn-primary rounded-pill hover-translate-y-n3 mt-4">
+                All Courses <i class="fas fa-list"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="row justify-content-around align-items-center bg-light">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="display-3 mb-3">Pick Your Own Price</h1>
+            <p class="lead text-dark lh-180 mx-auto">
+                We'd love it if you'd pay $25 a month but if you're broke, fine by us. Move the slider below and see how
+                Nick (Commander-in-Chief) reacts.
+            </p>
+            <h1 id="face">😄</h1>
+            <span class="h1" id="price">$25</span><span style="font-size: large;" id="monthYear">/month</span>
+            <input type="range" class="custom-range" min="5" max="45" step="5" value="25" id="homePagePriceSlider">
+            <br>
+            <br>
+            <button id="monthlyBtn" type="button" class="btn btn-warning active">Monthly</button>
+            <button id="yearlyBtn" type="button" class="btn btn-warning">Yearly</button>
+            <br>
+            <br>
+            <button id="buyButton" class="btn btn-primary">
+                <span class="btn-inner--text">Buy Now</span>
+                <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row justify-content-around align-items-center bg-success">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="display-3 text-white mb-3">Open Code & Financials</h1>
+            <p class="lead text-white lh-180 mx-auto">
+                ZappyCode is created by a community. Wanna improve the site or see how it ticks? It's all on our GitHub.
+                Wanna help ZappyCode grow or just see how much dough is coming in? We got it all for ya!
+            </p>
+            <p class="lead text-white lh-180 mx-auto bg-warning rounded">
+                Also! Those who help with the coding or business side of the site, get free membership!
+            </p>
+            <a href="" class="btn btn-info btn-icon rounded-pill hover-translate-y-n3 mt-4">
+                <span class="btn-inner--text">Source Code</span>
+                <span class="btn-inner--icon"><i class="fas fa-sign-in-alt"></i></span>
+            </a>
+            <a href="{% url 'money:home' %}"
+               class="btn btn-danger rounded-pill hover-translate-y-n3 mt-4">
+                <span class="btn-inner--text">Financials</span>
+                <span class="btn-inner--icon"><i class="fas fa-sign-in-alt"></i></span>
+            </a>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascript %}
+    <script>
+
+        var monthOrYear = 'monthly';
+
+        function updatePrice() {
+            var emojiFaces = {5: '😭', 10: '😐', 15: '🤨', 20: '🙂', 25: '😄', 30: '😁', 35: '🤩', 40: '😍', 45: '🐐'};
+            $('#face').html(emojiFaces[$('#homePagePriceSlider').val()]);
+            if (monthOrYear == 'monthly') {
+                $('#price').html('$' + $('#homePagePriceSlider').val());
+                $('#monthYear').html('/month');
+            } else {
+                $('#price').html('$' + ($('#homePagePriceSlider').val() * 10));
+                $('#monthYear').html('/year');
+            }
+        }
+
+        $(document).on('input', '#homePagePriceSlider', function () {
+            updatePrice();
+        });
+
+        $(document).ready(function () {
+            $('#monthlyBtn').click(function () {
+                monthOrYear = 'monthly';
+                updatePrice();
+                $('#monthlyBtn').addClass('active');
+                $('#yearlyBtn').removeClass('active');
+            });
+
+            $('#yearlyBtn').click(function () {
+                monthOrYear = 'yearly';
+                updatePrice();
+                $('#yearlyBtn').addClass('active');
+                $('#monthlyBtn').removeClass('active');
+            });
+
+            $('#buyButton').click(function () {
+                var price = $('#homePagePriceSlider').val();
+                if (monthOrYear == 'yearly') {
+                    price = $('#homePagePriceSlider').val() * 10
+                }
+                window.location.href = '/checkout/?plan=' + monthOrYear + price;
+            });
+        });
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-around align-items-center bg-light">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 ">
+            <h1 class="display-3 mb-3 text-center">Python Refresher</h1>
+            <h2>{{ challenge.title }}</h2>
+            {{ challenge.description|safe }}
+            {% if challenge.starting_code %}
+            <pre class="rounded">
+                <code data-language="python">{{ challenge.starting_code }}</code>
+            </pre>
+            {% endif %}
+            <h2>Solution</h2>
+            <div class="collapse" id="answer">
+                <pre class="rounded">
+                    <code data-language="python">{{ challenge.answer_code }}</code>
+                </pre>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#answer" aria-expanded="false" aria-controls="answer">Show Answer</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'challenge/rainbow-custom.min.js' %}"></script>
+{% endblock %}

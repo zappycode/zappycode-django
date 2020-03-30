@@ -1,0 +1,21 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block head %}
+    <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-around align-items-center bg-light">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 ">
+            <h1 class="display-3 mb-3 text-center">{{ post.title }}</h1>
+
+            {{ post.body|safe }}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'challenge/rainbow-custom.min.js' %}"></script>
+{% endblock %}

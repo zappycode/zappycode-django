@@ -1,0 +1,53 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Login</h5>
+
+                    {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form class="form-signin" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-label-group">
+                            <input name="login" type="email" id="id_login" class="form-control" placeholder="Email Address" value="{% if form.login.value %}{{ form.login.value }}{% endif %}" required autofocus>
+                            <label for="id_login">Email Address</label>
+                        </div>
+                        {% for error in form.login.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+
+                        <div class="form-label-group">
+                            <input name="password" type="password" id="id_password" class="form-control" placeholder="Password" required>
+                            <label for="id_password">Password</label>
+                        </div>
+
+                        {% for error in form.password.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                        <hr class="my-4">
+                    </form>
+                    <div class="text-center">
+                        <a href="{% url 'account_signup' %}{% if 'next' in request.GET %}?next={{ request.GET.next }}{% endif %}" role="button" class="btn btn-info">Sign Up</a>
+                        <a href="{% url 'account_reset_password' %}{% if 'next' in request.GET %}?next={{ request.GET.next }}{% endif %}" role="button" class="btn btn-info">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
