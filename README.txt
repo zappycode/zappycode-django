@@ -27,7 +27,8 @@ DISCLAIMER: Following steps are for WINDOWS and Anaconda installed
 	0)If you don't have pipenv, install it using `pip install pipenv`
 	1)Enter: `pipenv lock -r` (You need to be present in the zappycode directory!)
 	2)When it says "Successfully created virtual environment!"
-	  copy and paste Everything below virtualenv location in a text file and save it in the zappycode project cloned folder.
+	  copy and paste Everything below virtualenv location in a text file and save it in the zappycode project cloned folder
+	  by the name requirements.txt.
 	3)Enter: `pip install -r requirements.txt` in shell. 
 
 	Run the server using `python manage.py runserver`, open a browser and go to http://127.0.0.1:8000/ or localhost:8000
