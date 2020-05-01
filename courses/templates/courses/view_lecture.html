@@ -6,6 +6,7 @@
 {% block content %}
 
     <div class="row justify-content-around bg-primary">
+        {% for lecture in object_list %}
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
             <h1 class="text-white">{{ lecture.title }}</h1>
             <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
@@ -20,6 +21,7 @@
             {% endif %}
 
         </div>
+        {% endfor %}
         {% if object_list.paginator.num_pages > 1 %}
             <div class="pagination">
                 <span class="step-links">

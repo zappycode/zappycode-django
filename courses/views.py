@@ -18,7 +18,7 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
         "title": "List",
         "page_request_var": page_request_var
     }
-    return render(request, 'courses/view_lecture.html', {'lecture': context})
+    return render(request, 'courses/view_lecture.html', context)
 
 
 def course_landing_page(request, course_slug):
