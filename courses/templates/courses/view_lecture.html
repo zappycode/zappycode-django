@@ -47,11 +47,14 @@
                     {% for listed_lecture in section.sorted_lectures %}
                         {% if lecture.id == listed_lecture.id %}
                             <li class="list-group-item active">{{ listed_lecture.number }}
-                                - {{ listed_lecture.title }}</li>
+                                - {{ listed_lecture.title }}{% if listed_lecture.preview %}
+                                    <span class="badge badge-primary">Preview</span>{% endif %}
+                            </li>
                         {% else %}
                             <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
                                 <li class="list-group-item list-group-item-action">{{ listed_lecture.number }}
-                                    - {{ listed_lecture.title }}</li>
+                                    - {{ listed_lecture.title }}{% if listed_lecture.preview %}
+                                        <span class="badge badge-primary">Preview</span>{% endif %}</li>
                             </a>
                         {% endif %}
                     {% endfor %}

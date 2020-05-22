@@ -10,50 +10,56 @@
                 <img src="{{ course.image.url }}" class="img-fluid">
             </div>
             <div class="center_on_image text-center">
-                <a onclick="$('#exampleModalCenter').modal('show');"><img src="{%  static 'sitewide/play-button.png' %}" height="100" width="100"></a>
+                <a onclick="$('#exampleModalCenter').modal('show');"><img src="{% static 'sitewide/play-button.png' %}"
+                                                                          height="100" width="100"></a>
             </div>
         </div>
     </div>
 
     <div class="row justify-content-center bg-dark py-3">
-    <div class="col-lg-6 col-md-8 col-10 text-center">
+        <div class="col-lg-6 col-md-8 col-10 text-center">
             <h1 class="text-white">{{ course.title }}</h1>
             <h4 class="text-light">{{ course.subtitle }}</h4>
-        <a class="btn btn-primary" href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}" role="button">Start Course</a>
+            <a class="btn btn-primary"
+               href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
+               role="button">Start Course</a>
         </div>
     </div>
 
 
 
     <div class="row justify-content-around align-items-center bg-light pt-3">
-    <div class="col-10">
-        <h2 class="text-center">Description</h2>
-        <p>{{ course.description }}</p>
-    </div>
+        <div class="col-10">
+            <h2 class="text-center">Description</h2>
+            <p>{{ course.description }}</p>
+        </div>
     </div>
 
     <div class="row justify-content-around align-items-center bg-success pt-3">
-    <div class="col-lg-6 col-10">
-        <h2 class="text-center text-white">Outline</h2>
-    {% for section in course.sorted_sections %}
+        <div class="col-lg-6 col-10">
+            <h2 class="text-center text-white">Outline</h2>
+            {% for section in course.sorted_sections %}
 
-        <li class="list-group-item  list-group-item-dark">{{ section.number }} - {{ section.title }}</li>
-        {% for listed_lecture in section.sorted_lectures %}
+                <li class="list-group-item  list-group-item-dark">{{ section.number }} - {{ section.title }}</li>
+                {% for listed_lecture in section.sorted_lectures %}
 
-            <!-- make a thing that if the current lecture make it unclickable and active -->
+                    <!-- make a thing that if the current lecture make it unclickable and active -->
 
-            <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
-                <li class="list-group-item list-group-item-action {% if lecture.id == listed_lecture.id %}active{% endif %}">{{ listed_lecture.number }} - {{ listed_lecture.title }}</li>
-            </a>
-        {% endfor %}
-    {% endfor %}
-    </div>
+                    <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
+                        <li class="list-group-item list-group-item-action {% if lecture.id == listed_lecture.id %}active{% endif %}">{{ listed_lecture.number }}
+                            - {{ listed_lecture.title }}{% if listed_lecture.preview %}
+                                <span class="badge badge-primary">Preview</span>{% endif %}</li>
+                    </a>
+                {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -64,7 +70,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe id="video" class="embed-responsive-item" src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        <iframe id="video" class="embed-responsive-item"
+                                src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}" frameborder="0"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -75,16 +83,16 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $('#exampleModalCenter').on('show.bs.modal', function (e) {
-                $("#video").attr('src','https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}?autoplay=1');
+                $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}?autoplay=1');
 
             })
 
             $('#exampleModalCenter').on('hide.bs.modal', function (e) {
 
-                $("#video").attr('src','https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}');
+                $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}');
 
             })
         });
