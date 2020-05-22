@@ -9,7 +9,7 @@ class ZappyUserAdmin(UserAdmin):
     add_form = ZappyUserCreationForm
     form = ChangeZappyUserForm
     model = ZappyUser
-    list_display = ['email', 'username', 'stripe_id','active_membership','stripe_subscription_id']
+    list_display = ['email', 'username', 'stripe_id', 'active_membership', 'stripe_subscription_id']
 
 
 admin.site.register(ZappyUser, ZappyUserAdmin)

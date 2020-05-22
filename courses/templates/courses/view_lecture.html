@@ -5,22 +5,38 @@
 
 {% block content %}
 
-    <div class="row justify-content-around bg-primary">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
-            <h1 class="text-white">{{ lecture.title }}</h1>
-            <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
+    {% if can_view_lecture %}
+        <div class="row justify-content-around bg-primary">
+            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
+                <h1 class="text-white">{{ lecture.title }}</h1>
+                <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
 
-            {% if lecture.vimeo_video_id %}
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://player.vimeo.com/video/{{ lecture.vimeo_video_id }}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                </div>
-            {% endif %}
-            {% if lecture.text %}
-                <p class="text-light">{{ lecture.text|linebreaksbr }}</p>
-            {% endif %}
+                {% if lecture.vimeo_video_id %}
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item"
+                                src="https://player.vimeo.com/video/{{ lecture.vimeo_video_id }}" frameborder="0"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+                {% if lecture.text %}
+                    <p class="text-light">{{ lecture.text|linebreaksbr }}</p>
+                {% endif %}
 
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="row justify-content-around bg-primary">
+            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+                <h1 class="text-white">Members Only</h1>
+                <h5 class="text-white">Gotta have a membership to watch this one fam. Sign up and join da crew!</h5>
+
+                <a href="{% url 'pricing' %}" class="btn btn-danger mt-2 mb-4">Sign Up</a>
+
+                <img class="img-fluid pb-4" src="{% static 'courses/MembersOnly.jpg' %}">
+
+            </div>
+        </div>
+    {% endif %}
 
     <div class="row justify-content-around align-items-center bg-success pt-3">
         <div class="col-lg-6 col-10">
@@ -30,10 +46,12 @@
                     <li class="list-group-item  list-group-item-dark">{{ section.number }} - {{ section.title }}</li>
                     {% for listed_lecture in section.sorted_lectures %}
                         {% if lecture.id == listed_lecture.id %}
-                            <li class="list-group-item active">{{ listed_lecture.number }} - {{ listed_lecture.title }}</li>
+                            <li class="list-group-item active">{{ listed_lecture.number }}
+                                - {{ listed_lecture.title }}</li>
                         {% else %}
                             <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
-                                <li class="list-group-item list-group-item-action">{{ listed_lecture.number }} - {{ listed_lecture.title }}</li>
+                                <li class="list-group-item list-group-item-action">{{ listed_lecture.number }}
+                                    - {{ listed_lecture.title }}</li>
                             </a>
                         {% endif %}
                     {% endfor %}

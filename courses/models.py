@@ -38,6 +38,7 @@ class Lecture(models.Model):
     section = models.ForeignKey(to=Section, on_delete=models.CASCADE)
     number = models.IntegerField(validators=[MinValueValidator(1)])
     text = models.TextField(blank=True)
+    preview = models.BooleanField(default=False)
 
     def slug(self):
         return slugify(self.title)
