@@ -10,8 +10,8 @@
                 <img src="{{ course.image.url }}" class="img-fluid">
             </div>
             <div class="center_on_image text-center">
-                <a onclick="$('#exampleModalCenter').modal('show');"><img src="{% static 'sitewide/play-button.png' %}"
-                                                                          height="100" width="100"></a>
+                <a onclick="$('#promoVidModal').modal('show');"><img src="{% static 'sitewide/play-button.png' %}"
+                                                                     height="100" width="100"></a>
             </div>
         </div>
     </div>
@@ -23,6 +23,12 @@
             <a class="btn btn-primary"
                href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
                role="button">Start Course</a>
+            {% if user.active_membership %}
+                <a class="btn btn-success" href="{{ course.download_link }}" role="button" target="_blank">Download</a>
+            {% else %}
+                <a onclick="$('#membershipNeededModal').modal('show');" class="btn btn-success text-white" role="button"
+                   target="_blank">Download</a>
+            {% endif %}
         </div>
     </div>
 
@@ -57,13 +63,13 @@
 
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Promo Vid Modal -->
+    <div class="modal fade" id="promoVidModal" tabindex="-1" role="dialog"
+         aria-labelledby="promoVidModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLongTitle">{{ course.title }}</h5>
+                    <h5 class="modal-title text-center" id="promoVidModalTitle">{{ course.title }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -79,18 +85,39 @@
         </div>
     </div>
 
+    <!-- Membership needed Modal -->
+    <div class="modal fade" id="membershipNeededModal" tabindex="-1" role="dialog"
+         aria-labelledby="membershipNeededModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="membershipNeededModalTitle">Members Only</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Gotta have a membership to watch this one fam. Sign up and join da crew!
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="{% url 'pricing' %}" role="button">Join ZappyCode</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascript %}
     <script>
         $(document).ready(function () {
 
-            $('#exampleModalCenter').on('show.bs.modal', function (e) {
+            $('#promoVidModal').on('show.bs.modal', function (e) {
                 $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}?autoplay=1');
 
             })
 
-            $('#exampleModalCenter').on('hide.bs.modal', function (e) {
+            $('#promoVidModal').on('hide.bs.modal', function (e) {
 
                 $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}');
 

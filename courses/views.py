@@ -4,12 +4,6 @@ from .models import Lecture, Section, Course
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
     lecture = get_object_or_404(Lecture, pk=lecturepk)
-    can_view_lecture = True
-    if not lecture.preview:
-        can_view_lecture = False
-        if request.user.is_authenticated and request.user.active_membership:
-            can_view_lecture = True
-
     return render(request, 'courses/view_lecture.html', {'lecture': lecture, 'can_view_lecture': can_view_lecture})
 
 

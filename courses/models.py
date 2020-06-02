@@ -12,6 +12,7 @@ class Course(models.Model):
     vimeo_promo_video_id = models.CharField(max_length=50)
     release_date = models.DateField()
     first_lecture = models.ForeignKey(to='Lecture', on_delete=models.DO_NOTHING)
+    download_link = models.URLField(blank=True)
 
     def __str__(self):
         return self.title
