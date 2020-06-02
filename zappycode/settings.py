@@ -135,6 +135,9 @@ LOGIN_URL = 'account_login'
 # Site Id that allauth makes us use
 SITE_ID = 1
 
+# Admin - For emailing errors
+ADMINS = [(env.str('ADMIN_NAME', default='root'), env.str('ADMIN_EMAIL', default='root@localhost'))]
+
 # Email
 
 # To test sending an email
