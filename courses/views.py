@@ -4,7 +4,7 @@ from .models import Lecture, Section, Course
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
     lecture = get_object_or_404(Lecture, pk=lecturepk)
-    return render(request, 'courses/view_lecture.html', {'lecture': lecture, 'can_view_lecture': can_view_lecture})
+    return render(request, 'courses/view_lecture.html', {'lecture': lecture})
 
 
 def course_landing_page(request, course_slug):
