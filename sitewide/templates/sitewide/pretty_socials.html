@@ -1,12 +1,13 @@
-{% load static %}
 {# for easy maintenace in a future all social meta tags put in one html. variables are passed with include tag #}
-
+{% load static %}
 {# tags for all kinds of shared elements from zappycode#}
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="zappycode.com">
 <meta name="twitter:site" content="zappycode.com">
 <meta name="twitter:card" content="summary_large_image">
 
+<meta name="twitter:url" content="http://zappycode.com{{ request.path }}">
+<meta content="http://zappycode.com{{ request.path }}" property="og:url">
 {# title, description, tags, url, image passed with include tag #}
 
 {# title #}
@@ -16,14 +17,6 @@
 {% else %}
 {# it will be used with socialZappyCode.png where zappycode is writen, we need something else #}
     <meta property="og:title" content="Dunk courses. Learn with fun not boredom" >
-{% endif %}
-
-{% if url %}
-    <meta name="twitter:url" content="http://zappycode.com/{{ url }}">
-    <meta content="http://zappycode.com/{{ url }}" property="og:url">
-{% else %}
-    <meta property="og:url" content="http:/zappycode.com">
-    <meta name="twitter:url" content="http:/zappycode.com">
 {% endif %}
 
 {# description #}

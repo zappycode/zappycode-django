@@ -1,6 +1,8 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
-
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title="Sign up to ZappyCode" description="Learn coding with fun" %}
+{% endblock %}
 {% block content %}
 
     <div class="row">
