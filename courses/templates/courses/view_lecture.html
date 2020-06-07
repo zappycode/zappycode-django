@@ -1,7 +1,6 @@
 {% extends "sitewide/base.html" %}
-
 {% load static %}
-
+{% include "sitewide/pretty_socials.html" with title=lecture.title description=lecture.subtitle url=lecture.get_absolute_url vimeo=lecture.vimeo_video_id %}
 
 {% block content %}
 

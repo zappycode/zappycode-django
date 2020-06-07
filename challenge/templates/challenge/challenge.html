@@ -3,6 +3,7 @@
 
 {% block head %}
     <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
+    {% include "sitewide/pretty_socials.html" with title=challenge.title description=challenge.description url=challenge.get_absolute_url %}
 {% endblock %}
 
 {% block content %}
