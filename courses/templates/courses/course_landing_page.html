@@ -1,7 +1,9 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
 
-{% include "sitewide/pretty_socials.html" with title=course.title description=course.subtitle url=course.get_absolute_url image = course.image %}
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title=course.title description=course.subtitle image=course.image %}
+{% endblock %}
 
 {% block content %}
 
