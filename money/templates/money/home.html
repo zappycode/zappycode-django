@@ -1,9 +1,11 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
 
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title="ZappyCode Open Financials" description="Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's going on financially and hear your thoughts." %}
+{% endblock %}
+
 {% block content %}
-
-
 
     <div class="row justify-content-around align-items-center bg-success">
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-2">
@@ -14,8 +16,6 @@
                 Click around and see how a given month went for us. We also have a plan to make ZappyCode grow. See that
                 below.
             </p>
-
-
         </div>
     </div>
 
