@@ -18,6 +18,7 @@ psycopg2-binary = "*"
 gunicorn = "*"
 supervisor = "*"
 django-environ = "*"
+future = "*"
 
 [requires]
 python_version = "3.6.9"
