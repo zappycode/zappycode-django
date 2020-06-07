@@ -1,10 +1,6 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
-
-{% block head %}
-    {% include "sitewide/pretty_socials.html" with title="ZappyCode Courses" description="All courses are included in your ZappyCode membership. They can be viewed here online or downloaded for offline viewing." %}
-{% endblock %}
-
+{% include "sitewide/pretty_socials.html" with title="Courses" description="All courses are included in your ZappyCode membership. They can be viewed here online or downloaded for offline viewing." url=request.path %}
 {% block content %}
 
     <div class="row justify-content-around align-items-center bg-primary">

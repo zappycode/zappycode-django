@@ -1,10 +1,6 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
-
-{% block head %}
-    {% include "sitewide/pretty_socials.html" with title="ZappyCode Membership" description=" We'd love it if you'd pay $25 a month but if you're broke, fine by us." %}
-{% endblock %}
-
+{% include "sitewide/pretty_socials.html" with title="ZappyCode Membership" description=" We'd love it if you'd pay $25 a month but if you're broke, fine by us. " url=relative.path %}
 {% block content %}
        <div class="row justify-content-around align-items-center bg-primary">
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">

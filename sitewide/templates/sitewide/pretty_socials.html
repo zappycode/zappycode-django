@@ -1,22 +1,29 @@
-{# for easy maintenace in a future all social meta tags put in one html. variables are passed with include tag #}
 {% load static %}
+{# for easy maintenace in a future all social meta tags put in one html. variables are passed with include tag #}
+
 {# tags for all kinds of shared elements from zappycode#}
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="ZappyCode.com">
-<meta name="twitter:site" content="ZappyCode.com">
+<meta property="og:site_name" content="zappycode.com">
+<meta name="twitter:site" content="zappycode.com">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="twitter:url" content="https://ZappyCode.com{{ request.path }}">
-<meta content="https://ZappyCode.com{{ request.path }}" property="og:url">
 {# title, description, tags, url, image passed with include tag #}
 
 {# title #}
 {% if title %}
-    <meta property="og:title" content="{{ title }}">
+    <meta property="og:title" content="{{ title }}" >
     <meta name="twitter:title" content="{{ title }}">
 {% else %}
-    {# it will be used with socialZappyCode.png where zappycode is writen, we need something else #}
-    <meta property="og:title" content="Dank courses. Learn with fun not boredom">
+{# it will be used with socialZappyCode.png where zappycode is writen, we need something else #}
+    <meta property="og:title" content="Dunk courses. Learn with fun not boredom" >
+{% endif %}
+
+{% if url %}
+    <meta name="twitter:url" content="http://zappycode.com/{{ url }}">
+    <meta content="http://zappycode.com/{{ url }}" property="og:url">
+{% else %}
+    <meta property="og:url" content="http:/zappycode.com">
+    <meta name="twitter:url" content="http:/zappycode.com">
 {% endif %}
 
 {# description #}
@@ -24,37 +31,35 @@
     <meta property="og:description" content="{{ description|safe }}">
     <meta name="twitter:description" content="{{ description|safe }}">
 {% else %}
-    <meta property="og:description"
-          content="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!">
-    <meta name="twitter:description"
-          content="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!">
+    <meta property="og:description" content="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!">
+    <meta name="twitter:description" content="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!">
 {% endif %}
 
 {# images #}
-{% if image.url %}
-    <meta property="og:image" content="https://ZappyCode.com{{ image.url }}">
+ {% if image.url %}
+    <meta property="og:image" content="{{ image.url }}" >
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="{{ image.width }}">
     <meta property="og:image:height" content="{{ image.height }}">
-    <meta name="twitter:image" content="https://ZappyCode.com{{ image.url }}">
-{% elif vimeo %}
-    <meta property="og:image" content="https://i.vimeocdn.com/video/{{ vimeo }}_640.png">
+    <meta name="twitter:image" content="{{ image.url }}">
+ {% elif vimeo %}
+    <meta property="og:image" content="https://i.vimeocdn.com/video/{{ vimeo }}_640.png" >
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="640">
     <meta property="og:image:height" content="358">
     <meta name="twitter:image" content="https://i.vimeocdn.com/video/{{ vimeo }}_640.png">
-{% elif youtube %}
-    <meta property="og:image" content="http://i3.ytimg.com/vi/{{ youtube }}/maxresdefault.jpg">
+ {% elif youtube %}
+    <meta property="og:image" content="http://i3.ytimg.com/vi/{{ youtube }}/maxresdefault.jpg" >
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:image" content="http://i3.ytimg.com/vi/{{ youtube }}/maxresdefault.jpg">
-{% else %}
-    <meta property="og:image" content="https://ZappyCode.com{% static 'sitewide/socialZappyCode.png' %}">
+ {% else %}
+    <meta property="og:image" content="{% static 'sitewide/socialZappyCode.png' %}" >
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta name="twitter:image" content="https://ZappyCode.com{% static 'sitewide/socialZappyCode.png' %}">
+    <meta name="twitter:image" content="{% static 'sitewide/socialZappyCode.png' %}">
 {% endif %}
 
 {# there is no tags but in case if will be #}

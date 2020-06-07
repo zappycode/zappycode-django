@@ -1,8 +1,9 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
+{% include "sitewide/pretty_socials.html" with title=post.title description=post.body|safe url=post.get_absolute_url %}
 {% block head %}
     <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
-    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|safe %}
+    {% include "sitewide/pretty_socials.html" with passed_object=post %}
 {% endblock %}
 
 {% block content %}
