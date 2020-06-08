@@ -1,6 +1,10 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
 
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title=course.title description=course.subtitle image=course.image %}
+{% endblock %}
+
 {% block content %}
 
     <div class="row justify-content-center bg-dark pt-3">
