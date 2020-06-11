@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    {% include "sitewide/pretty_socials.html" with title=lecture.title description=lecture.subtitle image=lecture.section.course.image %}
+    {% include "sitewide/pretty_socials.html" with title=lecture.title description=lecture.subtitle vimeo=lecture.vimeo_video_id %}
 {% endblock %}
 
 {% block content %}
