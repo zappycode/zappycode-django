@@ -1,12 +1,19 @@
 import time
 import stripe
+import uuid
+from datetime import datetime, timedelta
 from django.urls import reverse
 from .models import ZappyUser
-from django.shortcuts import render, redirect
+from django.views import View
+from django.contrib.auth.hashers import make_password, check_password
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from courses.models import Course
 from django.contrib import messages
 import environ
+
+from sitewide.models import InviteKeys
+from sitewide.forms import InviteLinkForm
 
 env = environ.Env()
 environ.Env.read_env()
@@ -30,9 +37,18 @@ def checkout(request):
     if not request.user.is_authenticated:
         return redirect(reverse('account_signup') + '?next=/checkout/%3Fplan%3D' + request.GET.get('plan', 'monthly25'))
 
-    if request.user.active_membership:
-        messages.warning(request, 'You already have a zappycode membership')
-        return redirect('home')
+    else:
+        # fixed membership check. if auth and not active membership then redirect. using request.user it's not
+        # enough. request user has no direct access to ZappyUser fields
+        try:
+            z_user = ZappyUser.objects.get(pk=request.user.id)
+            if z_user.active_membership:
+                messages.warning(request, 'You already have a zappycode membership')
+                return redirect('home')
+        # as somewhere below hope it's value error. have to be checked. need to be something because against PEP8
+        except ValueError:
+            messages.error(request, "Oops! Something went wrong. Please try again" )
+            redirect('pricing')
 
     stripe.api_key = env.str('STRIPE_API_KEY', default='')
 
@@ -104,12 +120,100 @@ def payment_success(request):
 @login_required
 def cancel_subscription(request):
     if request.method == 'POST':
-        subscription = stripe.Subscription.retrieve(request.user.stripe_subscription_id)
-        subscription.cancel_at_period_end = True
-        request.user.cancel_at_period_end = True
-        subscription.save()
-        request.user.save()
-        messages.success(request, 'Your subscription has been canceled')
-        return redirect('account')
+        # fixed bindings to a user. this from request has no access to ZappyUser fields
+        try:
+            z_user = ZappyUser.objects.get(pk=request.user.id)
+            subscription = stripe.Subscription.retrieve(z_user.stripe_subscription_id)
+            subscription.cancel_at_period_end = True
+            z_user.cancel_at_period_end = True
+            subscription.save()
+            request.z_user.save()
+
+            messages.success(request, 'Your subscription has been canceled')
+            return redirect('account')
+        # hope it's value error. PEP8 shouting that without this except is to broad. but have to be checked
+        except ValueError:
+            messages.error(request, "Subscription has been NOT canceled. Try again, please.")
+            redirect('account')
 
     return redirect('home')
+
+
+class InviteGenerator(View):
+
+    def get(self, request, *args, **kwargs):
+        creator = get_object_or_404(ZappyUser, pk=request.user.id)
+
+        if creator.is_staff:
+            form = InviteLinkForm()
+            cnx = {
+                'code_expiration': datetime.now() + timedelta(days=14),
+                'valid_until': datetime.now() + timedelta(days=30),
+                'link': 'http://zappycode.com/invite/free?',
+                'color': '#6e00ff',
+                'form': form
+            }
+
+            return render(request, 'account/invite.html', cnx)
+        else:
+            messages.error(request, "Sorry! You don't have permission to get here")
+
+        return redirect('home')
+
+    def post(self, request, *args, **kwargs):
+        invite_keys = InviteKeys()
+        form = InviteLinkForm(request.POST)
+
+        print(form.errors)
+        print(str(request.user.username))
+
+        # check whether it's valid:
+        print(form.cleaned_data.items())
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+
+            # invite_keys.expiration_date = datetime.now() - timedelta(days=form.cleaned_data['period'])
+            invite_keys.membership_until = datetime.now() + timedelta(days=int(form.cleaned_data['period']))
+            invite_keys.creator = request.user.username
+            invite_keys.code_expiration = datetime.now() + timedelta(days=int(form.cleaned_data['code_expiration']))
+            link = self.set_invitation_link()
+            invite_keys.key = link
+            invite_keys.save()
+
+            # need to save first to fetch id of invite key. adding email to link. and again save
+            invite_keys.key += invite_keys.email
+
+            print(invite_keys.id)
+            invite_keys.invite_password = self.key_make_password(invite_keys.creator, invite_keys.id)
+
+            invite_keys.save()
+
+            cnx = {
+                'code_expiration': invite_keys.code_expiration,
+                'valid_until': invite_keys.membership_until,
+                'link': invite_keys.key,
+                'form': form
+            }
+
+        else:
+            cnx = {
+                'error': form.errors,
+                'form': form
+            }
+
+        return render(request, 'account/invite.html', cnx)
+
+    # inner method and could be useful outside. just utility, no use of self
+    @staticmethod
+    def set_invitation_link(email='example@zappycode'):
+        start_with = 'https://zappycode.com/invite/?'
+        stamp = str(datetime.now().timestamp())
+        uuit = str(uuid.uuid5(uuid.uuid1(), datetime.now().__str__()))
+        key = stamp + '=ZaPPyCoDe=' + uuit + '=ZaPPyCoDe='
+        return start_with + key
+
+    # inner method and could be useful outside. just utility, no use of self
+    @staticmethod
+    def key_make_password(username, voucher_id):
+        password = make_password(str(username) + str(voucher_id))
+        return password

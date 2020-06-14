@@ -117,7 +117,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+
+    # switched on custom backend, uncommented default.
+    # source in sitewide/overrided_auth_backend.py
+    'sitewide.overrided_auth_backend.NewRestrictionAuthenticationBackend',
 
 )
 
