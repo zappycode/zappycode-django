@@ -1,4 +1,7 @@
 from allauth.account.auth_backends import AuthenticationBackend
+from django.contrib.auth.models import AbstractUser
+from django.shortcuts import redirect, get_object_or_404
+from .models import ZappyUser
 from django.contrib import messages
 
 
@@ -12,16 +15,32 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
     # override authenticate flow
     def authenticate(self, request, **credentials):
 
+        # zappy is goin to keep all data about user
+        zappy = ZappyUser(request, **credentials)
+
         try:
             # need again to call super() to collect all features of parent method.
             # but i could be wrong. need to test if can use just self.
             user = super().authenticate(request, **credentials)
             print(user.active_membership)
             if user.active_membership:
-
                 return user
             else:
                 messages.error(request, "Sorry! Your membership has expired")
-
+                return None
+        # one error raised for user in and not signed user
         except AttributeError:
-            messages.error(request, "Please check if you did not make typo" )
+            if self.check_email_in_db(zappy.email):
+                messages.error(request, "Sorry! Your membership has expired")
+            else:
+                messages.error(request, "Sign up first")
+        return None
+
+    @staticmethod
+    def check_email_in_db(email):
+        return ZappyUser.objects.filter(email=email)
+
+
+
+
+
