@@ -23,6 +23,9 @@ class InviteKeys(models.Model):
     active = models.BooleanField(default=True)
     creator = models.CharField(max_length=128, default="ZappyCode")
 
+    # in case to product links without owner - null is True
+    key_owner = models.OneToOneField(ZappyUser, models.CASCADE, null=True)
+
     def __str__(self):
         return self.active
 
