@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 import sitewide.views
 import challenge.views
+from sitewide.views import InviteGenerator
 
 urlpatterns = [
     path('', sitewide.views.home, name='home'),
@@ -19,8 +21,9 @@ urlpatterns = [
     path('payment_success/', sitewide.views.payment_success, name='payment_success'),
     path('cancel_subscription/', sitewide.views.cancel_subscription, name='cancel_subscription'),
     path('challenge/<int:pk>', challenge.views.challenge, name='challenge'),
+    path('invite/', login_required(InviteGenerator.as_view()), name='invite'),
 
-    #These are all direct links
+                  #These are all direct links
     path('do/', RedirectView.as_view(url='https://m.do.co/c/1d911d0ac384')),
     path('binance/', RedirectView.as_view(url='https://www.binance.com/?ref=18195758')),
     path('coinbase/', RedirectView.as_view(url='https://www.coinbase.com/join/54c17a1cc5f6ec44cb000050')),

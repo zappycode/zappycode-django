@@ -1,0 +1,35 @@
+.push-button {
+  background-image: url('../buttonNormal.png');
+  border: none;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-color: transparent;
+  margin-right: 0;
+
+}
+
+.push-button:hover {
+  background-image: url('../buttonHoover.png');
+  background-size: cover;
+  background-color: transparent;
+}
+
+.push-button:active {
+  background-image: url('../buttonClicked.png');
+  background-size: cover;
+  border-color: transparent;
+  /*box-shadow: 0 1px #6f42c1;*/
+  transform: translateY(4px);
+  background-color: transparent;
+}
+.push-button:active, .push-button:focus {
+  background-image: url('../buttonClicked.png');
+  background-size: cover;
+  border: none;
+  content: "klikles";
+  transform: translateY(4px);
+  background-color: transparent;
+  outline: none;
+}

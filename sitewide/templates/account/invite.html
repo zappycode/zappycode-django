@@ -1,0 +1,164 @@
+{% extends "sitewide/base1.html" %}
+{% load static %}
+
+{% block head %}
+
+{#   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>#}
+<link rel="stylesheet" href="{% static 'sitewide/css/jquery-ui.css' %}">{#    <link href = "https://code.jquery.com/ui/1.12.1/themes/le-frog/jquery-ui.css" rel = "stylesheet">#}
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link href="{% static 'sitewide/css/invite.css' %}" rel="stylesheet" type="text/css">
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" integrity="sha256-jO7D3fIsAq+jB8Xt3NI5vBf3k4tvtHwzp8ISLQG4UWU=" crossorigin="anonymous" />#}
+    {% include "sitewide/pretty_socials.html" with title="Invite keys" description="Grant free access" %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-12 col-xl-10 mx-auto justify-content-between d-flex flex-row ">
+            <div class="mr-3 col-lg-5 card card-signin my-5">
+
+                <div class=" ml-auto card-body">
+
+                        {% if link == 'http://zappycode.com/invite/free?' %}
+                            <h5 class="text-capitalize text-white bg-primary">Cook up invitation link</h5>
+
+                            <h6 class='p-0 alert-primary'>Defaults:</h6>
+                        {% else %}
+                            <h3 class="btn-primary">Copy the link on the right</h3>
+
+                            <h5 class="card-title"> {{ error }}{{ color }}</h5>
+                            <hr>
+                            <h6 class='p-0 alert-primary'>Link details:</h6>
+                        {% endif %}
+
+                    <div class='text-black-50'>
+                        Free membership <span class="p-1  text-primary">for 1 month</span> (valid to <span>{{ valid_until }}</span>
+                         <span class='text-black-50'>Code valid up to</span> <span class='p-1  text-primary' > {{ code_expiration }}</span>
+                    </div>
+
+                    <hr>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="">
+
+                            <div class="d-flex flex-row justify-content-around bd-highlight mb-3">
+
+                                <div class="col-sm p-2 bd-highlight ml-auto">
+                                    <h6 class="p-1 alert-primary">Select invitation link validity:</h6>
+                                    {{ form.code_expiration }}
+                                </div>
+                                <div class="col-sm p-2 bd-highlight ml-2">
+                                    <h6 class="p-1 alert-primary">Select period of free access:</h6>
+                                    {{ form.period }}
+                                </div>
+
+                                <div class='btn-group-sm col-sm'>
+                                    <button class="col-auto bd-highlight push-button mr-0"></button>
+
+                                </div>
+                            </div>
+                            <div class="d-flex btn-group flex-row justify-content-between bd-highlight mb-3">
+
+{#                                <div class="col-7 p-2 bd-highlight ml-0">{{ form.valid_until }}</div>#}
+                                <div class=" bd-highlight ml-0 datepicker">
+                                    <h6 class="p-1 alert-primary">Pick expiration date of free access</h6>
+                                </div>
+
+                                <div class="d-flex flex-column col-sm  bd-highlight mb-3">
+                                    <div class="p-1 h6 alert-primary">Quick links:</div>
+                                    <div class="for-control align-content-center">
+                                        <button name="qlink1" class="btn btn-primary btn-block" type="submit">3 months free</button>
+                                        <button name="qlink2" class="btn btn-primary btn-block" type="submit">2 month free</button>
+                                        <button name="qlink3" class="btn btn-primary btn-block" type="submit">1 month free</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+            </div>
+{#            right card with list of#}
+            <div class="col-7 card card-signin my-5">
+
+                <div class="card-body">
+                        {% if link == 'http://zappycode.com/invite/free?' %}
+                            <h5 class="form-control card-title">{{ link }}</h5>
+                            <h6 class='p-1 alert-primary'>Defaults:</h6>
+                        {% else %}
+                            {#                    {% if form.errors %}#}
+{#                        {% for error in form.non_field_errors %}#}
+{#                            <div class="alert alert-danger">#}
+{#                                <strong>{{ error|escape }}</strong>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+                            <h5 class="card-title"> {{ error }} {{link }}{{ color }}</h5>
+                            <hr>
+                            <h6 class='p-1 alert-primary'>Link details:</h6>
+                        {% endif %}
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="">
+
+                            <div class="d-flex flex-row justify-content-around bd-highlight mb-3">
+
+                                <div class="col-sm p-2 bd-highlight ml-auto">
+                                    <h6 class="p-1 alert-primary">Select invitation link validity:</h6>
+                                    {{ form.code_expiration }}
+                                </div>
+                                <div class="col-sm p-2 bd-highlight ml-2">
+                                    <h6 class="p-1 alert-primary">Select period of free access:</h6>
+                                    {{ form.period }}
+                                </div>
+
+                                <div class='btn-group-sm col-sm'>
+                                    <button class="col-auto bd-highlight push-button mr-0"></button>
+
+                                </div>
+                            </div>
+                            <div class="d-flex btn-group flex-row justify-content-between bd-highlight mb-3">
+
+{#                                <div class="col-7 p-2 bd-highlight ml-0">{{ form.valid_until }}</div>#}
+                                <div class=" bd-highlight ml-0 datepicker">
+                                    <h6 class="p-1 alert-primary">Pick expiration date of free access</h6>
+                                </div>
+
+                                <div class="d-flex flex-column col-sm  bd-highlight mb-3">
+                                    <div class="p-1 h6 alert-primary">Quick links:</div>
+                                    <div class="for-control align-content-center">
+                                        <button name="qlink1" class="btn btn-primary btn-block" type="submit">3 months free</button>
+                                        <button name="qlink2" class="btn btn-primary btn-block" type="submit">2 month free</button>
+                                        <button name="qlink3" class="btn btn-primary btn-block" type="submit">1 month free</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jquery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/locale/pl.min.js"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>#}
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.9/i18n/datepicker.pl-PL.min.js" integrity="sha256-s7fYj+HfTd2kwK+rAja8RmqPpUw40w7R9LwChYU5Zls=" crossorigin="anonymous"></script>#}
+    <script src="{% static 'sitewide/js/app.js' %}"></script>
+
+{% endblock %}

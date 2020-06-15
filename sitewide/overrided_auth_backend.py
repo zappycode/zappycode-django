@@ -11,16 +11,17 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
 
     # override authenticate flow
     def authenticate(self, request, **credentials):
+
         try:
             # need again to call super() to collect all features of parent method.
             # but i could be wrong. need to test if can use just self.
             user = super().authenticate(request, **credentials)
             print(user.active_membership)
             if user.active_membership:
-                print('łoś')
+
                 return user
             else:
                 messages.error(request, "Sorry! Your membership has expired")
-                return None
+
         except AttributeError:
-            messages.error(request, "Oops! Check for possible typos")
+            messages.error(request, "Please check if you did not make typo" )
