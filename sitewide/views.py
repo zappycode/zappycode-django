@@ -2,6 +2,8 @@ import time
 import stripe
 import uuid
 from datetime import datetime, timedelta
+
+from allauth.account.views import login
 from django.urls import reverse
 from .models import ZappyUser
 from django.views import View
@@ -45,8 +47,11 @@ def checkout(request):
             if z_user.active_membership:
                 messages.warning(request, 'You already have a zappycode membership')
                 return redirect('home')
-        # as somewhere below hope it's value error. have to be checked. need to be something because against PEP8
-        except ValueError:
+            else:
+                # !!!! user has got no membersip but got account, should be redirect to login!!!!
+                return redirect(reverse('account_login') + '?next=/checkout/%3Fplan%3D' + request.GET.get('plan', 'monthly25'))
+        # hope it's right error. have to be checked. need to be something because against PEP8
+        except AttributeError:
             messages.error(request, "Oops! Something went wrong. Please try again" )
             redirect('pricing')
 
@@ -131,8 +136,8 @@ def cancel_subscription(request):
 
             messages.success(request, 'Your subscription has been canceled')
             return redirect('account')
-        # hope it's value error. PEP8 shouting that without this except is to broad. but have to be checked
-        except ValueError:
+        # hope it's value error, can be as well AttributeError. PEP8 shouting that without this except is to broad. but have to be checked
+        except AttributeError:
             messages.error(request, "Subscription has been NOT canceled. Try again, please.")
             redirect('account')
 
@@ -142,10 +147,10 @@ def cancel_subscription(request):
 class InviteGenerator(View):
 
     def get(self, request, *args, **kwargs):
-        creator = get_object_or_404(ZappyUser, pk=request.user.id)
-
-        if creator.is_staff:
+        self.creator = get_object_or_404(ZappyUser, pk=request.user.id)
+        if self.creator.is_staff:
             form = InviteLinkForm()
+
             cnx = {
                 'code_expiration': datetime.now() + timedelta(days=14),
                 'valid_until': datetime.now() + timedelta(days=30),
@@ -153,11 +158,9 @@ class InviteGenerator(View):
                 'color': '#6e00ff',
                 'form': form
             }
-
             return render(request, 'account/invite.html', cnx)
         else:
             messages.error(request, "Sorry! You don't have permission to get here")
-
         return redirect('home')
 
     def post(self, request, *args, **kwargs):
@@ -176,24 +179,25 @@ class InviteGenerator(View):
             invite_keys.membership_until = datetime.now() + timedelta(days=int(form.cleaned_data['period']))
             invite_keys.creator = request.user.username
             invite_keys.code_expiration = datetime.now() + timedelta(days=int(form.cleaned_data['code_expiration']))
-            link = self.set_invitation_link()
-            invite_keys.key = link
+            invite_keys.key = self.set_invitation_link()
             invite_keys.save()
 
             # need to save first to fetch id of invite key. adding email to link. and again save
             invite_keys.key += invite_keys.email
-
-            print(invite_keys.id)
             invite_keys.invite_password = self.key_make_password(invite_keys.creator, invite_keys.id)
 
             invite_keys.save()
 
             cnx = {
+                'e-mail': invite_keys.email,
                 'code_expiration': invite_keys.code_expiration,
                 'valid_until': invite_keys.membership_until,
                 'link': invite_keys.key,
                 'form': form
             }
+
+
+            signup_as_zappy_user(invite_keys.key, invite_keys.email, invite_keys)
 
         else:
             cnx = {
@@ -203,7 +207,7 @@ class InviteGenerator(View):
 
         return render(request, 'account/invite.html', cnx)
 
-    # inner method and could be useful outside. just utility, no use of self
+    # inner method. just utility, no use of self
     @staticmethod
     def set_invitation_link(email='example@zappycode'):
         start_with = 'https://zappycode.com/invite/?'
@@ -212,8 +216,55 @@ class InviteGenerator(View):
         key = stamp + '=ZaPPyCoDe=' + uuit + '=ZaPPyCoDe='
         return start_with + key
 
-    # inner method and could be useful outside. just utility, no use of self
+    # inner method. just utility, no use of self
     @staticmethod
     def key_make_password(username, voucher_id):
         password = make_password(str(username) + str(voucher_id))
         return password
+
+
+    @staticmethod
+    # *args, **kwargs to have possibility to use any type. for InviteGeneretor
+    # i use object invite_key
+    def create_zappy_user(keys = InviteKeys()):
+
+        # create zappy user. active_membership is set False
+        password = keys.creator + str(keys.id)
+        zappy_user = ZappyUser(
+            username=keys.key, password=password, email=str(uuid.uuid1()) + keys.email,
+        ).save()
+
+        # user, email (make it unique, just for safety), password will be updated after signing with link
+
+
+class InviteSignView(InviteGenerator):
+
+    def __init__(self, link):
+        super(InviteSignView, self).__init__()
+        self.invite_key = link
+
+    def get(self, request, *args, **kwargs):
+
+        return render(request, 'account/signup.html')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST['password'] == request.POST['password-confirm']:
+            try:
+                user = User.objects.get(username=request.POST['user'])
+                return render(request, 'accounts/signup.html', {'error': 'Użytkownik ' + str(user) + ' już istnieje!'})
+            except User.DoesNotExist:
+                user = User.objects.create_user(request.POST['user'])
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'accounts/signup.html', {'error': 'Nieudane potwierdzenie hasła!!!'})
+
+    # method log to ZappyUser account
+    @staticmethod
+    def invite_login(invite_key=InviteKeys()):
+        username = invite_key.key
+        password = str(invite_key.creator) + str(invite_key.id)
+
+    @staticmethod
+    def unzip_link(link):
+        pass

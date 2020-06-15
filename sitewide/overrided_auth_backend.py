@@ -30,10 +30,10 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
                 return None
         # one error raised for user in and not signed user
         except AttributeError:
-            if self.check_email_in_db(zappy.email):
+            if ZappyUser.objects.filter(email=zappy.email).exists():
                 messages.error(request, "Sorry! Your membership has expired")
             else:
-                messages.error(request, "Sign up first")
+                messages.error(request, "Sign up first to login")
         return None
 
     @staticmethod
