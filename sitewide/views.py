@@ -285,4 +285,3 @@ class InviteSignView(InviteGenerator):
     def invite_login(invite_key=InviteKeys()):
         username = invite_key.key
         password = str(invite_key.creator) + str(invite_key.id)
-

@@ -1,8 +1,9 @@
 from allauth.account.auth_backends import AuthenticationBackend
 from django.contrib.auth.models import AbstractUser
 from django.shortcuts import redirect, get_object_or_404
-from .models import ZappyUser
+from .models import ZappyUser, InviteKeys
 from django.contrib import messages
+from datetime import datetime, timedelta
 
 
 # overriding authenticationBackend to have possibility to add new conditions.
@@ -22,13 +23,15 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
             # need again to call super() to collect all features of parent method.
             # but i could be wrong. need to test if can use just self.
             user = super().authenticate(request, **credentials)
-            print(user.active_membership)
-            if user.active_membership:
+
+            # check_validity method works only with users from invitation links
+            if self.check_validity(user) or user.active_membership:
                 return user
             else:
                 messages.error(request, "Sorry! Your membership has expired")
                 return None
-        # one error raised for user in and not signed user
+
+        # error is raised also for users which are in database. So
         except AttributeError:
             if ZappyUser.objects.filter(email=zappy.email).exists():
                 messages.error(request, "Sorry! Your membership has expired")
@@ -37,8 +40,17 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
         return None
 
     @staticmethod
-    def check_email_in_db(email):
-        return ZappyUser.objects.filter(email=email)
+    def check_validity(user):
+        try:
+            validator = InviteKeys.objects.get(pk=user.id)
+            if datetime.now().date() <= validator.membership_until:
+                return True
+            else:
+                # switch off active_membership (ZappyUser)
+                validator.key_owner.active_membership = False
+                return False
+        except AttributeError:
+            return False
 
 
 
