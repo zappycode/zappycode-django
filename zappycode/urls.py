@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 import sitewide.views
 import challenge.views
-from sitewide.views import InviteGenerator
+from sitewide.views import InviteGenerator, InviteSignView
 
 urlpatterns = [
     path('', sitewide.views.home, name='home'),
@@ -22,6 +22,7 @@ urlpatterns = [
     path('cancel_subscription/', sitewide.views.cancel_subscription, name='cancel_subscription'),
     path('challenge/<int:pk>', challenge.views.challenge, name='challenge'),
     path('invite/', login_required(InviteGenerator.as_view()), name='invite'),
+    path('invite/free/', InviteSignView.as_view(), name='invite_signup'),
 
                   #These are all direct links
     path('do/', RedirectView.as_view(url='https://m.do.co/c/1d911d0ac384')),

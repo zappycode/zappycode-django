@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from django.utils.crypto import get_random_string
 from allauth.account.views import login
 from allauth.account.models import EmailAddress
-from django.urls import reverse
+from django.urls import reverse, resolve
 from .models import ZappyUser
 from django.views import View
 from django.contrib.auth.hashers import make_password, check_password
@@ -155,6 +155,8 @@ class InviteGenerator(View):
 
     def get(self, request, *args, **kwargs):
         creator = get_object_or_404(ZappyUser, pk=request.user.id)
+        current_url = resolve(request.path).url_name
+        print(current_url)
         if creator.is_staff:
             form = InviteLinkForm()
 
@@ -175,20 +177,16 @@ class InviteGenerator(View):
         form = InviteLinkForm(request.POST)
 
         # check whether it's valid:
-
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
-            # invite_keys.expiration_date = datetime.now() - timedelta(days=form.cleaned_data['period'])
             invite_keys.membership_until = datetime.now() + timedelta(days=int(form.cleaned_data['period']))
             invite_keys.creator = request.user.username
             invite_keys.code_expiration = datetime.now() + timedelta(days=int(form.cleaned_data['code_expiration']))
-
             invite_keys.key = self.set_invitation_link((int(form.cleaned_data['period'])))
-
             invite_keys.save()
 
-            # need to save first to fetch id of invite key. adding email to link. and again save
+            # needed save first to fetch id of invite key. adding email to link. and again save
             invite_keys.key += invite_keys.email
             invite_keys.invite_password = self.key_make_password(invite_keys.creator, invite_keys.id)
 
@@ -225,15 +223,19 @@ class InviteGenerator(View):
 
     @staticmethod
     def unzip_invitation_link(link):
-        # https://zappycode.com/invite/free
-        # ?1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com
-        # slice
 
+        # https://zappycode.com/invite/free
+        # ?62&1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com
+
+        # slicing link to return tuple of data
+        parameters = link[link.find('?'):]
         period = link[link.find('?') + 1:]
         timestamp = link[link.find('&') + 1:link.find('=ZaPPyCoDe=')]
         email = link[link.rfind('=ZaPPyCoDe=') + 11:]
-
-        return link, period, email, timestamp
+        if parameters and period and timestamp and email > -1:
+            return link, period, email, parameters, timestamp
+        else:
+            return print('The link is incorrect')
 
     # inner method. can be used in different class. just utility, no use of self
     # chain with default '' to make method more flexible to use.
@@ -245,25 +247,28 @@ class InviteGenerator(View):
         return make_password(chain)
 
 
-
 class InviteSignView(InviteGenerator):
 
-    def __init__(self, link):
+    def __init__(self):
         super(InviteSignView, self).__init__()
-        self.unpacked = self.unzip_invitation_link(link)
+        self.unpacked = self.unzip_invitation_link('https://zappycode.com/invite/free?62&1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com')
 
     def get(self, request, *args, **kwargs):
-
+        link = request.get_full_path() # request.get.build_absolute_uri
+        print(link)
         if self.unpacked[2] != 'fun_coding@zappycode.com':
+            #  feature to do- generate link with email address
+            messages.error(request, 'Invitation link is incorrect')
             pass
         else:
-            return render(request, 'account/signup.html', {'error': 'To activate your link, you have to sign up'})
+            messages.error(request, "You have to sign up to activate your link")
+            return redirect(reverse('account_signup')+ self.unpacked[0][self.unpacked[0].find('?'):])
 
     def post(self, request, *args, **kwargs):
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = ZappyUser.objects.get(email=request.POST['email'])
-                return render(request, 'account/signup.html', {'error': 'User ' + str(user) + ' already exists!'})
+                return redirect('account_signup'+ self.unpacked[0][self.unpacked[0].find('?'):], {'error': 'User ' + str(user) + ' already exists!'})
             except ZappyUser.DoesNotExist:
                 user = ZappyUser.objects.get(username=self.unpacked[0])
                 # change email
@@ -286,9 +291,9 @@ class InviteSignView(InviteGenerator):
 
             return redirect('home')
         else:
-            return render(request, reverse('account/signup.html') + self.unpacked[0][self.unpacked[0].find('?')], {'error': 'Passwords not match!!!'})
+            return redirect('account_signup'+ self.unpacked[0][self.unpacked[0].find('?'):], {'error': 'Passwords not match!!!'})
 
-    # method to be sure that possword is realy hashed
+    # method to be sure that password is really hashed
     @staticmethod
     def check_if_hashed(request, password):
         if password[:password.find('$')] != 'pbkdf2_sha256':

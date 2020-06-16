@@ -16,7 +16,13 @@
 {% block content %}
     <div class="mx-auto justify-content-center row">
             <div class="justify-content-center col-sm-9 col-md-9 col-lg-5 col-xl-4 p-2 card card-signin my-5 order-first">
-
+                    {% if form.errors %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 <div class="card-body">
 
                         {% if link == 'http://zappycode.com/invite/free?' %}
