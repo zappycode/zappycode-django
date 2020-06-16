@@ -1,6 +1,7 @@
 import time
 import stripe
 import uuid
+from operator import itemgetter
 from datetime import datetime, timedelta
 from django.utils.crypto import get_random_string
 from allauth.account.views import login
@@ -17,7 +18,7 @@ import environ
 
 from sitewide.models import InviteKeys
 from sitewide.forms import InviteLinkForm
-
+from sitewide.overrided_auth_backend import NewRestrictionAuthenticationBackend as Validate_by_iKey
 env = environ.Env()
 environ.Env.read_env()
 
@@ -42,10 +43,12 @@ def checkout(request):
 
     else:
         # fixed membership check. if auth and not active membership then redirect. using request.user it's not
-        # enough. request user has no direct access to ZappyUser fields
+        # enough. request user has no direct access to ZappyUser fields. added validation users with access
+        # from invitation linksdon't know if except is going to happen. in case murphy's law is true
+        #  it will be better to use try. Cannot imagine more errors from 'try except'
         try:
             z_user = ZappyUser.objects.get(pk=request.user.id)
-            if z_user.active_membership:
+            if z_user.active_membership or Validate_by_iKey(z_user):
                 messages.warning(request, 'You already have a zappycode membership')
                 return redirect('home')
             else:
@@ -172,7 +175,7 @@ class InviteGenerator(View):
         form = InviteLinkForm(request.POST)
 
         # check whether it's valid:
-        print(form.cleaned_data.items())
+
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
@@ -191,7 +194,7 @@ class InviteGenerator(View):
 
             # zappy user binding
             invite_keys.key_owner = ZappyUser(
-                username=invite_keys.key, password=invite_keys.creator + str(invite_keys.id)
+                username=invite_keys.key, password=invite_keys.invite_password
             ).save()
 
             invite_keys.save()
@@ -224,18 +227,23 @@ class InviteGenerator(View):
     def unzip_invitation_link(link):
         # https://zappycode.com/invite/free
         # ?1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com
-        # slice link
+        # slice
+
         period = link[link.find('?') + 1:]
         timestamp = link[link.find('&') + 1:link.find('=ZaPPyCoDe=')]
         email = link[link.rfind('=ZaPPyCoDe=') + 11:]
 
         return link, period, email, timestamp
 
-    # inner method. just utility, no use of self
+    # inner method. can be used in different class. just utility, no use of self
+    # chain with default '' to make method more flexible to use.
     @staticmethod
-    def key_make_password(username, voucher_id):
-        password = make_password(str(username) + str(voucher_id))
-        return password
+    def key_make_password(chain='', *args):
+        for arg in args:
+            chain += str(arg)
+        print(chain)
+        return make_password(chain)
+
 
 
 class InviteSignView(InviteGenerator):
@@ -252,7 +260,7 @@ class InviteSignView(InviteGenerator):
             return render(request, 'account/signup.html', {'error': 'To activate your link, you have to sign up'})
 
     def post(self, request, *args, **kwargs):
-        if request.POST['password1'] and request.POST['email']:
+        if request.POST['password1'] == request.POST['password2']:
             try:
                 user = ZappyUser.objects.get(email=request.POST['email'])
                 return render(request, 'account/signup.html', {'error': 'User ' + str(user) + ' already exists!'})
@@ -278,10 +286,12 @@ class InviteSignView(InviteGenerator):
 
             return redirect('home')
         else:
-            return render(request, 'account/signup.html', {'error': 'Inputed data are incorrect!!!'})
+            return render(request, reverse('account/signup.html') + self.unpacked[0][self.unpacked[0].find('?')], {'error': 'Passwords not match!!!'})
 
-    # method log to ZappyUser account
+    # method to be sure that possword is realy hashed
     @staticmethod
-    def invite_login(invite_key=InviteKeys()):
-        username = invite_key.key
-        password = str(invite_key.creator) + str(invite_key.id)
+    def check_if_hashed(request, password):
+        if password[:password.find('$')] != 'pbkdf2_sha256':
+            messages.warning(request, 'For security reasons need to hash password')
+            return InviteGenerator.key_make_password(password)
+        return password

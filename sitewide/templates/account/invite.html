@@ -14,59 +14,56 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-12 col-xl-10 mx-auto justify-content-between d-flex flex-row ">
-            <div class="mr-3 col-lg-5 card card-signin my-5">
+    <div class="mx-auto justify-content-center row">
+            <div class="justify-content-center col-sm-9 col-md-9 col-lg-5 col-xl-4 p-2 card card-signin my-5 order-first">
 
-                <div class=" ml-auto card-body">
+                <div class="card-body">
 
                         {% if link == 'http://zappycode.com/invite/free?' %}
-                            <h5 class="text-capitalize text-white bg-primary">Cook up invitation link</h5>
+                            <h5 class="p-1 text-capitalize text-white font-weight-bold bg-primary">Cook up invitation link</h5>
 
-                            <h6 class='p-0 alert-primary'>Defaults:</h6>
+                            <h6 class='p-1 bg-warning'>Defaults:</h6>
                         {% else %}
-                            <h3 class="btn-primary">Copy the link on the right</h3>
-
-                            <h5 class="card-title"> {{ error }}{{ color }}</h5>
+                            <h5 class="p-1 text-capitalize text-white font-weight-bold  bg-primary">Boom! Your link's ready. Just copy it</h5>
+                            <div class="card-title h5 outline-primary mb-0"> {{ error }} {{link }}{{ color }}</div>
                             <hr>
-                            <h6 class='p-0 alert-primary'>Link details:</h6>
+                            <h6 class='p-1 text-black-50 bg-warning'>Link details:</h6>
                         {% endif %}
 
-                    <div class='text-black-50'>
-                        Free membership <span class="p-1  text-primary">for 1 month</span> (valid to <span>{{ valid_until }}</span>
-                         <span class='text-black-50'>Code valid up to</span> <span class='p-1  text-primary' > {{ code_expiration }}</span>
-                    </div>
+                        <div class='text-black-50'>
+                            Free membership <span class="p-1  text-primary">for 1 month</span> (valid to <span>{{ valid_until }}</span>
+                             <span class='text-black-50'>Code valid up to</span> <span class='p-1  text-primary' > {{ code_expiration }}</span>
+                        </div>
 
                     <hr>
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <div class="">
+                        <div class="p1">
 
-                            <div class="d-flex flex-row justify-content-around bd-highlight mb-3">
+                            <div class="row justify-content-around bd-highlight">
 
-                                <div class="col-sm p-2 bd-highlight ml-auto">
+                                <div class="col p-2 bd-highlight ml-auto">
                                     <h6 class="p-1 alert-primary">Select invitation link validity:</h6>
                                     {{ form.code_expiration }}
                                 </div>
-                                <div class="col-sm p-2 bd-highlight ml-2">
+                                <div class="col p-2 bd-highlight ml-2">
                                     <h6 class="p-1 alert-primary">Select period of free access:</h6>
                                     {{ form.period }}
                                 </div>
 
-                                <div class='btn-group-sm col-sm'>
-                                    <button class="col-auto bd-highlight push-button mr-0"></button>
 
-                                </div>
+                                <button class="col-auto bd-highlight push-button"></button>
+
+
                             </div>
-                            <div class="d-flex btn-group flex-row justify-content-between bd-highlight mb-3">
+                            <div class="row justify-content-center bd-highlight">
 
-{#                                <div class="col-7 p-2 bd-highlight ml-0">{{ form.valid_until }}</div>#}
-                                <div class=" bd-highlight ml-0 datepicker">
-                                    <h6 class="p-1 alert-primary">Pick expiration date of free access</h6>
+                                <div class="col ml-auto p-1 justify-content-center p-2 datepicker">
+                                    <div class="p-1 h6 bg-warning">Pick expiration date of free access</div>
                                 </div>
 
-                                <div class="d-flex flex-column col-sm  bd-highlight mb-3">
-                                    <div class="p-1 h6 alert-primary">Quick links:</div>
+                                <div class="col p-2 bd-highlight">
+                                    <div class="p-1 h6 bg-warning">Quick links:</div>
                                     <div class="for-control align-content-center">
                                         <button name="qlink1" class="btn btn-primary btn-block" type="submit">3 months free</button>
                                         <button name="qlink2" class="btn btn-primary btn-block" type="submit">2 month free</button>
@@ -84,72 +81,72 @@
                 </div>
 
             </div>
-{#            right card with list of#}
-            <div class="col-7 card card-signin my-5">
+{#            right card with list of #}
+            <div class="p-2 col-sm-9 col-md-9 col-lg-6 col-xl-7 mr-2 ml-2 card card-signin my-5">
 
-                <div class="card-body">
-                        {% if link == 'http://zappycode.com/invite/free?' %}
-                            <h5 class="form-control card-title">{{ link }}</h5>
-                            <h6 class='p-1 alert-primary'>Defaults:</h6>
-                        {% else %}
-                            {#                    {% if form.errors %}#}
+                <div class="card-body ">
+                    {% if link == 'http://zappycode.com/invite/free?' %}
+                        <h5 class="form-control card-title">{{ link }}</h5>
+                        <h6 class='p-1 alert-primary'>Defaults:</h6>
+                    {% else %}
+                        {#                    {% if form.errors %}#}
 {#                        {% for error in form.non_field_errors %}#}
 {#                            <div class="alert alert-danger">#}
 {#                                <strong>{{ error|escape }}</strong>#}
 {#                            </div>#}
 {#                        {% endfor %}#}
 {#                    {% endif %}#}
-                            <h5 class="card-title"> {{ error }} {{link }}{{ color }}</h5>
-                            <hr>
-                            <h6 class='p-1 alert-primary'>Link details:</h6>
-                        {% endif %}
+                        <h5 class="card-title"> {{ error }} {{link }}{{ color }}</h5>
+                        <hr>
+                        <h6 class='p-1 alert-primary'>Link details:</h6>
+                    {% endif %}
 
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="">
 
-                            <div class="d-flex flex-row justify-content-around bd-highlight mb-3">
+                        <div class="d-flex flex-row justify-content-around bd-highlight mb-3">
 
-                                <div class="col-sm p-2 bd-highlight ml-auto">
-                                    <h6 class="p-1 alert-primary">Select invitation link validity:</h6>
-                                    {{ form.code_expiration }}
-                                </div>
-                                <div class="col-sm p-2 bd-highlight ml-2">
-                                    <h6 class="p-1 alert-primary">Select period of free access:</h6>
-                                    {{ form.period }}
-                                </div>
-
-                                <div class='btn-group-sm col-sm'>
-                                    <button class="col-auto bd-highlight push-button mr-0"></button>
-
-                                </div>
+                            <div class="col-sm p-2 bd-highlight ml-auto">
+                                <h6 class="p-1 alert-primary">Select invitation link validity:</h6>
+                                {{ form.code_expiration }}
                             </div>
-                            <div class="d-flex btn-group flex-row justify-content-between bd-highlight mb-3">
+                            <div class="col-sm p-2 bd-highlight ml-2">
+                                <h6 class="p-1 alert-primary">Select period of free access:</h6>
+                                {{ form.period }}
+                            </div>
 
-{#                                <div class="col-7 p-2 bd-highlight ml-0">{{ form.valid_until }}</div>#}
-                                <div class=" bd-highlight ml-0 datepicker">
-                                    <h6 class="p-1 alert-primary">Pick expiration date of free access</h6>
+                            <div class='btn-group-sm col-sm'>
+                                <button class="col-auto bd-highlight push-button mr-0"></button>
+
+                            </div>
+                        </div>
+                        <div class="d-flex btn-group flex-row justify-content-between bd-highlight mb-3">
+
+                            <div class="d-flex flex-column col-sm bd-highlight datepicker">
+                                <h6 class="p-1 alert-primary">Pick expiration date of free access</h6>
+                            </div>
+
+                            <div class="d-flex flex-column col-sm bd-highlight">
+                                <div class="p-1 h6 alert-primary">Quick links:</div>
+                                <div class="for-control align-content-center">
+                                    <button name="qlink1" class="btn btn-primary btn-block" type="submit">3 months free</button>
+                                    <button name="qlink2" class="btn btn-primary btn-block" type="submit">2 month free</button>
+                                    <button name="qlink3" class="btn btn-primary btn-block" type="submit">1 month free</button>
                                 </div>
-
-                                <div class="d-flex flex-column col-sm  bd-highlight mb-3">
-                                    <div class="p-1 h6 alert-primary">Quick links:</div>
-                                    <div class="for-control align-content-center">
-                                        <button name="qlink1" class="btn btn-primary btn-block" type="submit">3 months free</button>
-                                        <button name="qlink2" class="btn btn-primary btn-block" type="submit">2 month free</button>
-                                        <button name="qlink3" class="btn btn-primary btn-block" type="submit">1 month free</button>
-                                    </div>
-                                </div>
-
                             </div>
 
                         </div>
 
+                    </div>
 
 
-                    </form>
-                </div>
+
+                </form>
+            </div>
 
             </div>
+
         </div>
     </div>
 {% endblock %}
