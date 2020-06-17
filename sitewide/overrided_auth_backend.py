@@ -52,7 +52,3 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
         except AttributeError:
             return False
 
-
-
-
-

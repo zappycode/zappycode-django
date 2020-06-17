@@ -18,7 +18,7 @@ from django.contrib.auth.models import AbstractUser
 from django.shortcuts import redirect, get_object_or_404
 from sitewide.models import ZappyUser
 from django.contrib import messages
-
+from sitewide.views import InviteKeys, InviteGenerator, InviteSignView
 
 # overriding authenticationBackend to have possibility to add new conditions.
 # backend is added in settings.py insteadof default
@@ -54,6 +54,23 @@ class NewRestrictionAuthenticationBackend(AuthenticationBackend):
     @staticmethod
     def check_email_in_db(email):
         return ZappyUser.objects.filter(email=email)
+
+    # overriding forms on signup allauth. in settings.py:
+    # ACCOUNT_FORMS = {'signup': 'mysite.forms.MyCustomSignupForm'}
+    # class MyCustomSignupForm(SignupForm):
+    #     class Meta:
+    #         model = ZappyUser
+    #         fields = ('username', 'password1',)
+    #
+    #     def save(self, request):
+    #         # Ensure you call the parent class's save.
+    #         # .save() returns a User object.
+    #         user = super(MyCustomSignupForm, self).save(request)
+    #
+    #         # Add your own processing here.
+    #
+    #         # You must return the original result.
+    #         return user
 #
 #    """So here we will see how to call a function using *args and **kwargs. Just consider that you have this little function:
 #
@@ -83,3 +100,7 @@ test_args_kwargs(**kwargs)
 # arg2: two
 # arg3: 3
 
+if __name__ == "__main__":
+
+    a = InviteGenerator.unzip_invitation_link('/invite/free/?62&1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com')
+    print(a)

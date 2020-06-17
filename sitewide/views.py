@@ -19,6 +19,7 @@ import environ
 from sitewide.models import InviteKeys
 from sitewide.forms import InviteLinkForm
 from sitewide.overrided_auth_backend import NewRestrictionAuthenticationBackend as Validate_by_iKey
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -49,11 +50,12 @@ def checkout(request):
         try:
             z_user = ZappyUser.objects.get(pk=request.user.id)
             if z_user.active_membership or Validate_by_iKey(z_user):
-                messages.warning(request, 'You already have a zappycode membership')
+                messages.warning(request, 'You already have got a zappycode membership')
                 return redirect('home')
             else:
+                messages.warning(request, 'Your membership has expired. Grab new one')
                 # !!!! user has got no membersip but got account, should be redirect to login!!!! don't know if working
-                return redirect(reverse('account_login') + '?next=/checkout/%3Fplan%3D' + request.GET.get('plan', 'monthly25'))
+                return redirect(reverse('pricing') + '?next=/checkout/%3Fplan%3D' + request.GET.get('plan', 'monthly25'))
 
         # hope it's right error. have to be checked. need to be something because against PEP8
         except AttributeError:
@@ -157,6 +159,7 @@ class InviteGenerator(View):
         creator = get_object_or_404(ZappyUser, pk=request.user.id)
         current_url = resolve(request.path).url_name
         print(current_url)
+        print('Jestem w metodzie get InviteGenerator')
         if creator.is_staff:
             form = InviteLinkForm()
 
@@ -214,28 +217,28 @@ class InviteGenerator(View):
 
     # inner method. just utility, no use of self
     @staticmethod
-    def set_invitation_link(days=30, email='example@zappycode', ):
-        start_with = 'https://zappycode.com/invite/free?'
+    def set_invitation_link(days=30, email=''):
+        start_with = 'https://zappycode.com/invite/free?period='
         stamp = str(datetime.now().timestamp())
         uuit = str(uuid.uuid5(uuid.uuid1(), datetime.now().__str__()))
-        key = str(days) + '&' + stamp + '=ZaPPyCoDe=' + uuit + '=ZaPPyCoDe='
+        key = str(days) + '&tmsp=' + stamp + '&ZaPPyCoDe=' + uuit + '&email=' + email
         return start_with + key
 
     @staticmethod
     def unzip_invitation_link(link):
 
-        # https://zappycode.com/invite/free
-        # ?62&1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com
+        # http://127.0.0.1:8000/invite/free
+        # ?period=62
+        # &tmsp=1592409205.516944
+        # &ZaPPyCoDe=fae08545-7e5b-5348-a84e-5b69ac7e245a
+        # &email=fun_coding@zappycode.com
 
         # slicing link to return tuple of data
-        parameters = link[link.find('?'):]
-        period = link[link.find('?') + 1:]
-        timestamp = link[link.find('&') + 1:link.find('=ZaPPyCoDe=')]
-        email = link[link.rfind('=ZaPPyCoDe=') + 11:]
-        if parameters and period and timestamp and email > -1:
-            return link, period, email, parameters, timestamp
-        else:
-            return print('The link is incorrect')
+        key = link[link.find('?'):]
+        period = link[link.find('=') + 1:link.find('&')]
+        timestamp = link[link.find('&tmsp') + 6:link.find('&ZaPPyCoDe=')]
+        email = link[link.rfind('=') + 1:]
+        return key, period, email, timestamp
 
     # inner method. can be used in different class. just utility, no use of self
     # chain with default '' to make method more flexible to use.
@@ -243,7 +246,9 @@ class InviteGenerator(View):
     def key_make_password(chain='', *args):
         for arg in args:
             chain += str(arg)
+
         print(chain)
+        print('jestem w key_make_password')
         return make_password(chain)
 
 
@@ -251,26 +256,43 @@ class InviteSignView(InviteGenerator):
 
     def __init__(self):
         super(InviteSignView, self).__init__()
-        self.unpacked = self.unzip_invitation_link('https://zappycode.com/invite/free?62&1592247165.481653=ZaPPyCoDe=dc3810b2-16ab-5fbf-9a8c-795f4232a00b=ZaPPyCoDe=fun_coding@zappycode.com')
+
+        print(self.__dict__, 'jestem w __init__ InviteSignView')
 
     def get(self, request, *args, **kwargs):
-        link = request.get_full_path() # request.get.build_absolute_uri
-        print(link)
-        if self.unpacked[2] != 'fun_coding@zappycode.com':
+        unpacked = self.unzip_invitation_link(request.get_full_path())
+
+        print(unpacked)
+        print('jesetem w get InviteSignView')
+
+        if unpacked[2] != 'fun_coding@zappycode.com':
             #  feature to do- generate link with email address
             messages.error(request, 'Invitation link is incorrect')
-            pass
+            redirect('home')
         else:
             messages.error(request, "You have to sign up to activate your link")
-            return redirect(reverse('account_signup')+ self.unpacked[0][self.unpacked[0].find('?'):])
+
+            print('invite/free/' + unpacked[0], 'jesetem w w else metody get')
+
+            return redirect(reverse('invite_signup', kwargs = request.GET), template_name='account/invite_signup.html')
+        cnx = {
+            'error': 'no w końcu się udało'
+        }
+        return render(request, 'account/invite_signup.html', cnx)
+
+
 
     def post(self, request, *args, **kwargs):
         if request.POST['password1'] == request.POST['password2']:
+
             try:
                 user = ZappyUser.objects.get(email=request.POST['email'])
-                return redirect('account_signup'+ self.unpacked[0][self.unpacked[0].find('?'):], {'error': 'User ' + str(user) + ' already exists!'})
-            except ZappyUser.DoesNotExist:
-                user = ZappyUser.objects.get(username=self.unpacked[0])
+                return redirect(reverse(
+                    'isignup' + request.get_full_path()[request.get_full_path().find('?'):],
+                    {'error': 'User ' + str(user) + ' already exists!'},
+                ))
+            except AttributeError:
+                user = ZappyUser.objects.get()
                 # change email
                 user.email = request.POST['email']
                 # change password
@@ -287,11 +309,12 @@ class InviteSignView(InviteGenerator):
                 # log in user and redirect home
                 login(request, user)
                 # and finally inform user about period of free access
-                messages.success(request, 'Hurra! You have got free acces to ZappyCode for ', self.unpacked[1],' days')
+                messages.success(request, 'Hurra! You have got free access to ZappyCode for ', self.unpacked[1],' days')
 
             return redirect('home')
         else:
-            return redirect('account_signup'+ self.unpacked[0][self.unpacked[0].find('?'):], {'error': 'Passwords not match!!!'})
+            cnx = { 'error': 'Passwords not match!!!' }
+            return redirect(reverse('invite_signup' + self.unpacked[0][self.unpacked[0].find('?'):], cnx))
 
     # method to be sure that password is really hashed
     @staticmethod

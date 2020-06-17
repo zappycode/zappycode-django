@@ -1,0 +1,9 @@
+{% extends 'account/signup.html' %}
+{% load static %}
+
+{% block retype %}
+    <div class="form-label-group">
+        <input name="password2" type="password" id="id_password2" class="form-control" placeholder="Password" required>
+        <label for="id_password2">Retype password</label>
+    </div>
+{% endblock %}
