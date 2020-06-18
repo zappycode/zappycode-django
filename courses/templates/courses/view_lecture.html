@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block head %}
-    {% include "sitewide/pretty_socials.html" with title=lecture.title description=lecture.subtitle vimeo=lecture.vimeo_video_id %}
+
+    {% include "sitewide/pretty_socials.html" with title=lecture.title description=lecture.subtitle image=lecture.section.course.image %}
+
 {% endblock %}
 
 {% block content %}
@@ -21,9 +23,12 @@
                     </div>
                 {% endif %}
                 {% if lecture.text %}
-                    <p class="text-light">{{ lecture.text|linebreaksbr }}</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{ lecture.text|safe }}</p>
+                        </div>
+                    </div>
                 {% endif %}
-
             </div>
         </div>
     {% else %}
