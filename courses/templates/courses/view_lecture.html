@@ -30,17 +30,19 @@
             </div>
         </div>
     {% else %}
-        <div class="row justify-content-around bg-primary">
-            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
-                <h1 class="text-white">Members Only</h1>
-                <h5 class="text-white">Gotta have a membership to watch this one fam. Sign up and join da crew!</h5>
+        {% block video4all %}
+            <div class="row justify-content-around bg-primary">
+                <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+                    <h1 class="text-white">Members Only</h1>
+                    <h5 class="text-white">Gotta have a membership to watch this one fam. Sign up and join da crew!</h5>
 
-                <a href="{% url 'pricing' %}" class="btn btn-danger mt-2 mb-4">Sign Up</a>
+                    <a href="{% url 'pricing' %}" class="btn btn-danger mt-2 mb-4">Sign Up</a>
 
-                <img class="img-fluid pb-4" src="{% static 'courses/MembersOnly.jpg' %}">
+                    <img class="img-fluid pb-4" src="{% static 'courses/MembersOnly.jpg' %}">
 
+                </div>
             </div>
-        </div>
+        {% endblock video4all %}
     {% endif %}
 
     <div class="row justify-content-around align-items-center bg-success pt-3">
