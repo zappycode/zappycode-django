@@ -1,5 +1,27 @@
 {% extends 'courses/view_lecture.html' %}
 {% load static %}
-{% block video4all %}
 
+{# block below override inner else statement#}
+{% block video4all %}
+    <div class="row justify-content-around bg-primary">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
+            <h1 class="text-white">{{ lecture.title }}</h1>
+            <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
+
+            {% if lecture.vimeo_video_id %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item"
+                            src="https://player.vimeo.com/video/{{ lecture.vimeo_video_id }}" frameborder="0"
+                            allow="autoplay; fullscreen" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+            {% if lecture.text %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{ lecture.text|safe }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
