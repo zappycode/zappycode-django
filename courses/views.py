@@ -18,9 +18,6 @@ def view_lecture4all_second(request, course_slug, lecturepk, lecture_slug, acces
     lecture = get_object_or_404(Lecture, pk=lecturepk)
     return render(request, 'courses/view_lecture_4all.html', {'lecture': lecture})
 
-    # return redirect(reverse('view_lecture_4all', kwargs=cnx), {'lecture': lecture, 'user.active_membership': True, 'access':4})
-    # return redirect(reverse('view_lecture_4all', kwargs=cnx), {'lecture': lecture, 'user.active_membership': True, 'access':4}, template_name='courses/view_lecture4all.html')
-
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
     lecture = get_object_or_404(Lecture, pk=lecturepk)
     return render(request, 'courses/view_lecture.html', {'lecture': lecture})
