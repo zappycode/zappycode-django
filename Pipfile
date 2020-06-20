@@ -19,6 +19,7 @@ gunicorn = "*"
 supervisor = "*"
 django-environ = "*"
 future = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.6.9"

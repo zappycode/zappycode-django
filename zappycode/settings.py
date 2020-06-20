@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # Django REST Framework
+    'rest_framework'
 ]
 
 MIDDLEWARE = [

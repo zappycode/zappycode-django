@@ -1,5 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from rest_framework import generics, permissions
+
 from .models import Lecture, Section, Course
+from .serializers import CourseSerializer
 
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
@@ -15,3 +18,8 @@ def course_landing_page(request, course_slug):
 def all_courses(request):
     courses = Course.objects.order_by('-release_date')
     return render(request, 'courses/all_courses.html', {'courses': courses})
+
+
+class CourseList(generics.ListAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
