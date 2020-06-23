@@ -11,7 +11,7 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
 
 
 def course_landing_page(request, course_slug):
-    course = Course.objects.get(slug=course_slug)
+    course = get_object_or_404(Course, slug=course_slug)
     return render(request, 'courses/course_landing_page.html', {'course': course})
 
 
