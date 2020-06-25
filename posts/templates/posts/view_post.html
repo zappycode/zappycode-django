@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
     <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
-    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|safe %}
+    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|striptags %}
 {% endblock %}
 
 {% block content %}
