@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    {% include "sitewide/pretty_socials.html" with title=month.title description=month.body|safe youtube=month.youtube_id %}
+    {% include "sitewide/pretty_socials.html" with title=month.title description=month.body|striptags youtube=month.youtube_id %}
 {% endblock %}
 
 {% block content %}
