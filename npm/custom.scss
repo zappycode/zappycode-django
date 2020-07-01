@@ -11,8 +11,10 @@ $primary: #6e00ff;
   font-style: normal;
   font-weight: 300;
   src: local('Nunito Light'), local('Nunito-Light'),
-  url('fonts/nunito-v12-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-  url('fonts/nunito-v12-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  url('fonts/nunito-v12-latin-300.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('fonts/nunito-v12-latin-300.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 @font-face {
@@ -20,8 +22,10 @@ $primary: #6e00ff;
   font-style: normal;
   font-weight: 400;
   src: local('Nunito Regular'), local('Nunito-Regular'),
-  url('fonts/nunito-v12-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-  url('fonts/nunito-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  url('fonts/nunito-v12-latin-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('fonts/nunito-v12-latin-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 body {
@@ -159,12 +163,34 @@ body {
 
 .underline-red {
   text-decoration: underline;
-  -webkit-text-decoration-color: red; /* safari still uses vendor prefix */
+  -webkit-text-decoration-color: red;
+  /* safari still uses vendor prefix */
   text-decoration-color: red;
 }
 
 .underline-purple {
   text-decoration: underline;
-  -webkit-text-decoration-color: #6e00ff; /* safari still uses vendor prefix */
+  -webkit-text-decoration-color: #6e00ff;
+  /* safari still uses vendor prefix */
   text-decoration-color: #6e00ff;
+}
+
+/* Post Page */
+
+.big-title {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+@media (max-width: 1200px) {
+  .big-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .big-title {
+    font-size: 2rem;
+  }
 }

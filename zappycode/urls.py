@@ -12,7 +12,7 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('courses/', include('courses.urls')),
                   path('auth/', include('allauth.urls')),
-                  path('post/', include('posts.urls')),
+                  path('posts/', include('posts.urls')),
                   path('money/', include('money.urls')),
                   path('account/', sitewide.views.account, name='account'),
                   path('pricing/', sitewide.views.pricing, name='pricing'),

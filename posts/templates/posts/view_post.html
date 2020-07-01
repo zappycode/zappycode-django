@@ -2,13 +2,19 @@
 {% load static %}
 {% block head %}
     <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
-    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|striptags %}
+    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|striptags|escape|truncatechars:300 %}
 {% endblock %}
 
 {% block content %}
-    <div class="row justify-content-around align-items-center bg-light">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 ">
-            <h1 class="display-3 mb-3 text-center">{{ post.title }}</h1>
+    <div class="row justify-content-around align-items-center">
+        <div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
+            <h1 class="big-title mb-3 text-center">{{ post.title }}</h1>
+
+            {% if post.author %}
+                <p class="text-center">Written by Resident Baller:</p>
+                <img class="mx-auto d-block" height="150px" src="{{ post.author.pic.url }}">
+                <h3 class="text-center">{{ post.author.username }}</h3>
+            {% endif %}
 
             {{ post.body|safe }}
 

@@ -10034,4 +10034,22 @@ body {
   text-decoration-color: #6e00ff;
 }
 
+/* Post Page */
+.big-title {
+  font-size: 4.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+@media (max-width: 1200px) {
+  .big-title {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 768px) {
+  .big-title {
+    font-size: 2rem;
+  }
+}
+
 /*# sourceMappingURL=sitewide.css.map */
