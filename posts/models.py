@@ -7,6 +7,8 @@ from django.utils.text import slugify
 class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.TextField()
+    bonus_title = models.CharField(max_length=200, null=True)
+    bonus = models.TextField(null=True)
     author = models.ForeignKey(ZappyUser, on_delete=models.CASCADE, null=True)
 
     def __str__(self):

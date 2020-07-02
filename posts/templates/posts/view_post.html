@@ -18,8 +18,27 @@
 
             {{ post.body|safe }}
 
+            {% if post.bonus and post.bonus_title %}
+                <img class="img-fluid mb-2" height="150px" src="{% static 'sitewide/MembersOnly.png' %}">
+                <h1 class="big-title mb-3 text-center">{{ post.bonus_title }}</h1>
+                {% if user.active_membership %}
+                    {{ post.bonus|safe }}
+                {% else %}
+                    {{ post.bonus|striptags|escape|truncatechars:300 }}
+                    <h1 class="text-center">Wanna read the rest?</h1>
+                    <h5 class="text-center">Gotta have a membership to get the bonus part of this post. Sign up and join
+                        da
+                        crew!</h5>
+                    <div class="text-center">
+                        <a href="{% url 'pricing' %}" class="btn btn-danger mt-2">Sign Up</a>
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
         </div>
     </div>
+
 {% endblock %}
 
 {% block javascript %}
