@@ -1,6 +1,5 @@
 import time
 import stripe
-from django.urls import reverse
 from .models import ZappyUser
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -24,54 +23,6 @@ def pricing(request):
 @login_required
 def account(request):
     return render(request, 'account/account.html')
-
-
-def checkout(request):
-    if not request.user.is_authenticated:
-        return redirect(reverse('account_signup') + '?next=/checkout/%3Fplan%3D' + request.GET.get('plan', 'monthly25'))
-
-    if request.user.active_membership:
-        messages.warning(request, 'You already have a zappycode membership')
-        return redirect('home')
-
-    stripe.api_key = env.str('STRIPE_API_KEY', default='')
-
-    switcher = {
-        'monthly5': 'plan_GghOjUAr4KMyA7',
-        'monthly10': 'plan_GghOSq4jRIpZSa',
-        'monthly15': 'plan_GghO8pPwbQSlSO',
-        'monthly20': 'plan_GghPEC2t636ZTz',
-        'monthly25': 'plan_G06TRlhuiS8QbS',
-        'monthly30': 'plan_GghPkjHYPWQjGu',
-        'monthly35': 'plan_GghPnOFTwsMFwT',
-        'monthly40': 'plan_GghPgGgVB6WSi9',
-        'monthly45': 'plan_GghPsSiT5yoLqK',
-        'yearly50': 'plan_GghTB9FbYkUlDd',
-        'yearly100': 'plan_GghTeRpcRrHyx9',
-        'yearly150': 'plan_GghTRG8PabXLAe',
-        'yearly200': 'plan_GghSv7fchXUyVv',
-        'yearly250': 'plan_GghS8i6yB5VdFu',
-        'yearly300': 'plan_GghSMGrFDapIBJ',
-        'yearly350': 'plan_GghSLi8Rxnz8z0',
-        'yearly400': 'plan_GghS8ujc5jv2Ri',
-        'yearly450': 'plan_GghRPuoPX2WrxY',
-    }
-    plan = switcher.get(request.GET.get('plan', ''), 'plan_G06TRlhuiS8QbS')  # Default is $25 monthly
-
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        subscription_data={
-            'items': [{
-                'plan': plan,
-            }],
-
-        },
-        customer_email=request.user.email,
-        success_url='http://zappycode.com/payment_success?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url='http://zappycode.com/pricing',
-    )
-
-    return render(request, 'sitewide/checkout.html', {'session_id': session.stripe_id})
 
 
 def payment_success(request):

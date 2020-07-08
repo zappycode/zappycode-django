@@ -20,6 +20,7 @@ supervisor = "*"
 django-environ = "*"
 future = "*"
 djangorestframework = "*"
+environ = "*"
 
 [requires]
 python_version = "3.6.9"

@@ -134,6 +134,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_REDIRECT_URL = 'all_courses'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'account_login'
+ACCOUNT_FORMS = {'signup': 'sitewide.forms.CustomSignupForm'}
 
 # Site Id that allauth makes us use
 SITE_ID = 1
@@ -147,16 +148,21 @@ ADMINS = [(env.str('ADMIN_NAME', default='root'), env.str('ADMIN_EMAIL', default
 # from django.core.mail import send_mail
 # send_mail('subject', 'body of the message', 'joe@zappycode.com', ['nwalter@gmail.com'])
 
-EMAIL_HOST = env.str('EMAIL_HOST', default='')
-EMAIL_PORT = env.int('EMAIL_PORT', default=0)
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = False
+else:
+    EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+    EMAIL_USE_TLS = True
+
+EMAIL_HOST = env.str('EMAIL_HOST', default='localhost')
+EMAIL_PORT = env.int('EMAIL_PORT', default=1025)
 EMAIL_HOST_USER = env.str('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD', default='')
-EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'ZappyCode <nick@ZappyCode.com>'
 
 # Celery Setup
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 CELERY_RESULT_BACKEND = 'django-db'
 
 # Internationalization
