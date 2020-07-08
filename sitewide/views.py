@@ -10,6 +10,8 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+stripe.api_key = env.str('STRIPE_API_KEY', default='')
+
 
 def home(request):
     courses = Course.objects.order_by('-release_date')[:3]
