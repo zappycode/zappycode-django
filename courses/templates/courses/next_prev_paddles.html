@@ -1,0 +1,27 @@
+{% load static %}
+<link href="{% static "courses/css/paddles.css" %}" rel="stylesheet">
+<div id="paddles" class="row col-lg-12 col-xs-pull-12 col-sm-12 col-md-12 ">
+
+        {% if lecture.prev_lecture %}
+            <a id="prev-paddle" class="left btn-lg btn-outline-primary paddle-button " href="{% url 'view_lecture' lecture.prev_lecture.section.course.slug lecture.prev_lecture.id lecture.prev_lecture.slug %}">
+              <svg class="arrow-svg" >
+                <polyline fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="23,0 0,36 23,72"></polyline>
+              </svg>
+              <span class="text-paddle">Previous</span><span class="text-paddle2">: {{ lecture.prev_lecture.id }} - {{ lecture.prev_lecture|truncatewords:4 }}</span>
+             </a>
+        {% else %}
+             <div id="prev-paddle " class="left col-3 btn-lg paddle-button w-100" href="#"></div>
+        {% endif %}
+
+        {% if lecture.next_lecture %}
+            <a id="next-paddle" class="right btn-lg btn-outline-primary paddle-button" href="{% url 'view_lecture' lecture.next_lecture.section.course.slug lecture.next_lecture.id lecture.next_lecture.slug %}">
+              <span class="text-paddle">Next</span><span class="text-paddle2">: {{ lecture.next_lecture.id }} - {{ lecture.next_lecture|truncatewords:4 }}</span>
+              <svg class="arrow-svg">
+                <polyline fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="0,0 23,36 0,72"></polyline>
+              </svg>
+            </a>
+        {% else %}
+            <div id="next-paddle" class="col-3 btn-lg paddle-button" href="#"></div>
+        {% endif %}
+
+</div>
