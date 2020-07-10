@@ -53,7 +53,7 @@ class Lecture(models.Model):
         # and order set by sections and numbers
         __lectures = self.__class__.objects.filter(
             section__course_id=self.section.course.id
-        ).order_by('section_id','number').exclude(section_id__lt=self.section_id)
+        ).order_by('section_id', 'number').exclude(section_id__lt=self.section_id)
 
         # last() lecture of the course are specific one
         # - has got no any next element
@@ -71,7 +71,7 @@ class Lecture(models.Model):
         # and order set by sections and numbers
         __lectures = self.__class__.objects.filter(
             section__course_id=self.section.course.id
-        ).order_by('section_id','number').exclude(section_id__gt=self.section_id)
+        ).order_by('section_id', 'number').exclude(section_id__gt=self.section_id)
 
         # first() lecture of the course is specific one - has got no any prev element
         if self.id == __lectures.first().id:
