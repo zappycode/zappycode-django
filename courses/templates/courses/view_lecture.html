@@ -9,7 +9,7 @@
 
     {% if user.active_membership or lecture.preview %}
         <div class="row justify-content-around bg-primary">
-            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
+            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-4">
                 <h1 class="text-white">{{ lecture.title }}</h1>
                 <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
 
@@ -27,6 +27,21 @@
                         </div>
                     </div>
                 {% endif %}
+
+                <div class="text-center mt-3">
+                    <a role="button" class="btn btn-light {% if not lecture.prev_lecture %}disabled{% endif %}"
+                       {% if lecture.prev_lecture %}data-toggle="tooltip" data-placement="bottom"
+                       title="{{ lecture.prev_lecture.title }}"
+                       href="{% url 'view_lecture' lecture.prev_lecture.section.course.slug lecture.prev_lecture.id lecture.prev_lecture.slug %}"
+                       {% else %}style="pointer-events: none;"{% endif %}>Previous
+                    </a>
+                    <a role="button" class="btn btn-light {% if not lecture.next_lecture %}disabled{% endif %}"
+                       {% if lecture.next_lecture %}data-toggle="tooltip" data-placement="bottom"
+                       title="{{ lecture.next_lecture.title }}"
+                       href="{% url 'view_lecture' lecture.next_lecture.section.course.slug lecture.next_lecture.id lecture.next_lecture.slug %}"
+                       {% else %}style="pointer-events: none;"{% endif %}>Next
+                    </a>
+                </div>
             </div>
         </div>
     {% else %}
@@ -68,10 +83,12 @@
         </div>
     </div>
 
-
-
-
-
 {% endblock %}
 
-
+{% block javascript %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    </script>
+{% endblock %}
