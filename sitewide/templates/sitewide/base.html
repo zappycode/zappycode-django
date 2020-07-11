@@ -25,7 +25,8 @@
     <meta name="msapplication-TileColor" content="#603cba">
     <meta name="theme-color" content="#ffffff">
 
-    {% block head %} {% include "sitewide/pretty_socials.html" with object=page description="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!" %}{% endblock %}
+    {% block head %}
+        {% include "sitewide/pretty_socials.html" with object=page description="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!" %}{% endblock %}
 </head>
 
 <body class="h-100 bg-primary">
@@ -88,7 +89,12 @@
             <div class="col-lg-7 col-md-8 col-11 text-center">
                 <div class="alert alert-success">
                     {% for message in messages %}
-                        <p>{{ message }}</p>
+                        {% if forloop.last %}
+                            {{ message }}
+                        {% else %}
+                            {{ message }}
+                            <br><br>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

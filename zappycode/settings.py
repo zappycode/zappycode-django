@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'challenge',
     'posts',
     'money',
+    'invites',
 
     # 3rd Party
     'djcelery_email',

@@ -1,0 +1,148 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title='Free ZappyCode for You!' description='So it turns out...somebody loves you enough to send you free access to ZappyCode. Come learn code the fun way!' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-around align-items-center">
+        <div class="col-xl-8 col-11 pt-4 pb-4 bg-light">
+
+            {% if invite.is_expired %}
+
+                <h1 class="big-title mb-3 text-center">Too late fam...this invite has already expired</h1>
+
+                <div class="text-center">
+                    Yo, I'm not sure how this invite didn't get to you in time but...have no fear! Get your own
+                    membership and show <a href="https://en.wikipedia.org/wiki/Father_Time">Father Time</a> who's boss!
+                    <br>
+                    <br>
+                    <a role="button" class="btn btn-primary" href="{% url 'pricing' %}">Join Now</a>
+                </div>
+
+            {% elif invite.receiver %}
+
+                <h1 class="big-title mb-3 text-center">This invite has already been used 😐</h1>
+
+                <div class="text-center">
+                    Look, idk who offered you this invite but it's already been used. But have no fear! Get your own
+                    membership and show them who's boss!
+                    <br>
+                    <br>
+                    <a role="button" class="btn btn-primary" href="{% url 'pricing' %}">Join Now</a>
+                </div>
+
+            {% elif user.active_membership %}
+
+                <h1 class="big-title mb-3 text-center">Save some for the rest of us!</h1>
+
+                <div class="text-center">
+                    You already have an active membership dude! Share this invite with someone who needs it!
+                    <br>
+                    <br>
+                    <h2>Don't let this gift go to waste!</h2>
+                    <div class="alert alert-danger d-inline-block" role="alert">
+                        <h1>
+                            {% if invite.days_left == 0 %}
+                                This invite expires today!
+                            {% else %}
+                                This invite expires in {{ invite.days_left }} day{{ invite.days_left|pluralize }}
+                            {% endif %}
+                        </h1>
+                    </div>
+                </div>
+
+            {% else %}
+
+                <h1 class="big-title mb-3 text-center">Free ZappyCode for You!</h1>
+
+                {% if invite.sender %}
+                    <p class="text-center">A gift for you from: <b>{{ invite.sender.username }}</b></p>
+                    {% if invite.sender.pic %}
+                        <img class="mx-auto d-block mb-3" height="150px" src="{{ invite.sender.pic.url }}">
+                    {% endif %}
+                {% endif %}
+
+                <div class="text-center">
+
+                    So it turns out...{% if invite.sender %}{{ invite.sender.username }}{% else %}somebody{% endif %}
+                    loves you enough to send you free access to ZappyCode. Come learn code
+                    the fun way!
+                    <br>
+                    <br>
+                    {% if user.is_authenticated %}
+
+                        <form method="post" action="{% url 'invites:redeem_invite_to_existing_account' invite.token %}">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit">Redeem Free Access</button>
+                        </form>
+
+                    {% else %}
+                        <div class="row">
+                        <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-6 mx-auto">
+                        <div class="card card-signin mb-2">
+                        <div class="card-body">
+                        {% if form.errors %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form class="form-signin" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" id="invite" name="invite" value="{{ invite.token }}">
+
+                            <div class="form-label-group">
+                                <input name="email" type="email" id="id_email" class="form-control"
+                                       placeholder="Email Address"
+                                       value="{% if form.email.value %}{{ form.email.value }}{% endif %}" required
+                                       autofocus>
+                                <label for="id_email" class="text-left">Email Address</label>
+                            </div>
+                            {% for error in form.email.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+
+                            <div class="form-label-group">
+                                <input name="password1" type="password" id="id_password1" class="form-control"
+                                       placeholder="Password" required>
+                                <label for="id_password1" class="text-left">Password</label>
+                            </div>
+
+                            {% for error in form.password1.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+
+
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Redeem Free Access</button>
+                        </form>
+
+                    {% endif %}
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <br>
+                    <h2>Don't let this gift go to waste!</h2>
+                    <div class="alert alert-danger d-inline-block" role="alert">
+                        <h1>
+                            {% if invite.days_left == 0 %}
+                                Your free access expires today!
+                            {% else %}
+                                Your free access expires in {{ invite.days_left }} day{{ invite.days_left|pluralize }}
+                            {% endif %}
+                        </h1>
+                    </div>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

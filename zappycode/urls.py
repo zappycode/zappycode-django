@@ -14,6 +14,7 @@ urlpatterns = [
                   path('courses/', include('courses.urls')),
                   path('posts/', include('posts.urls')),
                   path('money/', include('money.urls')),
+                  path('somebodylovesyou/', include('invites.urls')),
                   path('account/', sitewide.views.account, name='account'),
                   path('pricing/', sitewide.views.pricing, name='pricing'),
                   path('payment_success/', sitewide.views.payment_success, name='payment_success'),
