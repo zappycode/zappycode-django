@@ -27,21 +27,7 @@
                         </div>
                     </div>
                 {% endif %}
-
-                <div class="text-center mt-3">
-                    <a role="button" class="btn btn-light {% if not lecture.prev_lecture %}disabled{% endif %}"
-                       {% if lecture.prev_lecture %}data-toggle="tooltip" data-placement="bottom"
-                       title="{{ lecture.prev_lecture.title }}"
-                       href="{% url 'view_lecture' lecture.prev_lecture.section.course.slug lecture.prev_lecture.id lecture.prev_lecture.slug %}"
-                       {% else %}style="pointer-events: none;"{% endif %}>Previous
-                    </a>
-                    <a role="button" class="btn btn-light {% if not lecture.next_lecture %}disabled{% endif %}"
-                       {% if lecture.next_lecture %}data-toggle="tooltip" data-placement="bottom"
-                       title="{{ lecture.next_lecture.title }}"
-                       href="{% url 'view_lecture' lecture.next_lecture.section.course.slug lecture.next_lecture.id lecture.next_lecture.slug %}"
-                       {% else %}style="pointer-events: none;"{% endif %}>Next
-                    </a>
-                </div>
+                {% include 'courses/next_prev.html' %}
             </div>
         </div>
     {% else %}
@@ -53,7 +39,7 @@
                 <a href="{% url 'pricing' %}" class="btn btn-danger mt-2 mb-4">Sign Up</a>
 
                 <img class="img-fluid pb-4" src="{% static 'courses/MembersOnly.jpg' %}">
-
+            {% include 'courses/next_prev.html' %}
             </div>
         </div>
     {% endif %}
