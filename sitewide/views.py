@@ -1,5 +1,7 @@
 import time
 import stripe
+
+from .forms import AccountSettingsForm
 from .models import ZappyUser
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -24,7 +26,26 @@ def pricing(request):
 
 @login_required
 def account(request):
-    return render(request, 'account/account.html')
+
+    forms = AccountSettingsForm()
+    if request.method == 'POST':
+        # print(request.POST.get('action2'))
+        user = request.user
+        form = AccountSettingsForm(request.POST, request.FILES)
+
+        if 'delete' in request.POST:
+            print('ufff. jest')
+            user.pic.delete()
+            messages.success(request, 'You\'ve deleted profile picture.')
+        elif form.is_valid() and form.cleaned_data['pic']:
+            user.pic = form.cleaned_data['pic']
+            user.save()
+            messages.success(request, 'Boom! You\'ve got new profile picture.')
+            return redirect('/account/')
+        else:
+            messages.warning(request, 'You need to load picture to save it')
+    return render(request, 'account/account.html', {'forms': forms})
+
 
 
 def payment_success(request):

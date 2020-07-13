@@ -25,9 +25,29 @@
                 {% if user.cancel_at_period_end %}
                     <br>
                     <div class="alert alert-danger" role="alert">
-                        Your subscription has been canceled. You'll still have access to ZappyCode util the end of the billing cycle.
+                        Your subscription has been canceled. You'll still have access to ZappyCode until the end of the billing cycle.
                     </div>
                 {% endif %}
+
+                <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if request.user.pic %}
+                        <label>Change your profile picture:</label>
+                        <div class="d-block">
+                            <img id='preview_avatar' alt="profile picture" class="ml-4" height="150px" width="150px" src="../media/{{ request.user.pic }}">
+                            <button class="btn align-top btn-outline-primary border-1 p-0 m-0" style="font-size: 0.5rem;" type=submit name="delete" data-toggle="tooltip" title="Delete profile picture">
+                                <img alt="delete picture" height="20px" width="20px"  class="m-0 p-0 border-0" src="{% static 'sitewide/plug4pics.png' %}">
+                            </button>
+                        </div>
+                    {% else %}
+                        <label>Add your profile picture.<br> It should be a square:</label>
+                        <img id='preview_avatar' alt="profile picture" class="mx-auto d-block" height="150px" width="150px" src="{% static 'sitewide/plug4pics.png' %}">
+                    {% endif %}
+                    {{ forms }}
+                    <label for="id_pic" class="mt-2 btn btn-primary " style="cursor: pointer;">Upload</label>
+                    <button type=submit name="save" class="btn btn-primary ">Save</button>
+                </form>
+
                 {% if user.active_membership and not user.cancel_at_period_end  %}
                     <br>
                     <form method="post" action="{% url 'cancel_subscription' %}">
@@ -41,4 +61,31 @@
             </div>
         </div>
 
+{% endblock %}
+
+{% block javascript %}
+     <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        // funcs to preview photo after upload.
+        var reader = new FileReader();
+
+        // show loaded picture
+        reader.onload = function (e) {
+            $('#preview_avatar').attr('src', e.target.result);
+        }
+
+       function readURL(input) {
+            if (input.files && input.files[0]) {
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // fetch url from hidden ImageField
+        $("#id_pic").change(function() {
+            readURL(this);
+        });
+    </script>
 {% endblock %}
