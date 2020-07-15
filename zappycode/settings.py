@@ -18,6 +18,8 @@ DEBUG = env.str('DEBUG', default=True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
+SILENCED_SYSTEM_CHECKS = ["urls.W002"]
+
 # Application definition
 
 INSTALLED_APPS = [

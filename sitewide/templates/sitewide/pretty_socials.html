@@ -21,8 +21,8 @@
 
 {# description #}
 {% if description %}
-    <meta property="og:description" content="{{ description|safe }}">
-    <meta name="twitter:description" content="{{ description|safe }}">
+    <meta property="og:description" content="{{ description|striptags|truncatechars:200 }}">
+    <meta name="twitter:description" content="{{ description|striptags|truncatechars:200 }}">
 {% else %}
     <meta property="og:description"
           content="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!">

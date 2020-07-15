@@ -11,44 +11,44 @@ import allauth.account.views
 urlpatterns = [
                   path('', sitewide.views.home, name='home'),
                   path('admin/', admin.site.urls),
-                  path('courses/', include('courses.urls')),
-                  path('posts/', include('posts.urls')),
-                  path('money/', include('money.urls')),
-                  path('somebodylovesyou/', include('invites.urls')),
-                  path('account/', sitewide.views.account, name='account'),
-                  path('pricing/', sitewide.views.pricing, name='pricing'),
-                  path('payment_success/', sitewide.views.payment_success, name='payment_success'),
-                  path('cancel_subscription/', sitewide.views.cancel_subscription, name='cancel_subscription'),
+                  path('courses', include('courses.urls')),
+                  path('posts', include('posts.urls')),
+                  path('money', include('money.urls')),
+                  path('somebodylovesyou', include('invites.urls')),
+                  path('account', sitewide.views.account, name='account'),
+                  path('pricing', sitewide.views.pricing, name='pricing'),
+                  path('payment_success', sitewide.views.payment_success, name='payment_success'),
+                  path('cancel_subscription', sitewide.views.cancel_subscription, name='cancel_subscription'),
                   path('challenge/<int:pk>', challenge.views.challenge, name='challenge'),
 
                   # API
                   path('api/courses', courses.views.CourseList.as_view()),
 
                   # Auth
-                  path("auth/signup/", allauth.account.views.signup, name="account_signup"),
-                  path("login/", allauth.account.views.login, name="account_login"),
-                  path("logout/", allauth.account.views.logout, name="account_logout"),
-                  path("password/change/", allauth.account.views.password_change,
+                  path("auth/signup", allauth.account.views.signup, name="account_signup"),
+                  path("login", allauth.account.views.login, name="account_login"),
+                  path("logout", allauth.account.views.logout, name="account_logout"),
+                  path("password/change", allauth.account.views.password_change,
                        name="account_change_password"),
-                  path("password/set/", allauth.account.views.password_set, name="account_set_password"),
-                  path("inactive/", allauth.account.views.account_inactive, name="account_inactive"),
+                  path("password/set", allauth.account.views.password_set, name="account_set_password"),
+                  path("inactive", allauth.account.views.account_inactive, name="account_inactive"),
 
                   # Auth E-mail
-                  path("email/", allauth.account.views.email, name="account_email"),
-                  path("confirm-email/", allauth.account.views.email_verification_sent,
+                  path("email", allauth.account.views.email, name="account_email"),
+                  path("confirm-email", allauth.account.views.email_verification_sent,
                        name="account_email_verification_sent"),
                   re_path(r"^confirm-email/(?P<key>[-:\w]+)/$", allauth.account.views.confirm_email,
                           name="account_confirm_email"),
 
                   # Auth Password reset
-                  path("password/reset/", allauth.account.views.password_reset,
+                  path("password/reset", allauth.account.views.password_reset,
                        name="account_reset_password"),
-                  path("password/reset/done/", allauth.account.views.password_reset_done,
+                  path("password/reset/done", allauth.account.views.password_reset_done,
                        name="account_reset_password_done"),
                   re_path(r"^password/reset/key/(?P<uidb36>[0-9A-Za-z]+)-(?P<key>.+)/$",
                           allauth.account.views.password_reset_from_key,
                           name="account_reset_password_from_key"),
-                  path("password/reset/key/done/", allauth.account.views.password_reset_from_key_done,
+                  path("password/reset/key/done", allauth.account.views.password_reset_from_key_done,
                        name="account_reset_password_from_key_done"),
 
                   # These are all direct links
