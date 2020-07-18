@@ -12,6 +12,7 @@ urlpatterns = [
                   path('', sitewide.views.home, name='home'),
                   path('admin/', admin.site.urls),
                   path('courses', include('courses.urls')),
+                  path('api', include('api.urls')),
                   path('posts', include('posts.urls')),
                   path('money', include('money.urls')),
                   path('somebodylovesyou', include('invites.urls')),
@@ -20,9 +21,6 @@ urlpatterns = [
                   path('payment_success', sitewide.views.payment_success, name='payment_success'),
                   path('cancel_subscription', sitewide.views.cancel_subscription, name='cancel_subscription'),
                   path('challenge/<int:pk>', challenge.views.challenge, name='challenge'),
-
-                  # API
-                  path('api/courses', courses.views.CourseList.as_view()),
 
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
