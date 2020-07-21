@@ -1,0 +1,23 @@
+<style>
+    .a-footer {
+        color: white;
+        font-weight: bold;
+    }
+    .a-footer:hover {
+        color: #6e00ff;
+        background: white;
+        text-decoration: none;
+    }
+    .p-footer {
+        position: center;
+        height: fit-content;
+        margin: auto;
+        font-weight: bolder;
+    }
+</style>
+
+<p class="p-footer footer text-center text-white">
+   ZappyCode was updated <a class="a-footer" href="{{ commit_url }}">{{ last_commit }} ago</a>,
+   has <span style="font-weight: bold;"> {{ amount_members }} </span> {% if amount_members > 1 %} members{% else %}member{% endif %},
+   and makes <a class="a-footer" href="{% url 'money:home' %}">{% if earnings >= 0 %}${{ earnings|floatformat:"0" }}{% else %}-${{ earnings }}{% endif %}</a> a month.
+</p>

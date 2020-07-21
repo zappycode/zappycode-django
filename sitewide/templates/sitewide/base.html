@@ -106,6 +106,11 @@
 
     {% block content %}{% endblock %}
 
+    {#  wrap in block footer to allow override if will be necessity #}
+    {% block footer %}
+        {% include 'sitewide/footer.html' %}
+    {% endblock %}
+
     <script src="{% static "sitewide/jquery.min.js" %}"></script>
     <script src="{% static "sitewide/bootstrap.bundle.min.js" %}"></script>
 
