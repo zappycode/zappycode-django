@@ -1,0 +1,2063 @@
+[
+  {
+    "model": "sitewide.zappyuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$BRHJvEJQB6LH$k0nv1NxzVn+RXAP2js3Prhr6Zi9i8VROv9EZP8ae2Og=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "joemomma",
+      "first_name": "",
+      "last_name": "",
+      "email": "joe@momma.org",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-07-22T19:15:09.917Z",
+      "stripe_id": "",
+      "stripe_subscription_id": "",
+      "cancel_at_period_end": false,
+      "apple_product_id": null,
+      "apple_expires_date": null,
+      "active_membership": false,
+      "pic": "sitewide/user_pics/SquareBlonde.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "challenge.challenge",
+    "pk": 1,
+    "fields": {
+      "title": "Variables, Strings, Ints and Print",
+      "description": "<p>I have given you two variables,\u00a0<code>name</code>\u00a0and\u00a0<code>age</code>. Use the\u00a0<code>format()</code>\u00a0function to create a sentence that reads:</p>\r\n<p><code>hi my name is julie and i am 42 years old</code></p>\r\n<p>Set that equal to the variable called\u00a0sentence</p>",
+      "starting_code": "",
+      "answer_code": "name = \"Julie\"\r\n\r\nage = \"42\"\r\n\r\nsentence = \"Hi my name is {} and I am {} years old\".format(name, age)"
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 1,
+    "fields": {
+      "title": "iOS 13 - How to Make Amazing iPhone Apps: Xcode 11 & Swift 5",
+      "slug": "how-to-make-ios-13-apps",
+      "subtitle": "Learn SwiftUI, Dark Mode, Sign in with Apple, Swift Package Manager and SF Symbols on the new Xcode 11 and Swift 5.1",
+      "description": "Welcome to my iOS 13 Course! If you're looking for a course that is fun and gets straight to the point, then this is the course for you. Apple released a TON of new stuff for developers at WWDC and this course will take you though everything you need to make awesome iOS 13 apps.\r\n\r\nOther online courses offer 40+ hours of video content, but I wanted to create a course that was more manageable and didn't include any fluff. In each video I dive straight into the topic, and don't waste your time going over things that you don't really need. I only focus on the essentials, and I give you hands-on practice so that you can easily master the things we are learning!\r\n\r\nThis course is designed to be taken over a two week period, with 1-2 hours dedicated to learning each day. This course is easy to commit to because you won't get overwhelmed with a mountain of content, and you don't need to quit your day job to learn how to code!\r\n\r\nOver the past four years I've taught over 140,000 people how to code, and I am a self-taught programmer so I know what it feels like to start from scratch. I care about your learning, but even more importantly... I care about you! I know your time is valuable, so I promise not to waste it.\r\n\r\niOS 13 Topics we cover include:\r\n\r\nSwiftUI\r\n\r\nDark\u00a0Mode\r\n\r\nSign in with Apple\r\n\r\nSwift Package Manager\r\n\r\nSF\u00a0Symbols",
+      "image": "course_images/iOS_13_Course_Image_Big.png",
+      "vimeo_promo_video_id": "376520719",
+      "release_date": "2019-09-18",
+      "first_lecture": 4,
+      "download_link": "https://ZappyCode.com"
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 2,
+    "fields": {
+      "title": "SwiftUI - Learn How to Build Beautiful, Robust, Apps",
+      "slug": "SwiftUI-Learn-How-to-Build-Beautiful-Robust-Apps",
+      "subtitle": "Create stunning user interfaces across all Apple platforms with Swift 5",
+      "description": "<p>Have you ever wanted to create a Web application but didn&#39;t know where to start? Have you previously tried to learn Django but got fed up with incomplete YouTube videos and poorly written tutorials? Or are you looking to move your code from Django 2 to Django 3?</p>\r\n<p><strong>THEN THIS IS THE COURSE FOR YOU!</strong></p>\r\n<p>In my Django course, I will walk you through the Django web framework from beginning to end! I&#39;m a self-taught programmer so I know what it feels like to start from scratch. I care about your learning, but even more importantly... <strong>I care about you</strong>!</p>\r\n<p><strong>What is Django?</strong></p>\r\n<p>Django is an open-source web framework that is written in Python. It was created about twelve years ago, but new in 2020 we have <strong>Django 3</strong> with a <strong>whole new set of features and capabilities</strong>!</p>\r\n<p>Django is an amazing framework for web developers because it provides the infrastructure required for database-driven websites that have user authentication, content administration, contact forms, file uploads, and more. Instead of creating all of these features from scratch, you can use the Django framework and utilize these components that are already built, and focus your time on developing your web app instead.</p>\r\n<p>If you&#39;re going to be working with Python, especially for web applications or web design, you&#39;ll want to learn the Django framework. It will <strong>save you a ton of time</strong>!</p>\r\n<p><strong>Contents and Overview</strong></p>\r\n<p>I believe we learn best by doing. So, throughout this course you&#39;ll be presented with coding quizzes and challenges in order for you to <strong>test what you just learned</strong>. This format will allow you to actually learn Django and not just follow along like a robot ;)</p>\r\n<p>We will use Python in this course, so if you have never used Python before, we will start with a python refresher to get you up to speed (no other python experience required).</p>\r\n<p>We will then dive into making three complete websites:</p>\r\n<p>1 - <strong>Password Generator</strong>: A simple website to create a random password with several options. You will learn how to:</p>\r\n<ul>\r\n    <li>\r\n        <p>Install Django</p>\r\n    </li>\r\n    <li>\r\n        <p>Create a new project</p>\r\n    </li>\r\n    <li>\r\n        <p>Work with Django&#39;s URL routing</p>\r\n    </li>\r\n    <li>\r\n        <p>Creating Templates</p>\r\n    </li>\r\n    <li>\r\n        <p>Submit and handle HTML form data</p>\r\n        <p><br></p>\r\n    </li>\r\n</ul>\r\n<p>2 - <strong>Personal Portfolio</strong>: Create your own portfolio to show to potential employers showing off your resume, previous projects, and a fully functional blog. You will learn how to:</p>\r\n<ul>\r\n    <li>\r\n        <p>Add apps to your project</p>\r\n    </li>\r\n    <li>\r\n        <p>Work with models and databases (including SQLite)</p>\r\n    </li>\r\n    <li>\r\n        <p>Access the admin panel</p>\r\n    </li>\r\n    <li>\r\n        <p>Create super users</p>\r\n    </li>\r\n    <li>\r\n        <p>Make a responsive website with Bootstrap 4</p>\r\n    </li>\r\n    <li>\r\n        <p>Work with static and media files</p>\r\n    </li>\r\n    <li>\r\n        <p>Extending Templates</p>\r\n    </li>\r\n    <li>\r\n        <p>Formating dates and purals</p>\r\n    </li>\r\n</ul>\r\n<p><br></p>\r\n<p>3 - <strong>Todo Woo</strong>: A website where a user can sign up for an account, and fully manage a todo list with the ability to create, edit, and delete. You will learn how to:</p>\r\n<ul>\r\n    <li>\r\n        <p>Work with the authentication system (sign up, login, logout)</p>\r\n    </li>\r\n    <li>\r\n        <p>Create virtual environments</p>\r\n    </li>\r\n    <li>\r\n        <p>Establish model relationships</p>\r\n    </li>\r\n    <li>\r\n        <p>Require login for certain pages</p>\r\n    </li>\r\n    <li>\r\n        <p>Create a CRUD&nbsp;application (Create, Read, Update, Delete)</p>\r\n    </li>\r\n    <li>\r\n        <p>Queries and filters</p>\r\n    </li>\r\n    <li>\r\n        <p>Handling Errors</p>\r\n    </li>\r\n</ul>\r\n<p><br></p>\r\n<p>I will also walk you through Git, which is an awesome tool for developers that allows you to create multiple versions of your code. I&#39;ll explain why this is useful and help you understand why you should use it.</p>\r\n<p>Additionally, I will show you how to take the projects that you made in this course and publish them live on the web through Python Anywhere. Like I said, I will take you from the <strong>very beginning to the very end</strong>!</p>\r\n<p>Course material is regularly refreshed to include all of the newest updates and information. Additionally, I have made this course <strong>downloadable</strong>, so you can work through the class offline, making it as <strong>convenient&nbsp;</strong>as possible for you! Most instructors won&#39;t allow this, but I want you to be able to enjoy this course in whichever way is best for you :)</p>\r\n<p>Don&#39;t waste your time scouring the internet and trying to piece together how to learn Django on your own. <strong>Invest in yourself</strong>, and allow me to teach you Django while having fun.</p>\r\n<p><strong>Don&#39;t take my word for it. See what my other students are saying!&nbsp;</strong></p>\r\n<p><em>&quot;Amazing course to get into Django and web development! Nick is really engaging and enthusiastic and a joy to learn from!! He explains concepts clearly and teaches in ways that allow the student to easily recall the information.&quot;</em> - Evv Erb</p>\r\n<p><em>&quot;I now work as a developer creating internal projects for our support team. Thanks!&quot;</em> - Johnathan</p>\r\n<p><em>&quot;Truly understands the concept of starting from the beginning. Great teacher and presenter.&quot;</em> - Earl McAndrew</p>\r\n<p><em>&quot;I really loved the course. By going through the course, I actually made my own website and deployed it on a server.&quot;</em> - Mrinal Shrivastava</p>\r\n<p><em>&quot;After buying 3 courses about django in Udemy. This is the only one I&#39;m picking something up. Recommended.&quot;</em> - Ruben</p>\r\n<p><em>&quot;Amazing teacher, very good and clear explanations very nice and helpful real life examples and projects&quot;</em> - Itay Galea</p>\r\n<p><em>&quot;Nick really goes the extra mile to ensuring a fantastic learning experience from beginning to end. I would recommend this course to anyone looking to get their python apps online quick and easy. You just became my favorite instructor :)&quot;</em> - Nur Roberts</p>\r\n<p><strong>Feel free to take a free preview of this course to see if it&#39;s a good fit for you.</strong> <strong>I am so confident that you will love my course, that I even offer a 100% 30-day money-back guarantee. You have nothing to lose, so come join me and let&#39;s get started!</strong></p>\r\n\r\nIn this course we'll cover:\r\n\r\nYour First SwiftUI App\r\n\r\nXcode Previews\r\n\r\nViews Deep Dive\r\n\r\nData and SwiftUI\r\n\r\nAccessibility\r\n\r\nDrawing and Animation\r\n\r\nSwiftUI for MacOS, WatchOS, and tvOS\r\n\r\nSwiftUI In Existing Projects\r\n\r\nCome join and learn the biggest developer tool released since Swift!",
+      "image": "course_images/SwiftUI.jpg",
+      "vimeo_promo_video_id": "383886181",
+      "release_date": "2019-06-10",
+      "first_lecture": 99,
+      "download_link": "https://ZappyCode.com"
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 3,
+    "fields": {
+      "title": "Introduction",
+      "course": 1,
+      "number": 1
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 4,
+    "fields": {
+      "title": "Swift and Xcode Basics",
+      "course": 1,
+      "number": 2
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 5,
+    "fields": {
+      "title": "Taking Swift Further - Tip Calculator App",
+      "course": 1,
+      "number": 3
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 6,
+    "fields": {
+      "title": "TableViews - Code Dictionary App",
+      "course": 1,
+      "number": 4
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 7,
+    "fields": {
+      "title": "Object Oriented Programming with Swift",
+      "course": 1,
+      "number": 5
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 8,
+    "fields": {
+      "title": "ToDo List App",
+      "course": 1,
+      "number": 6
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 9,
+    "fields": {
+      "title": "Saving Data with CoreData",
+      "course": 1,
+      "number": 7
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 10,
+    "fields": {
+      "title": "Camera and Images - Progress Update App",
+      "course": 1,
+      "number": 8
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 11,
+    "fields": {
+      "title": "Web, APIs, and JSON - Bitcoin App",
+      "course": 1,
+      "number": 9
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 12,
+    "fields": {
+      "title": "Uploading Your App to the App Store",
+      "course": 1,
+      "number": 10
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 13,
+    "fields": {
+      "title": "Get More App Downloads with ASO",
+      "course": 1,
+      "number": 11
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 14,
+    "fields": {
+      "title": "SwiftUI",
+      "course": 1,
+      "number": 12
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 15,
+    "fields": {
+      "title": "iOS 13 Special Features",
+      "course": 1,
+      "number": 13
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 16,
+    "fields": {
+      "title": "Introduction",
+      "course": 2,
+      "number": 1
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 17,
+    "fields": {
+      "title": "Your First SwiftUI App",
+      "course": 2,
+      "number": 2
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 18,
+    "fields": {
+      "title": "Xcode Previews",
+      "course": 2,
+      "number": 3
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 19,
+    "fields": {
+      "title": "Views Deep Dive",
+      "course": 2,
+      "number": 4
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 20,
+    "fields": {
+      "title": "Data and SwiftUI",
+      "course": 2,
+      "number": 5
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 21,
+    "fields": {
+      "title": "Accessibility",
+      "course": 2,
+      "number": 6
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 22,
+    "fields": {
+      "title": "Drawing and Animation",
+      "course": 2,
+      "number": 7
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 23,
+    "fields": {
+      "title": "SwiftUI for MacOS, WatchOS, and TvOS",
+      "course": 2,
+      "number": 8
+    }
+  },
+  {
+    "model": "courses.section",
+    "pk": 24,
+    "fields": {
+      "title": "SwiftUI In Existing Projects",
+      "course": 2,
+      "number": 9
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 4,
+    "fields": {
+      "title": "Welcome to the Course",
+      "vimeo_video_id": "376516447",
+      "section": 3,
+      "number": 1,
+      "text": "",
+      "preview": true
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 5,
+    "fields": {
+      "title": "Xcode Tour",
+      "vimeo_video_id": "376516762",
+      "section": 4,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 6,
+    "fields": {
+      "title": "Variables and Constants",
+      "vimeo_video_id": "376517106",
+      "section": 4,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 7,
+    "fields": {
+      "title": "Strings and Ints",
+      "vimeo_video_id": "376517505",
+      "section": 4,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 8,
+    "fields": {
+      "title": "Comments and Print",
+      "vimeo_video_id": "376517733",
+      "section": 4,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 9,
+    "fields": {
+      "title": "Visual Design and Labels",
+      "vimeo_video_id": "376518006",
+      "section": 4,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 10,
+    "fields": {
+      "title": "Outlets and Errors",
+      "vimeo_video_id": "376520215",
+      "section": 4,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 11,
+    "fields": {
+      "title": "Buttons and Actions",
+      "vimeo_video_id": "376520425",
+      "section": 4,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 12,
+    "fields": {
+      "title": "If Statements",
+      "vimeo_video_id": "376520532",
+      "section": 4,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 13,
+    "fields": {
+      "title": "Counting",
+      "vimeo_video_id": "376520629",
+      "section": 4,
+      "number": 9,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 14,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 4,
+      "number": 10,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\n<a href=\"https://www.dropbox.com/s/kdnfocv6q0fwf2f/2%20-%20Swift%20and%20Xcode%20Basics.zip?dl=0\">https://www.dropbox.com/s/kdnfocv6q0fwf2f/2%20-%20Swift%20and%20Xcode%20Basics.zip?dl=0</a>\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 15,
+    "fields": {
+      "title": "Math and Doubles",
+      "vimeo_video_id": "380616156",
+      "section": 5,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 16,
+    "fields": {
+      "title": "Floats and Conversion",
+      "vimeo_video_id": "380616451",
+      "section": 5,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 17,
+    "fields": {
+      "title": "TextFields",
+      "vimeo_video_id": "380616649",
+      "section": 5,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 18,
+    "fields": {
+      "title": "TextField Data",
+      "vimeo_video_id": "380616912",
+      "section": 5,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 19,
+    "fields": {
+      "title": "String Interpolation",
+      "vimeo_video_id": "380617154",
+      "section": 5,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 20,
+    "fields": {
+      "title": "Booleans",
+      "vimeo_video_id": "380617298",
+      "section": 5,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 21,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 5,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/d59wstl5uy4ikzm/Tip%20Calculator.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 22,
+    "fields": {
+      "title": "Why Sketches Are Important",
+      "vimeo_video_id": "380639015",
+      "section": 6,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 23,
+    "fields": {
+      "title": "Arrays",
+      "vimeo_video_id": "380639037",
+      "section": 6,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 24,
+    "fields": {
+      "title": "TableViews",
+      "vimeo_video_id": "380639089",
+      "section": 6,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 25,
+    "fields": {
+      "title": "Answering Two Questions",
+      "vimeo_video_id": "380639137",
+      "section": 6,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 26,
+    "fields": {
+      "title": "Arrays and TableViews",
+      "vimeo_video_id": "380639173",
+      "section": 6,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 27,
+    "fields": {
+      "title": "Segues",
+      "vimeo_video_id": "380639213",
+      "section": 6,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 28,
+    "fields": {
+      "title": "Passing Data",
+      "vimeo_video_id": "380639250",
+      "section": 6,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 29,
+    "fields": {
+      "title": "Showing the Definition",
+      "vimeo_video_id": "380639296",
+      "section": 6,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 30,
+    "fields": {
+      "title": "Loops",
+      "vimeo_video_id": "380639339",
+      "section": 6,
+      "number": 9,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 31,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 6,
+      "number": 10,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/b00vppozzwbs9be/Code%20Dictionary.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 32,
+    "fields": {
+      "title": "Functions",
+      "vimeo_video_id": "380644418",
+      "section": 7,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 33,
+    "fields": {
+      "title": "Return",
+      "vimeo_video_id": "380644535",
+      "section": 7,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 34,
+    "fields": {
+      "title": "Classes",
+      "vimeo_video_id": "380644602",
+      "section": 7,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 35,
+    "fields": {
+      "title": "Methods",
+      "vimeo_video_id": "380644684",
+      "section": 7,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 36,
+    "fields": {
+      "title": "Inheritance",
+      "vimeo_video_id": "380644747",
+      "section": 7,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 37,
+    "fields": {
+      "title": "Using Classes In Our App",
+      "vimeo_video_id": "380644832",
+      "section": 7,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 38,
+    "fields": {
+      "title": "Optionals",
+      "vimeo_video_id": "380644927",
+      "section": 7,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 39,
+    "fields": {
+      "title": "Putting It All Together",
+      "vimeo_video_id": "380645005",
+      "section": 7,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 40,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 7,
+      "number": 9,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/hqi4xm6jz417tmi/Section%205%20-%20Code%20Dictionary.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 41,
+    "fields": {
+      "title": "ToDo List Sketch",
+      "vimeo_video_id": "380645640",
+      "section": 8,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 42,
+    "fields": {
+      "title": "TableView Practice",
+      "vimeo_video_id": "380645696",
+      "section": 8,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 43,
+    "fields": {
+      "title": "Segue and Design Practice",
+      "vimeo_video_id": "380645811",
+      "section": 8,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 44,
+    "fields": {
+      "title": "Creating A ToDo",
+      "vimeo_video_id": "380645945",
+      "section": 8,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 45,
+    "fields": {
+      "title": "Reloading The TableView",
+      "vimeo_video_id": "380646034",
+      "section": 8,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 46,
+    "fields": {
+      "title": "Deleting ToDos",
+      "vimeo_video_id": "380646120",
+      "section": 8,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 47,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 8,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/vmwvnx26b6a7eyq/ToDo%20List.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 48,
+    "fields": {
+      "title": "Entities",
+      "vimeo_video_id": "380646318",
+      "section": 9,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 49,
+    "fields": {
+      "title": "Saving To CoreData",
+      "vimeo_video_id": "380646397",
+      "section": 9,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 50,
+    "fields": {
+      "title": "Fetching From CoreData",
+      "vimeo_video_id": "380646479",
+      "section": 9,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 51,
+    "fields": {
+      "title": "Deleting From CoreData",
+      "vimeo_video_id": "380646561",
+      "section": 9,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 52,
+    "fields": {
+      "title": "Hello App Challenge",
+      "vimeo_video_id": "380646659",
+      "section": 9,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 53,
+    "fields": {
+      "title": "Hello App Solution",
+      "vimeo_video_id": "380646680",
+      "section": 9,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 54,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 9,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/l8wzkmgaoxz9ghz/CoreData.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 55,
+    "fields": {
+      "title": "Running Apps on Your Phone",
+      "vimeo_video_id": "380646981",
+      "section": 10,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 56,
+    "fields": {
+      "title": "ImageViews",
+      "vimeo_video_id": "380647188",
+      "section": 10,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 57,
+    "fields": {
+      "title": "Rounded Buttons",
+      "vimeo_video_id": "380647392",
+      "section": 10,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 58,
+    "fields": {
+      "title": "Image Picker",
+      "vimeo_video_id": "380647595",
+      "section": 10,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 59,
+    "fields": {
+      "title": "Dictionaries",
+      "vimeo_video_id": "380647762",
+      "section": 10,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 60,
+    "fields": {
+      "title": "Working with the Camera",
+      "vimeo_video_id": "380647880",
+      "section": 10,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 61,
+    "fields": {
+      "title": "Saving Images to CoreData",
+      "vimeo_video_id": "380647970",
+      "section": 10,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 62,
+    "fields": {
+      "title": "Swipe to Delete",
+      "vimeo_video_id": "380648047",
+      "section": 10,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 63,
+    "fields": {
+      "title": "Fullscreen Image View",
+      "vimeo_video_id": "380648140",
+      "section": 10,
+      "number": 9,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 64,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 10,
+      "number": 10,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/kzqx535083qz56e/Progress%20Journal.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 65,
+    "fields": {
+      "title": "Bitcoin Sketch",
+      "vimeo_video_id": "380648269",
+      "section": 11,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 66,
+    "fields": {
+      "title": "Bitcoin Design",
+      "vimeo_video_id": "380648320",
+      "section": 11,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 67,
+    "fields": {
+      "title": "APIs",
+      "vimeo_video_id": "380648442",
+      "section": 11,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 68,
+    "fields": {
+      "title": "JSON",
+      "vimeo_video_id": "380648574",
+      "section": 11,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 69,
+    "fields": {
+      "title": "Threads",
+      "vimeo_video_id": "380648725",
+      "section": 11,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 70,
+    "fields": {
+      "title": "Number Formatter",
+      "vimeo_video_id": "380648807",
+      "section": 11,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 71,
+    "fields": {
+      "title": "UserDefaults",
+      "vimeo_video_id": "380648918",
+      "section": 11,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 72,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 11,
+      "number": 8,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/02ihfgw4qcl4xx8/Bitcoin%20Price%20Tracker.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 73,
+    "fields": {
+      "title": "Paid Developer Account",
+      "vimeo_video_id": "380649027",
+      "section": 12,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 74,
+    "fields": {
+      "title": "Certificates and Profiles",
+      "vimeo_video_id": "380649060",
+      "section": 12,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 75,
+    "fields": {
+      "title": "App Icons",
+      "vimeo_video_id": "380649216",
+      "section": 12,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 76,
+    "fields": {
+      "title": "Submit Your App",
+      "vimeo_video_id": "380649260",
+      "section": 12,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 77,
+    "fields": {
+      "title": "Working For a Company",
+      "vimeo_video_id": "380649383",
+      "section": 12,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 78,
+    "fields": {
+      "title": "Freelancer",
+      "vimeo_video_id": "380649448",
+      "section": 12,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 79,
+    "fields": {
+      "title": "Your Apps",
+      "vimeo_video_id": "380649525",
+      "section": 12,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 80,
+    "fields": {
+      "title": "What to Do Next",
+      "vimeo_video_id": "380649569",
+      "section": 12,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 81,
+    "fields": {
+      "title": "Welcome",
+      "vimeo_video_id": "380649600",
+      "section": 13,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 82,
+    "fields": {
+      "title": "Introduction",
+      "vimeo_video_id": "380649630",
+      "section": 13,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 83,
+    "fields": {
+      "title": "Keywords",
+      "vimeo_video_id": "380649691",
+      "section": 13,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 84,
+    "fields": {
+      "title": "Screenshots",
+      "vimeo_video_id": "380649743",
+      "section": 13,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 85,
+    "fields": {
+      "title": "Launch Strategy",
+      "vimeo_video_id": "380649779",
+      "section": 13,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 86,
+    "fields": {
+      "title": "Thank you",
+      "vimeo_video_id": "380649844",
+      "section": 13,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 87,
+    "fields": {
+      "title": "Links for this Section",
+      "vimeo_video_id": "",
+      "section": 13,
+      "number": 3,
+      "text": "Here's some links you'll need in this section:\r\n\r\nKeyword Research - https://docs.google.com/spreadsheets/d/16R_-y5XmHFtFQtgz68lqp2E-kTq3N53PWKo1LS3sTLQ/edit?usp=sharing\r\n\r\nKeyword Variables - https://docs.google.com/document/d/1MgVOlmWb-ycOHE1NNlFjP7T97P3qGW5EPy_YIKAto4U/edit?usp=sharing\r\n\r\nScreenshots - https://drive.google.com/drive/folders/1IHh0W6YB9LLcQoOThbVuvksdpYk3e9V8",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 88,
+    "fields": {
+      "title": "SwiftUI Basics",
+      "vimeo_video_id": "381843653",
+      "section": 14,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 89,
+    "fields": {
+      "title": "Arranging Views",
+      "vimeo_video_id": "381843740",
+      "section": 14,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 90,
+    "fields": {
+      "title": "Modifiers and Variety",
+      "vimeo_video_id": "381843802",
+      "section": 14,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 91,
+    "fields": {
+      "title": "Moving Between Views",
+      "vimeo_video_id": "381843912",
+      "section": 14,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 92,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 14,
+      "number": 5,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/b99gc4ei3ge8mc0/SwiftUI%20Fun.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 93,
+    "fields": {
+      "title": "Dark Mode",
+      "vimeo_video_id": "381844024",
+      "section": 15,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 94,
+    "fields": {
+      "title": "SF Symbols",
+      "vimeo_video_id": "381844341",
+      "section": 15,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 95,
+    "fields": {
+      "title": "Swift Package Manager",
+      "vimeo_video_id": "381844574",
+      "section": 15,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 96,
+    "fields": {
+      "title": "Sign In With Apple",
+      "vimeo_video_id": "381844890",
+      "section": 15,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 97,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 15,
+      "number": 5,
+      "text": "Here's some zip files of the code I wrote in this section:\r\n\r\nDark Mode: https://www.dropbox.com/s/5cvz93eiw29ckmj/DarkModeCode.zip?dl=0\r\n\r\nSF Symbols: https://www.dropbox.com/s/m8x22exdvoxtvxs/Symbol%20Fun.zip?dl=0\r\n\r\nSwift Package Manager: https://www.dropbox.com/s/s7u2sqwj2wrflb3/Package%20Fun.zip?dl=0\r\n\r\nSign In with Apple: https://www.dropbox.com/s/alf9n33jyzbx32e/SignInFun.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 98,
+    "fields": {
+      "title": "Thank You",
+      "vimeo_video_id": "",
+      "section": 15,
+      "number": 6,
+      "text": "Shoutout to you for finishing this whole course! I hope you loved it. Let me know what you thought! Send me an email, nick@zappycode.com",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 99,
+    "fields": {
+      "title": "What You Need",
+      "vimeo_video_id": "381843780",
+      "section": 16,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 100,
+    "fields": {
+      "title": "New Xcode Project",
+      "vimeo_video_id": "381843818",
+      "section": 17,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 101,
+    "fields": {
+      "title": "Images",
+      "vimeo_video_id": "381843876",
+      "section": 17,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 102,
+    "fields": {
+      "title": "Stacks",
+      "vimeo_video_id": "381843924",
+      "section": 17,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 103,
+    "fields": {
+      "title": "Customization",
+      "vimeo_video_id": "381843977",
+      "section": 17,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 104,
+    "fields": {
+      "title": "Custom Reusable Views",
+      "vimeo_video_id": "381844094",
+      "section": 17,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 105,
+    "fields": {
+      "title": "Rows",
+      "vimeo_video_id": "381844220",
+      "section": 17,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 106,
+    "fields": {
+      "title": "Lists",
+      "vimeo_video_id": "381844312",
+      "section": 17,
+      "number": 7,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 107,
+    "fields": {
+      "title": "Passing Data",
+      "vimeo_video_id": "381844403",
+      "section": 17,
+      "number": 8,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 108,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 17,
+      "number": 9,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/vt9xb0q72a6r6kn/Section2.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 109,
+    "fields": {
+      "title": "Testing Different Devices and Text Sizes",
+      "vimeo_video_id": "381844641",
+      "section": 18,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 110,
+    "fields": {
+      "title": "App Fixes",
+      "vimeo_video_id": "381844832",
+      "section": 18,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 111,
+    "fields": {
+      "title": "Preview Pro Tips",
+      "vimeo_video_id": "381844959",
+      "section": 18,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 112,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 18,
+      "number": 4,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/q8pz1rr44w3aznm/Section3.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 113,
+    "fields": {
+      "title": "View Basics",
+      "vimeo_video_id": "381845037",
+      "section": 19,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 114,
+    "fields": {
+      "title": "Images",
+      "vimeo_video_id": "381845096",
+      "section": 19,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 115,
+    "fields": {
+      "title": "Stacks",
+      "vimeo_video_id": "381845190",
+      "section": 19,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 116,
+    "fields": {
+      "title": "Buttons",
+      "vimeo_video_id": "381845287",
+      "section": 19,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 117,
+    "fields": {
+      "title": "Controls",
+      "vimeo_video_id": "381845357",
+      "section": 19,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 118,
+    "fields": {
+      "title": "Subviews and Refactoring",
+      "vimeo_video_id": "381845416",
+      "section": 19,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 119,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 19,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/f5xh94okvhqmy2g/Section4.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 120,
+    "fields": {
+      "title": "Data Setup",
+      "vimeo_video_id": "382341366",
+      "section": 20,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 121,
+    "fields": {
+      "title": "State",
+      "vimeo_video_id": "382341388",
+      "section": 20,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 122,
+    "fields": {
+      "title": "Bug",
+      "vimeo_video_id": "",
+      "section": 20,
+      "number": 3,
+      "text": "In the upcoming lecture, there is this bug in iOS 13.2. So if you have an error when running, here's a workaround until Apple releases something to fix it \r\n\r\nhttps://www.dropbox.com/s/5pf4s236yd6ttjt/BugFix.png?dl=0",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 123,
+    "fields": {
+      "title": "NavigationLinks",
+      "vimeo_video_id": "382341407",
+      "section": 20,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 124,
+    "fields": {
+      "title": "ObservedObject",
+      "vimeo_video_id": "382341443",
+      "section": 20,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 125,
+    "fields": {
+      "title": "EnviromentObject",
+      "vimeo_video_id": "382341476",
+      "section": 20,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 126,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 20,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/1ncdjg79vlhzpn7/Section5.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 127,
+    "fields": {
+      "title": "Accessibility",
+      "vimeo_video_id": "382341502",
+      "section": 21,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 128,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 21,
+      "number": 2,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/opsljotc4i2rsql/Section6.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 129,
+    "fields": {
+      "title": "Shapes",
+      "vimeo_video_id": "382341532",
+      "section": 22,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 130,
+    "fields": {
+      "title": "Drawing Lines",
+      "vimeo_video_id": "382341547",
+      "section": 22,
+      "number": 2,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 131,
+    "fields": {
+      "title": "Shapes and Gradients",
+      "vimeo_video_id": "382341563",
+      "section": 22,
+      "number": 3,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 132,
+    "fields": {
+      "title": "Drawing Challenge",
+      "vimeo_video_id": "382341593",
+      "section": 22,
+      "number": 4,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 133,
+    "fields": {
+      "title": "Animation",
+      "vimeo_video_id": "382341613",
+      "section": 22,
+      "number": 5,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 134,
+    "fields": {
+      "title": "Transitions",
+      "vimeo_video_id": "382341644",
+      "section": 22,
+      "number": 6,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 135,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 22,
+      "number": 7,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/0lbovrk0y7443ba/Section7.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 136,
+    "fields": {
+      "title": "MacOS tvOS WatchOS",
+      "vimeo_video_id": "382341674",
+      "section": 23,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 137,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 23,
+      "number": 2,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/6vkwk4hc8239wqc/Section8.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 138,
+    "fields": {
+      "title": "SwiftUI In Existing Projects",
+      "vimeo_video_id": "382341752",
+      "section": 24,
+      "number": 1,
+      "text": "",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 139,
+    "fields": {
+      "title": "Source Code",
+      "vimeo_video_id": "",
+      "section": 24,
+      "number": 2,
+      "text": "Here's a zip file of the code I wrote in this section:\r\n\r\nhttps://www.dropbox.com/s/dy3tmlq0rdjqbau/Section9.zip?dl=0\r\n\r\nIf you get stuck, it might help comparing your code to mine.",
+      "preview": false
+    }
+  },
+  {
+    "model": "courses.lecture",
+    "pk": 140,
+    "fields": {
+      "title": "Thank You!",
+      "vimeo_video_id": "",
+      "section": 24,
+      "number": 3,
+      "text": "Shoutout to you for finishing this whole course! I hope you loved it. Let me know what you thought! Send me an email, nick@zappycode.com",
+      "preview": false
+    }
+  },
+  {
+    "model": "invites.invite",
+    "pk": 1,
+    "fields": {
+      "token": "791ecdc3-affd-4469-89e5-70e99a1cb119",
+      "end_date": "2020-07-13",
+      "sender": null,
+      "receiver": null
+    }
+  },
+  {
+    "model": "invites.invite",
+    "pk": 2,
+    "fields": {
+      "token": "79de6bd1-2f0e-498a-bf58-f3be350b4ec2",
+      "end_date": "2020-11-10",
+      "sender": null,
+      "receiver": null
+    }
+  },
+  {
+    "model": "money.month",
+    "pk": 1,
+    "fields": {
+      "month": 1,
+      "year": 2020,
+      "expenses": "100.34",
+      "revenue": "0.00",
+      "body": "3 Thoughts on This Month:\r\n<ol>\r\n<li>a</li>\r\n<li>v</li>\r\n<li>d</li>\r\n</ol>",
+      "youtube_id": "kKyWLb_1La4"
+    }
+  },
+  {
+    "model": "money.month",
+    "pk": 2,
+    "fields": {
+      "month": 2,
+      "year": 2020,
+      "expenses": "1.00",
+      "revenue": "2.00",
+      "body": "35tgrw",
+      "youtube_id": "kKyWLb_1La4"
+    }
+  },
+  {
+    "model": "money.month",
+    "pk": 3,
+    "fields": {
+      "month": 1,
+      "year": 2021,
+      "expenses": "654.00",
+      "revenue": "56000.00",
+      "body": "54htsrh",
+      "youtube_id": "N8lMSS2cQfY"
+    }
+  },
+  {
+    "model": "money.month",
+    "pk": 4,
+    "fields": {
+      "month": 7,
+      "year": 2021,
+      "expenses": "1000.00",
+      "revenue": "702.00",
+      "body": "jkytrky",
+      "youtube_id": "kKyWLb_1La4"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 1,
+    "fields": {
+      "title": "Django Cheat Sheet",
+      "body": "<h2>Creating a New Project</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\ndjango-admin startproject projectname\r\n    </code>\r\n</pre>\r\n\r\n<h2>Add an App to a Project</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py startapp appname\r\n    </code>\r\n</pre>\r\n\r\n<h2>Starting the server</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py runserver\r\n    </code>\r\n</pre>\r\n\r\n<h2>Creating Migrations</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py makemigrations\r\n    </code>\r\n</pre>\r\n\r\n<h2>Migrate the Database</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py migrate\r\n    </code>\r\n</pre>\r\n\r\n<h2>Creating a Super User for the Admin Panel</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py createsuperuser\r\n    </code>\r\n</pre>\r\n\r\n<h2>Collecting Static Files Into One Folder</h2>\r\n<pre class=\"rounded\">\r\n    <code>\r\npython3 manage.py collectstatic\r\n    </code>\r\n</pre>",
+      "bonus_title": null,
+      "bonus": null,
+      "author": null
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 2,
+    "fields": {
+      "title": "Django Template Language. Omg! What is that: {{ }} or {% %}}?",
+      "body": "<p>On the begining we should answer the question: are we realy require any complicated stuff to show data on website using Django? Specially that we don't need to much to display page. The answer is: yes, Django template engine and its Django Temlate Language is worth to use. Why? Let's take a look on very simple view and its response which don't use template engine.</p>\r\n    <pre><strong class=\"hljs-link\">views.py:</strong><code class=\"python hljs\">def ships_view(request):\r\n    ship = {\r\n        \"name\": \"Millennium Falcon\",\r\n        \"type\": \"YT-1300 Light Freighter\",\r\n        \"owner\": \"Han Solo\",\r\n    }\r\n    answer = \"\"\"\r\n         &lt;html lang=\"en\"&gt;\r\n            &lt;head&gt;\r\n              &lt;meta charset=\"UTF-8\"&gt;\r\n              &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n            &lt;/head&gt;\r\n            &lt;body&gt;\r\n              &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n              &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt; %s&lt;/p&gt;\r\n              &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt; %s&lt;/p&gt;\r\n              &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt; %s&lt;/p&gt;\r\n            &lt;/body&gt;\r\n          &lt;/html&gt;\r\n        \"\"\" % (ship['name'], ship['type'], ship['owner'])\r\n    return <span class=\"hljs-title\">HttpResponse</span>(answer)</code></pre>\r\n\r\n    Of course we have to as well define path in <strong>urls.py</strong> to show a page:\r\n    <pre><strong class=\"hljs-link\">urls.py:</strong><code>urlpatterns = [\r\n      path('ships/', ships_view, name='ships')\r\n    ]</code></pre>\r\n\r\n    After that we should see in the browser such output:\r\n    <img class=\"img-fluid\" src=\"http://localhost:8000/media/posts/output_1.png\" alt=\"simple view\">\r\n\r\n    <p>Site is displayed properly but our view is completely messed up -  we <mark><strong>mixed in one view frontend and backend</strong></mark> which is no good. Could you imagine future maintaince when code will be really big? In such way it's very hard develop dynamic page.\r\n      What we can do? We can use built-in <mark><strong>Django template engine</strong></mark> which allow to handle dynamic Python data in static <abbr title=\"HyperText Markup Language\" >HTML</abbr>. We can easy pass variables and even input logic inside <abbr title=\"HyperText Markup Language\" >HTML</abbr>.\r\n    A template contains the static parts of the desired <abbr title=\"HyperText Markup Language\" >HTML</abbr> output as well as some special syntax, called <mark>Django Template Language (DTL)</mark>, which is saying how dynamic content should be handled.\r\n    This will allow us for easy changing just style of our site without changing logic.</p>\r\n\r\n    <p class=\"alert alert-secondary\">A Django template is a sequence of text that helps in separation of the presentation layer of a document from its data.</p>\r\n\r\n    <p>Remember the template files are text documents so they can have got not only .html extension but .csv or .json as well.\r\n      The syntax of DTL involves four constructs: <strong>variables, tags, filters and comments</strong>. So let's stop boring theory and dive into two main constructs of DTL: variables and tags.</p>\r\n\r\n    <h2>{{ Variables }}</h2>\r\n    All we need to render site with Django template engine are proper view and template files. Let's do it starting from a view.\r\n    <pre><strong class=\"hljs-link\">views.py:</strong><code>from django.shortcuts import render\r\ndef ships_view(request):\r\n    ship = {\r\n        \"name\": \"Millennium Falcon\",\r\n        \"type\": \"YT-1300 Light Freighter\",\r\n        \"owner\": \"Han Solo\",\r\n    }\r\n    return render(request, \"tutorials/star_wars_data.html\", ship)</code></pre>\r\n    <h6>A bit of explanation:</h6>\r\n\r\n    <div class=\"alert alert-secondary\">Dictionary <code>ship</code> is something we called <mark><strong>context</strong></mark>. We pass it to our template through parameters of render function (responsible for that is built-in <em>context processor</em>). Thanks to that we will be able to use keys of ship dictionary in our template file.</div>\r\n    <div class=\"alert alert-secondary\"><strong>star_wars_data.html</strong> is a template file. Django will fetch this file and render HTTP response to a browser with context - in our case it will be dictionary <code>ship</code>. This <mark>template file should be in right directory</mark>. How to setup templates you can find here: <a href=\"https://docs.djangoproject.com/en/3.0/topics/templates/\">docs.djangoproject.com/en/3.0/topics/templates/</a></div>\r\n    <div class=\"alert alert-secondary\"><mark>Context is always dictionary!</mark> Even there is the only one string to pass we have to pass it as dictionary, i.e. <code>context = {'name_of_variable': 'string_to_pass'}</code></div>\r\n\r\n    <p>Our view is ready. Now we need to say Django how and where to insert <mark>variables from context</mark> into <abbr title=\"HyperText Markup Language\" >HTML</abbr>. We will do this in template file using DTL syntax for variables. Names of variables are <mark><strong>keys from context dictionary</strong></mark> surrounded by doubled curly brackets. Exactly like that: <mark><code>{{&nbsp;name_of_variable&nbsp;}}</code></mark>. So our template should looks like this:</p>\r\n    <pre><strong class=\"hljs-link\">views.py:</strong><code class=\"django\">&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n      &lt;meta charset=\"UTF-8\"&gt;\r\n      &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n      &lt;h1&gt;Imperial Bureau of Ships and Services Registry&lt;&lt;/h1&gt;\r\n      &lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ name }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ type }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ owner }}&lt;/p&gt;\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n   <ul class=\"list-group\">\r\n      <li class=\"list-group-item list-group-item-secondary\"><strong>\r\n        {{ name }}, {{ type }}, {{ owner }}</strong> are names (actually keys) of variables from our ship dictionary declared in <code class=\"hljs-link\"><strong>views.py</strong></code>\r\n      Doubled curly brackets are just <mark>syntax of Django Template Language</mark> which are saying Django: here are Python variables.</li>\r\n      <li class=\"list-group-item list-group-item-secondary\">If variable is not passed to template Django will return object <code class=\"hljs-name\">undefined</code></li>\r\n    </ul>\r\n  <p>After all we can expect such output (we don't change path defined in <strong class=\"hljs-link\">urls.py</strong> from first example):</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_1.png\" alt=\"simple view\">\r\n  <p>What is worth to remember with the context we can pass not only strings, numbers but as well objects, lists, tuples etc. Let take a look at example.\r\n    We change a bit view and pass as context dictionary of tuples.</p>\r\n  <pre><strong class=\"hljs-link\">views.py:</strong><code>def ships_view(request):\r\n    ships = {\r\n        \"name\": (\"Millennium Falcon\", \"Tantive IV\", \"Ghost\"),\r\n        \"type\": (\"YT-1300 Light Freighter\", \"CR90 Corellian Corvette\", \" VCX-100 light freighter\"),\r\n        \"owner\": (\"Han Solo\", \"Princess Leia Organa\", \"Hera Syndulla\")\r\n    }\r\n    return render(request, \"tutorials/star_wars_data.html\", ships)</code></pre>\r\n  <div>If we use template <strong>star_wars_data.html</strong>, our site will render like that:</div>\r\n  <div><img class=\"img-fluid\" src=\"img/screens/output_2.png\" alt=\"view with tuples\"></div>\r\n  <p>Not nice, isn't it? Django rendered all content of our tuples. But how to get just a one element of each tuple? In Python for dictionary and tuples we use such syntax with square brackets:</p>\r\n  <pre><code class=\"bash\">>>> ships['name'][0]\r\n'Millennium Falcon'</code></pre>\r\n  <pre><code class=\"bash\">>>> ships['name'][1]\r\n'Tantive IV'</code></pre>\r\n    <p>Django Template Language don't use square brackets. The lookup role is playing just by <mark>'.' operator</mark> - yes i mean dot (it's why you cannot name variables with dots).\r\n    To access a element of tuple we need add dot operator after key name: <code>{{ name_of_variable.index_of_element }}</code>. Let's take a look on our modified HTML template.</p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.html</strong><code class=\"django\">&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ name.0 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ type.0 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ owner.0 }}&lt;/p&gt;\r\n    &lt;hr&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ name.1 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ type.1 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ owner.1 }}&lt;/p&gt;\r\n    &lt;hr&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ name.2 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ type.2 }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ owner.2 }}&lt;/p&gt;\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  <p>Now we can display all records of our database - each separately. Horizontal lines (&lt;hr&gt;) are added just for better readability.</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_3.png\" alt=\"output of simple view\">\r\n  <p>With dot operator we can lookup not only attributes but methods as well, so remember not to use the same name for keys in dictionary and for the methods.\r\n    Specially we can pass from views ORM objects from database called <mark><strong>QuerySets</strong></mark>. To do this let's define simple model in <strong>models.py</strong>:</p>\r\n  <pre><strong class=\"hljs-link\">models.py:</strong><code>class StarShips(models.Model):\r\n    type = models.CharField(max_length=30)\r\n    name = models.CharField(max_length=128)\r\n    owner = models.CharField(max_length=64)\r\n  </code></pre>\r\n  <p>Now we change view to get all records from database and pass them with the context to HTML template.</p>\r\n  <pre><strong class=\"hljs-link\">views.py:</strong><code>def ships_view(request):\r\n    ships = StarShips.objects.all()\r\n    context = {\r\n        'ships': ships\r\n    }\r\n    return render(request, \"tutorials/star_wars_data.html\", context)</code></pre>\r\n  <p>We created QuerySet called <code>ships</code> which fetch all records from database. After we created dictionary <code>context</code> to pass it into the template.\r\n    Now we are ready to show our <mark>QuerySet</mark> on the site. We need once again use <strong>name of the key in dictionary surrounded doubled curly brackets:</strong></p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.py:</strong><code class=\"django\">&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    &lt;p&gt;{{ ships }}&lt;/p&gt;\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  <p>And what we get in a browser?</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_4.png\" alt=\"output of simple view\">\r\n  <p>Oops. Output is really ugly. We only see names of objects. But we want to see values.\r\n    Let's try to use QuerySet <code class=\"hljs-title\">value</code> method. Dot operator allow us to do this.</p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.py:</strong><code class=\"django\">&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    &lt;p&gt;{{ ships.values }}&lt;/p&gt;\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  Let's see what we get in a browser:\r\n  <div><img class=\"img-fluid\" src=\"img/screens/output_5.png\" alt=\"output of simple view\"></div>\r\n  <p>We have whole list of space ships. But once again it's very ugly display, we see structure of QuerySet but we don't want to. The set has got 3 elements (indexed 0, 1, 2) which are dictionaries.\r\n    So, similarly like with tuples or lists, to <mark>lookup the one element we need dot operator followed by index</mark> of element we looking for. To lookup deeper we should use another dot.\r\n    Our element is dictionary so to get just concrete value <mark>after second dot we should input name of key in dictionary</mark> (we got there 4 keys: <code class=\"hljs-keyword\">id, type, name, owner</code>). At this stage we are not going to use <code>id</code> key. Let's see this in practice:</p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.py:</strong><code class=\"django\">&lt;!DOCTYPE html&gt;\r\n    &lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ ships.0.name }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ ships.0.type }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ ships.0.owner }}&lt;/p&gt;\r\n    &lt;hr&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ ships.1.name }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ ships.1.type }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ ships.1.owner }}&lt;/p&gt;\r\n    &lt;hr&gt;\r\n    &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ ships.2.name }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ ships.2.type }}&lt;/p&gt;\r\n    &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ ships.2.owner }}&lt;/p&gt;\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  <p>Now we've got right display. Each element of QuerySet is showed separately:</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_3.png\" alt=\"output of simple view\">\r\n  <p class=\"mt-1 alert alert-secondary\">Variables in templates can be modified by <strong>filters</strong>. Just after variable you need to give sign |. For example: <code class=\"django\">{{ value|lower }}</code> converts string to lowercase.\r\n      You can use more than one filter: <code class=\"django\">{{ var|escape|title }}</code>. More details and all filters you can find here: <a href=\"https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#ref-templates-builtins-filters\">built-in template filters</a> </p>\r\n  <p>For lucky our example database is not big - only 3 ships. But imagine registry with hundreds of ships! Coding HTML template could have been very tough and not nice thing.\r\n    How to handle big database? With help is coming another main construct of DTL - <mark><strong>tags</strong></mark>.</p>\r\n\r\n  <h2>{% Tags %}</h2>\r\n    <div>A template tags are surrounded by {% and %}. Tags are more complex than variables and <mark>shortly they do something like a function</mark>. Some create text in the output, some control flow by performing loops or logic, and some load external information into the template to be used by later variables. Some example functions performed by template tags are:</div>\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item list-group-item-secondary\">display logic <code class=\"django\">{% if %}...{% endif %}</code></li>\r\n    <li class=\"list-group-item list-group-item-secondary\">loop control <code class=\"django\">{% for x in y %}...{% endfor %}</code></li>\r\n    <li class=\"list-group-item list-group-item-secondary\">block declaration <code class=\"django\">{% block content %}...{% endblock %}</code></li>\r\n    <li class=\"list-group-item list-group-item-secondary\">content import <code class=\"django\">{% include \"header.html\" %}</code></li>\r\n    <li class=\"list-group-item list-group-item-secondary\">inheritance <code class=\"django\">{% extends \"base.html\" %}</code></li>\r\n  </ul>\r\n    <p>How could it help us with displaying ships database? We use one of the most popular tag i.e. <mark>for loop</mark>. That loop works in the same way as for loop in Python. Let's then modify our HTML template:</p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.html:</strong><code class=\"django\">&lt;!DOCTYPE html&gt;\r\n&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n  &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    {% for ship in ships %}\r\n      &lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ ship.name }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ ship.type }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ ship.owner }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Registration number: &lt;/strong&gt;{{ ship.id }}&lt;/p&gt;\r\n    &lt;hr&gt;\r\n    {% endfor %}\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n\r\n  <ul class=\"list-group\">\r\n    <li class=\"list-group-item list-group-item-secondary\">Remember that inside <code class=\"django\">{% %}</code> <mark><strong>we don't call variables with doubled curly brackets!</strong></mark> We just call variable exactly like in Python</li>\r\n    <li class=\"list-group-item list-group-item-secondary\">We iterate through QuerySet <code class=\"bg-dark hljs-built_in\">ships</code> so inside the loop we don't need to use indexes</li>\r\n  </ul>\r\n  <p>Let's check how the output looks like.</p>\r\n   <div><img class=\"img-fluid\" src=\"img/screens/output_6.png\" alt=\"output of simple view\"></div>\r\n  <p>No to much coding, we not repeating code and have got all records from database in the browser. Nice. But what to do if there is not any record of ship in database? Django offer special feature empty in for loop</p>\r\n  <pre><strong class=\"hljs-link\">star_wars_data.html:</strong><code class=\"django\">{% for ship in ships %}\r\n  &lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ ship.name }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ ship.type }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ ship.owner }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Registration number: &lt;/strong&gt;{{ ship.id }}&lt;/p&gt;\r\n  &lt;hr&gt;\r\n{% empty %}}\r\n   <strong>There is no any ship in registry</strong>\r\n{% endfor %}</code></pre>\r\n    <p class=\"alert alert-secondary\">As you can see some tags require beginning tag and closing tag (i.e. <code class=\"django\">{% tag %} ... tag contents ... {% endtag %}</code>).</p>\r\n      Another tag which require to be closed is <code>if, elif, else</code> tag, which control logic.\r\n    <p>Below example use two variables <code class=\"bg-dark hljs-built_in\">ship</code> from registry and <code>non_registered_ship</code>.\r\n      if with context is passed <code class=\"bg-dark hljs-built_in\">ship</code> Django will render ship data. if with context is passed <code class=\"bg-dark hljs-built_in\">non_registered_ship</code>,\r\n      Django will show everything inside <code>elif</code> statement. if both variables are undefined and return false, Django will show message inside <code>else</code> statement.</p>\r\n    <pre><strong class=\"hljs-link\">star_wars_data.html:</strong><code class=\"django\">&lt;!DOCTYPE html&gt;\r\n&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    {% if ship %}\r\n      &lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ ship.name }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ ship.type }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ ship.owner }}&lt;/p&gt;\r\n      &lt;p&gt;&lt;strong&gt;Registration number: &lt;/strong&gt;{{ ship.id }}&lt;/p&gt;\r\n    {% elif <span class=\"bg-dark hljs-built_in\">non_registered_ship</span> %}\r\n      Ship is not officially registered!\r\n    {% else %}\r\n      There is no such ship in databases.\r\n    {% endif %}\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n    <p class=\"alert alert-secondary\">You can use operators with if tag. Here are all allowed: <mark>or, and, ==, !=, <, >, >=, <=, in, not, not in, is, is not</mark>.\r\n      For example: <code class=\"django\">{% if v > 1 %}{% elif value < 0 %}{% endif %}</code></p>\r\n    <p> Let's check out another tag - maybe not so popular but very useful tag which is called <code class=\"django\">include</code>.\r\n      It's a one of tags which <mark>doesn't require to closing tag</mark>. <code>Include</code> is the simplest way to use another template.\r\n      Very simple way to avoid redundancy of code. We change our <code class=\"hljs-link\"><strong>start_wars_data.html</strong></code> to show the power of <code>include</code>.</p>\r\n<pre><strong class=\"hljs-link\">star_wars_data.html:</strong><code class=\"django\">&lt;!DOCTYPE html&gt;\r\n&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    &lt;h2&gt;Imperial Bureau of Ships and Services Registry&lt;/h2&gt;\r\n    {% for ship in ships %}\r\n     {% include 'tutorials/ship_data.html' %}\r\n    {% endfor %}\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  <p>Now we need to create template file <code class=\"hljs-link\"><strong>ship_data.html</strong> </code> in tutorials template\r\n  directory (but this file could be placed anywhere inside project). It's gonna be very short file:</p>\r\n    <pre><strong class=\"hljs-link\">ship_data.html:</strong><code class=\"django\">&lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ ship.name }}&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ ship.type }}&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ ship.owner }}&lt;/p&gt;\r\n&lt;p&gt;&lt;strong&gt;Registration number: &lt;/strong&gt;{{ ship.id }}&lt;/p&gt;</code></pre>\r\n  <p class=\"alert alert-secondary\">What is going to happen? Content of <strong class=\"hljs-link\">ship_data.html</strong> will be\r\n    imported to <strong class=\"hljs-link\">star_wars_data.html</strong> and placed exactly inside <mark>for loop</mark>. </p>\r\n    <p>We don't need to change our <mark>views</mark> and <mark>urls</mark>. If we use our <strong class=\"hljs-title\">ships_view</strong> our output should be like that:</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_6.png\" alt=\"output of simple view\">\r\n   <p class=\"mt-1\"><code>Include</code> tag is beautiful for importing content of files. But it's not inheritance - the most powerful thing offered by Django Template Language.\r\n    To get it we need to use two another tags: <code class=\"django\">{% extends \"name_of_file\" %}</code> and <code class=\"django\">{% block %}{% endblock %}</code>. Let's check how it works. </p>\r\n  <p>First we require create base template file - we name it <strong class=\"hljs-link\">base.html</strong> and place it in template directory:</p>\r\n    <pre><strong class=\"hljs-link\">base.html:</strong><code class=\"django\"><!DOCTYPE html>\r\n&lt;html lang=\"en\"&gt;\r\n  &lt;head&gt;\r\n    {% block head %}\r\n      &lt;link rel=\"stylesheet\" href=\"style.css\" /&gt;\r\n      &lt;meta charset=\"UTF-8\"&gt;\r\n      &lt;title&gt;{% block title %}My website{% endblock %}&lt;/title&gt;\r\n    {% endblock %}\r\n  &lt;/head&gt;\r\n  &lt;body&gt;\r\n    {% block content %}{% endblock %}\r\n  &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n  <p class=\"alert alert-secondary\">Block tags need to be closed by <code class=\"django\">{% endblock %}</code>. </p>\r\n  <p>Now we just modify our <strong class=\"hljs-link\">star_wars_data.html</strong>, where we add <code>extend</code> tag and <code>blocks</code></p>\r\n    <pre><strong class=\"hljs-link\">star_wars_data.html:</strong><code class=\"django\">{% extends 'base.html' %}\r\n{% block head%}\r\n  &lt;meta charset=\"UTF-8\"&gt;\r\n  &lt;title&gt;IBoSS Registry from the block&lt;/title&gt;\r\n{% endblock %};\r\n{% block content %}\r\n  &lt;h2&gt;Imperial Bureau of Ships and Services Registry from the block&lt;/h2&gt;\r\n{% for ship in ships %}\r\n  &lt;p&gt;&lt;strong&gt;Name of ship: &lt;/strong&gt;{{ ship.name }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Type: &lt;/strong&gt;{{ ship.type }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Owner: &lt;/strong&gt;{{ ship.owner }}&lt;/p&gt;\r\n  &lt;p&gt;&lt;strong&gt;Registration number: &lt;/strong&gt;{{ ship.id }}&lt;/p&gt;\r\n&lt;hr&gt;\r\n{% endfor %} </code></pre>\r\n  <p>We don't need to change views and urls. Inheritance allow us effectively separate frontend (design) from backend.\r\n    So let's use our <strong class=\"hljs-title\">ships_view</strong>, urls for this view and check out output</p>\r\n  <img class=\"img-fluid\" src=\"img/screens/output_blocks.png\" alt=\"sample of inheritance\">\r\n    <p class=\"mt-2 alert alert-secondary\">Remember if you don't override blocks from <strong class=\"hljs-link\">base.html</strong>, Django will display content from blocks in <strong class=\"hljs-link\">base.html</strong>. In our case if we don't overried block head, the title of page will be <strong class=\"hljs-name\">My website</strong></p>\r\n    <p>We've said about only a few tags. But there are plenty of built-in tags which offer DTL. All you can find here: <a href=\"https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#load\">built-in tags</a>.</p>",
+      "bonus_title": "Custom Context Processor",
+      "bonus": "<p>Imagine that we have got data which we want to use in every template in our Django application. For example we would like to show on any page actual date or version of the application. We can manage this\r\n    in every view but it will be laborious and prone to mistakes. In such case the best way will be use custom context processor.</p>\r\n\r\n    <p>How to do that? First we need to define module where we will keep our processors. Let's create Python file called <mark><strong>my_context_processor.py</strong></mark> in our application directory (remember that you can create the file in any place inside the project). In this file we write function (or more if you want)\r\n    which will have got one parameter - HttpRequest object. That function should return dictionary. </p>\r\n    <pre>my_context_processor.py<code>from datetime import datetime\r\n    def my_cp(request):\r\n    ctx = {\r\n        \"now\": datetime.now(),\r\n        \"version\": \"1.0\",\r\n    }\r\n    return ctx</code></pre>\r\n    <p>Function <mark><code class=\"title\">my_cp</code></mark> is exactly our custom context processor. To make it accessible in whole our project we should register it in Django settings.py. Let's find TEMPLATES settings and add our processor\r\n    to the OPTION key. Just like that:</p>\r\n    <pre>settings.py:<code>TEMPLATES = [\r\n    {\r\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\r\n        'DIRS': [os.path.join(BASE_DIR, 'templates')]\r\n        ,\r\n        'APP_DIRS': True,\r\n        'OPTIONS': {\r\n            'context_processors': [\r\n                'django.template.context_processors.debug',\r\n                'django.template.context_processors.request',\r\n                'django.contrib.auth.context_processors.auth',\r\n                'django.contrib.messages.context_processors.messages',\r\n                'tutorials.my_context_processor.my_cp',\r\n            ],\r\n        },\r\n    },\r\n]</code></pre>\r\n    <p class=\"alert alert-secondary\">Why we add such line: <strong class=\"focusable\">tutorials.my_context_processor.my_cp</strong>? <span class=\"hljs-name\">tutorials</span> is the name of application when the file <strong class=\"hljs-link\">my_context_proccessor.py</strong> actually is.\r\n      <span class=\"hljs-name\">my_cp</span> on the end is just name of processor.</p>\r\n\r\n    Now our processor should be visible and accessible in whole project. We can use all its keys in any template file. Let's check how it works:\r\n  <pre><code class=\"django\">&lt;!DOCTYPE html&gt;\r\n&lt;html lang=\"en\"&gt;\r\n&lt;head&gt;\r\n    &lt;meta charset=\"UTF-8\"&gt;\r\n    &lt;title&gt;IBoSS Registry&lt;/title&gt;\r\n&lt;/head&gt;\r\n    &lt;body&gt;\r\n        &lt;h1&gt;Imperial Bureau of Ships and Services Registry&lt;/h1&gt;\r\n        &lt;p&gt;&lt;strong&gt;Name of ship:&lt;/strong&gt;{{ name }}&lt;/p&gt;\r\n        &lt;p&gt;&lt;strong&gt;Type:&lt;/strong&gt;{{ type }}&lt;/p&gt;\r\n        &lt;p&gt;&lt;strong&gt;Owner:&lt;/strong&gt;{{ owner }}&lt;/p&gt;\r\n        &lt;footer&gt;\r\n          &lt;hr&gt;\r\n          &lt;em&gt;\r\n            Today is {{ now }};\r\n            Version of registry: {{ version }}\r\n          &lt;/em&gt;\r\n        &lt;/footer&gt;\r\n    &lt;/body&gt;\r\n&lt;/html&gt;</code></pre>\r\n\r\n  <div><img class=\"img-fluid\" src=\"img/screens/output_b.png\" alt=\"output of simple view\"></div>\r\n  <p>As you can see custom context processor could be very helpful and allow to avoid redundancy - repeating code.\r\n    And the main thing - we can be sure that we will have got the same data on any page.</p>\r\n\r\n    <p class=\"alert alert-primary\">If you want to know more about Django Temlates Language just dive in Django docs: <a href=\"https://docs.djangoproject.com/en/3.0/ref/templates/\">docs.djangoproject.com/en/3.0/ref/templates/</a> </p>",
+      "author": 1
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 1,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_1.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 2,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_2.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 3,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_3.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 4,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_4.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 5,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_5.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 6,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_6.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 7,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_b.png"
+    }
+  },
+  {
+    "model": "posts.image",
+    "pk": 8,
+    "fields": {
+      "post": 2,
+      "image": "posts/output_blocks.png"
+    }
+  }
+]
