@@ -19,4 +19,5 @@ class ZappyUser(AbstractUser):
 # model is needed because of case not getting data from github API
 class LastCommit(models.Model):
     commit_url = models.URLField()
-    last_update = models.DateTimeField()
+    commit_time = models.DateTimeField()
+    last_checked = models.DateTimeField()
