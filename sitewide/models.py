@@ -14,3 +14,10 @@ class ZappyUser(AbstractUser):
     # I think the only reason we do this is to have something in the model?
     def __str__(self):
         return self.email
+
+
+# model is needed because of case not getting data from github API
+class LastCommit(models.Model):
+    commit_url = models.URLField()
+    commit_time = models.DateTimeField()
+    last_checked = models.DateTimeField()

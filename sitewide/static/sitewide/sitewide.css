@@ -9895,6 +9895,15 @@ body {
   font-weight: 300;
 }
 
+.link-white a {
+  color: white;
+  text-decoration: underline;
+}
+
+.link-white a:hover {
+  filter: brightness(75%);
+}
+
 /* Navbar */
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.8) !important;
