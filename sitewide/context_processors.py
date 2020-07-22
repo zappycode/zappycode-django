@@ -69,7 +69,7 @@ def zappy_footer(request):
 
     # count time difference from now
     last_update = DateTools(datetime.utcnow(), update_date).get_delta()
-    amount_members = ZappyUser.objects.all().count()
+    amount_members = ZappyUser.objects.all().filter(active_membership=True).count()
     latest_month = Month.objects.order_by('-year', '-month').first()
 
     context = {
