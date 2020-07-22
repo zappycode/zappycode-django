@@ -1,11 +1,11 @@
 {% load humanize %}
 
 <div class="row justify-content-around align-items-center bg-primary">
-    <div class="col-lg-7 col-md-8 col-11 pt-3 pb-3">
+    <div class="col-12 pt-3 pb-3">
         <div class="text-center text-white bold lead link-white">
-            ZappyCode was updated 💻 <a href="{{ commit_url }}">{{ last_commit }} ago</a>, has
-            🧑‍💻 <a href="{% url 'pricing' %}">{{ amount_members }} member{{ amount_members|pluralize }}</a> and
-            {% if latest_month.profit_or_loss >= 0 %}made 🤑 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss|floatformat:"0"|intcomma }}{% else %}lost 😵 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss_abs|floatformat:"0"|intcomma }}{% endif %}</a> last month
+            ZappyCode was <span class="text-nowrap">updated 💻 <a href="{{ commit_url }}">{{ last_commit }} ago</a>,</span> <span class="text-nowrap">has
+            🧑‍💻 <a href="{% url 'pricing' %}">{{ amount_members }} member{{ amount_members|pluralize }}</a></span> and
+            <span class="text-nowrap">{% if latest_month.profit_or_loss >= 0 %}made 🤑 <a href="{% url 'money:home' %}">${{ latest_month.profit_or_loss|floatformat:"0"|intcomma }}{% else %}lost 😵 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss_abs|floatformat:"0"|intcomma }}{% endif %}</a> last month</span>
         </div>
     </div>
 </div>
