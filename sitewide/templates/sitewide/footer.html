@@ -5,12 +5,7 @@
         <div class="text-center text-white bold lead link-white">
             ZappyCode was updated 💻 <a href="{{ commit_url }}">{{ last_commit }} ago</a>, has
             🧑‍💻 <a href="{% url 'pricing' %}">{{ amount_members }} member{{ amount_members|pluralize }}</a> and
-            {% if latest_month.profit_or_loss >= 0 %}made 🤑
-                <a class="a-footer" href="{% url 'money:home' %}">$
-                {{ latest_month.profit_or_loss|floatformat:"0"|intcomma }}{% else %}lost
-                😵
-                <a class="a-footer" href="{% url 'money:home' %}">$
-                {{ latest_month.profit_or_loss_abs|floatformat:"0"|intcomma }}{% endif %}</a> last month
+            {% if latest_month.profit_or_loss >= 0 %}made 🤑 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss|floatformat:"0"|intcomma }}{% else %}lost 😵 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss_abs|floatformat:"0"|intcomma }}{% endif %}</a> last month
         </div>
     </div>
 </div>
