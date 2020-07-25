@@ -57,6 +57,15 @@
                             <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
                         </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/zappycode/zappycode-django">Code</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'money:home' %}">Money</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://plausible.io/zappycode.com">Analytics</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}

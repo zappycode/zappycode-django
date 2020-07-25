@@ -1,5 +1,6 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block head %}
     {% include "sitewide/pretty_socials.html" with title="ZappyCode Open Financials" description="Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's going on financially and hear your thoughts." %}
@@ -28,19 +29,19 @@
     <div class="row row justify-content-center bg-success">
         <div class="col-md-3 col-4 text-center">
             <h3 class="text-white">Revenue</h3>
-            <h1 class="text-white">${{ revenue }}</h1>
+            <h1 class="text-white">${{ revenue|floatformat:0|intcomma }}</h1>
         </div>
         <div class="col-md-3 col-4 text-center">
             <h3 class="text-white">Expenses</h3>
-            <h1 class="text-white">$<span class="underline-red">{{ expenses }}</span></h1>
+            <h1 class="text-white">$<span class="underline-red">{{ expenses|floatformat:0|intcomma }}</span></h1>
         </div>
         <div class="col-md-3 col-4 text-center">
             {% if is_profit %}
                 <h3 class="text-white">Profit</h3>
-                <h1 class="text-white">${{ profit }}</h1>
+                <h1 class="text-white">${{ profit|floatformat:0|intcomma }}</h1>
             {% else %}
                 <h3 class="text-white">Loss</h3>
-                <h1 class="text-white">$<span class="underline-red">{{ profit }}</span></h1>
+                <h1 class="text-white">$<span class="underline-red">{{ profit|floatformat:0|intcomma }}</span></h1>
             {% endif %}
 
         </div>

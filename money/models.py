@@ -9,7 +9,7 @@ class Month(models.Model):
     expenses = models.DecimalField(max_digits=10, decimal_places=2)
     revenue = models.DecimalField(max_digits=10, decimal_places=2)
     body = models.TextField()
-    youtube_id = models.CharField(max_length=255)
+    youtube_id = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.title()

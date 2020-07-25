@@ -13,17 +13,19 @@
         </div>
     </div>
 
-    <div class="row justify-content-around align-items-center bg-success">
-        <div class="col-lg-5 col-md-8 col-11 pt-4 pb-2">
-            {% if month.youtube_id %}
+    {% if month.youtube_id %}
+        <div class="row justify-content-around align-items-center bg-success">
+            <div class="col-lg-5 col-md-8 col-11 pt-4 pb-2">
+
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe src="https://www.youtube.com/embed/{{ month.youtube_id }}" frameborder="0"
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                 </div>
-            {% endif %}
+
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="row justify-content-around align-items-center bg-success">
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
