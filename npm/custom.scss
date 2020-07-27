@@ -1,5 +1,6 @@
 // Add custom stuff here
 
+
 $primary: #6e00ff;
 
 @import "node_modules/bootstrap/scss/bootstrap";
@@ -184,6 +185,7 @@ body {
   text-decoration-color: #6e00ff;
 }
 
+
 /* Post Page */
 
 .big-title {
@@ -202,4 +204,13 @@ body {
   .big-title {
     font-size: 2rem;
   }
+}
+
+/* Lecture View - locked */
+#members-only-btn {
+  border: 5px solid white;
+  background: linear-gradient(140deg, #6e00ff, transparent);
+}
+#members-only-btn:hover {
+  background: linear-gradient(40deg, transparent, -webkit-activelink);
 }

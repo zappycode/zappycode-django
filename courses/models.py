@@ -1,7 +1,10 @@
+from operator import itemgetter
+
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils.text import slugify
-
+import requests
+from courses.vimeo_token import bearer_token
 
 class Course(models.Model):
     title = models.CharField(max_length=255)
@@ -40,6 +43,7 @@ class Lecture(models.Model):
     number = models.IntegerField(validators=[MinValueValidator(1)])
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
+    thumbnail_url = models.URLField(blank=True)
 
     def slug(self):
         return slugify(self.title)
@@ -81,3 +85,13 @@ class Lecture(models.Model):
             # - later and actual one - after it return last element
             __prev_lectures = __lectures.exclude(section_id=self.section_id, number__gte=self.number)
             return __prev_lectures.last()
+
+    def get_thumbnail_url(self):
+        headers = {'Authorization':  bearer_token}
+        video_data = requests.get('https://api.vimeo.com/videos/'
+                                  + str(self.vimeo_video_id) +'/?sizes=1920', headers=headers)
+        thumb_url = video_data.json()['pictures']['sizes'][0]['link']
+        if '.jpg' in thumb_url:
+            return thumb_url
+        else:
+            return ''
