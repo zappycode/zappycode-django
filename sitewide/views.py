@@ -32,7 +32,6 @@ def account(request):
         form = AccountSettingsForm(request.POST, request.FILES)
 
         if 'delete' in request.POST:
-            print('ufff. jest')
             user.pic.delete()
             messages.success(request, 'You\'ve deleted profile picture.')
         elif form.is_valid() and form.cleaned_data['pic']:
