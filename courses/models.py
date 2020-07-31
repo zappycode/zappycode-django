@@ -13,6 +13,7 @@ class Course(models.Model):
     release_date = models.DateField()
     first_lecture = models.ForeignKey(to='Lecture', on_delete=models.DO_NOTHING)
     download_link = models.URLField(blank=True)
+    published = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
