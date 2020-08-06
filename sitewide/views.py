@@ -24,6 +24,10 @@ def pricing(request):
     return render(request, 'sitewide/pricing.html')
 
 
+def newsletter(request):
+    return render(request, 'sitewide/newsletter.html')
+
+
 @login_required
 def account(request):
     forms = AccountSettingsForm()

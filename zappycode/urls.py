@@ -21,6 +21,7 @@ urlpatterns = [
                   path('payment_success', sitewide.views.payment_success, name='payment_success'),
                   path('cancel_subscription', sitewide.views.cancel_subscription, name='cancel_subscription'),
                   path('challenge/<int:pk>', challenge.views.challenge, name='challenge'),
+                  path('newsletter', sitewide.views.newsletter, name='newsletter'),
 
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
