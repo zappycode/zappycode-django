@@ -1,0 +1,38 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block head %}
+    {% include "sitewide/pretty_socials.html" with title="ZappyCode Membership" description="Join ZappyCode with PayPal!" %}
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-around align-items-center bg-primary">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="text-white mb-3">Join ZappyCode with PayPal</h1>
+
+            <div id="paypal-button-container"></div>
+            <script src="https://www.paypal.com/sdk/js?client-id=AYsx8ddPQR4mlcj1XOS9HdjqZosxY1SYR9kZ4iGktoB3NxIGEfqnsgkG2VuZJagmmPCVZIEtUp0z8WBY&vault=true" data-sdk-integration-source="button-factory"></script>
+            <script>
+                paypal.Buttons({
+                    style: {
+                        shape: 'rect',
+                        color: 'gold',
+                        layout: 'vertical',
+                        label: 'paypal',
+
+                    },
+                    createSubscription: function (data, actions) {
+                        return actions.subscription.create({
+                            'plan_id': 'P-57V6750556162122LL4WMRWI'
+                        });
+                    },
+                    onApprove: function (data, actions) {
+                        alert(data.subscriptionID);
+                    }
+                }).render('#paypal-button-container');
+            </script>
+        </div>
+    </div>
+
+{% endblock %}
+
