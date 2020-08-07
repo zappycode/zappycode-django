@@ -19,10 +19,10 @@ def course_landing_page(request, course_slug):
 
 
 def all_courses(request):
-    courses = Course.objects.order_by('-release_date')
+    courses = Course.objects.filter(published=True).order_by('-release_date')
     return render(request, 'courses/all_courses.html', {'courses': courses})
 
 
 class CourseList(generics.ListAPIView):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().filter(published=True).order_by('-release_date')
     serializer_class = CourseSerializer

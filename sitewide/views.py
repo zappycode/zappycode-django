@@ -24,6 +24,14 @@ def pricing(request):
     return render(request, 'sitewide/pricing.html')
 
 
+def newsletter(request):
+    return render(request, 'sitewide/newsletter.html')
+
+
+def paypal(request):
+    return render(request, 'sitewide/paypal.html')
+
+
 @login_required
 def account(request):
     forms = AccountSettingsForm()
@@ -32,7 +40,6 @@ def account(request):
         form = AccountSettingsForm(request.POST, request.FILES)
 
         if 'delete' in request.POST:
-            print('ufff. jest')
             user.pic.delete()
             messages.success(request, 'You\'ve deleted profile picture.')
         elif form.is_valid() and form.cleaned_data['pic']:
