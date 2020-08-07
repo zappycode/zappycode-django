@@ -7,6 +7,9 @@ from .serializers import CourseSerializer
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
     lecture = get_object_or_404(Lecture, pk=lecturepk)
+    if not lecture.thumbnail_url:
+        lecture.thumbnail_url = lecture.get_thumbnail_url()
+        lecture.save()
     return render(request, 'courses/view_lecture.html', {'lecture': lecture})
 
 
