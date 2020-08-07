@@ -28,6 +28,10 @@ def newsletter(request):
     return render(request, 'sitewide/newsletter.html')
 
 
+def paypal(request):
+    return render(request, 'sitewide/paypal.html')
+
+
 @login_required
 def account(request):
     forms = AccountSettingsForm()
