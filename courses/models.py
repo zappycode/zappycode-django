@@ -48,7 +48,7 @@ class Lecture(models.Model):
     number = models.IntegerField(validators=[MinValueValidator(1)])
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
-    thumbnail_url = models.URLField(blank=True)
+    thumbnail_url = models.URLField(blank=True, null=True)
 
     def slug(self):
         return slugify(self.title)
