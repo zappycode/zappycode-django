@@ -154,6 +154,8 @@ SITE_ID = 1
 
 # Admin - For emailing errors
 ADMINS = [(env.str('ADMIN_NAME', default='root'), env.str('ADMIN_EMAIL', default='root@localhost'))]
+# This is the from address for errors
+SERVER_EMAIL = env.str('SERVER_EMAIL', default='root@localhost')
 
 # Email
 
