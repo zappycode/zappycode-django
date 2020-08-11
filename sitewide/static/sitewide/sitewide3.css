@@ -10647,4 +10647,14 @@ body {
     }
 }
 
-/*# sourceMappingURL=sitewide2.css.map */
+/* Lecture View - locked */
+#members-only-btn {
+    border: 5px solid white;
+    background: linear-gradient(140deg, #6e00ff, transparent);
+}
+
+#members-only-btn:hover {
+    background: linear-gradient(40deg, transparent, yellow);
+}
+
+/*# sourceMappingURL=sitewide3.css.map */

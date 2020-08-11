@@ -1,6 +1,13 @@
+from operator import itemgetter
+
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils.text import slugify
+import requests
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 
 class Course(models.Model):
@@ -41,6 +48,7 @@ class Lecture(models.Model):
     number = models.IntegerField(validators=[MinValueValidator(1)])
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
+    thumbnail_url = models.URLField(blank=True, null=True)
 
     def slug(self):
         return slugify(self.title)
@@ -82,3 +90,13 @@ class Lecture(models.Model):
             # - later and actual one - after it return last element
             __prev_lectures = __lectures.exclude(section_id=self.section_id, number__gte=self.number)
             return __prev_lectures.last()
+
+    def get_thumbnail_url(self):
+        print(env.str('VIMEO_BEARER', default=''))
+        headers = {'Authorization': 'bearer ' + env.str('VIMEO_BEARER', default='')}
+        video_data = requests.get('https://api.vimeo.com/videos/' + str(self.vimeo_video_id) + '/?sizes=1920', headers=headers)
+        try:
+            thumb_url = video_data.json()['pictures']['sizes'][0]['link']
+            return thumb_url
+        except KeyError:
+            return None
