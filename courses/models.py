@@ -92,9 +92,9 @@ class Lecture(models.Model):
             return __prev_lectures.last()
 
     def get_thumbnail_url(self):
-        headers = {'Authorization': 'bearer ' + env('VIMEO_BEARER')}
-        video_data = requests.get('https://api.vimeo.com/videos/'
-                                  + str(self.vimeo_video_id) + '/?sizes=1920', headers=headers)
+        print(env.str('VIMEO_BEARER', default=''))
+        headers = {'Authorization': 'bearer ' + env.str('VIMEO_BEARER', default='')}
+        video_data = requests.get('https://api.vimeo.com/videos/' + str(self.vimeo_video_id) + '/?sizes=1920', headers=headers)
         try:
             thumb_url = video_data.json()['pictures']['sizes'][0]['link']
             return thumb_url
