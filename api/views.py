@@ -22,9 +22,13 @@ def iap_signup(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         receipt = data['receipt']
-        # TODO Change this back to production when the app launches
-        # verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
-        verify_url = 'https://sandbox.itunes.apple.com/verifyReceipt'
+        if ZappyUser.objects.filter(apple_receipt=receipt).exists():
+            return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True},
+                                status=400)
+        verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
+        if 'debug' in data:
+            if data['debug']:
+                verify_url = 'https://sandbox.itunes.apple.com/verifyReceipt'
         receipt_json = json.dumps(
             {"receipt-data": receipt, 'password': env.str('APP_SHARED_SECRET', default='')})
         response = requests.request(
@@ -46,16 +50,17 @@ def iap_signup(request):
             user.apple_expires_date = datetime.datetime.fromtimestamp(
                 int(res_json['latest_receipt_info'][-1]['expires_date_ms']) / 1000)
             user.active_membership = True
+            user.apple_receipt = receipt
             user.save()
             token = Token.objects.create(user=user)
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
-            return JsonResponse({'error': 'That email has already been taken. Please choose a new username'},
+            return JsonResponse({'error': 'That email has already been taken'},
                                 status=400)
         except KeyError:
-            return JsonResponse({'error': 'We had problems verifying the receipt'},
+            return JsonResponse({'error': 'We had problems verifying the receipt. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
         except Exception as e:
             print(e)
-            return JsonResponse({'error': 'Something went wrong. Not sure what tho. Contact nick@ZappyCode.com'},
+            return JsonResponse({'error': 'Something went wrong. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
