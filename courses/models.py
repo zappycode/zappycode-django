@@ -5,7 +5,8 @@ from django.core.validators import MinValueValidator
 from django.utils.text import slugify
 import requests
 import environ
-
+from tkinter import filedialog
+from tkinter import *
 env = environ.Env()
 environ.Env.read_env()
 
@@ -49,6 +50,7 @@ class Lecture(models.Model):
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
     thumbnail_url = models.URLField(blank=True, null=True)
+    download_url = models.URLField(blank=True, null=True)
 
     def slug(self):
         return slugify(self.title)
@@ -98,5 +100,15 @@ class Lecture(models.Model):
         try:
             thumb_url = video_data.json()['pictures']['sizes'][0]['link']
             return thumb_url
+        except KeyError:
+            return None
+
+    def get_download_url(self):
+        headers = {'Authorization': 'bearer ' + env.str('VIMEO_BEARER', default='')}
+        video_data = requests.get('https://api.vimeo.com/videos/'
+                                  + str(self.vimeo_video_id) + '/?fields=files', headers=headers)
+        try:
+            download_url = video_data.json()['files'][1]['link']
+            return download_url
         except KeyError:
             return None
