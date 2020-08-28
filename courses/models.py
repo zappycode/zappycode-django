@@ -1,12 +1,9 @@
-from operator import itemgetter
-
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.utils.text import slugify
 import requests
 import environ
-from tkinter import filedialog
-from tkinter import *
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -108,7 +105,7 @@ class Lecture(models.Model):
         video_data = requests.get('https://api.vimeo.com/videos/'
                                   + str(self.vimeo_video_id) + '/?fields=files', headers=headers)
         try:
-            download_url = video_data.json()['files'][1]['link']
+            download_url = video_data.json()['files'][0]['link']
             return download_url
         except KeyError:
             return None
