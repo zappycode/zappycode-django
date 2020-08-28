@@ -20,6 +20,7 @@
                                 allow="autoplay; fullscreen" allowfullscreen></iframe>
                     </div>
                 {% endif %}
+
                 {% if lecture.text %}
                     <div class="card">
                         <div class="card-body">
@@ -45,7 +46,7 @@
                              src="{% if lecture.thumbnail_url %}{{ lecture.thumbnail_url }}{% else %}{% static 'courses/MembersOnly.jpg' %}{% endif %}">
                     </div>
                     <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                        <div class="d-flex align-items-center bg-transparent justify-content-center">
+                        <div class="align-items-center d-flex bg-transparent justify-content-center">
                             <a id="members-only-btn"
                                class="pb-2 pt-2 pt-lg-5 pb-lg-5 big-title font-weight-bold text-center text-white link-white h-75 w-75 rounded-circle"
                                href="{% url 'pricing' %}">
@@ -85,13 +86,28 @@
             </div>
         </div>
     </div>
-
+    <div id="download-info" class="row card-img-overlay align-items-center justify-content-center bg-transparent position-fixed" style="display: none !important">
+        <div class="border border-white p-3 p-lg-3 big-title font-weight-bold text-center text-white link-white " style="background: rgba(110, 0, 255, .85)">Grabbing your download, one sec...</div>
+    </div>
 {% endblock %}
 
 {% block javascript %}
+
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        });
+
+            $("#download").click(function () {
+                $.ajax({
+                    url: this.href,
+                });
+            });
+        }).ajaxStart(function () {
+            $("#download-info").show()
+        })
+            .ajaxComplete(function () {
+                $("#download-info").delay(2000).fadeOut();
+            });
     </script>
+
 {% endblock %}

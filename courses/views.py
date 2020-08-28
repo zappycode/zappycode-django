@@ -1,8 +1,36 @@
+from datetime import datetime
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, permissions
-
 from .models import Lecture, Section, Course
+from sitewide.models import ZappyUser
 from .serializers import CourseSerializer
+import requests
+from django.contrib import messages
+
+
+@login_required
+def download_video(request, lecture_id):
+    lecture = get_object_or_404(Lecture, pk=lecture_id)
+    user = ZappyUser.objects.get(email=request.user.email)
+    if not lecture.download_url:
+        lecture.download_url = lecture.get_download_url()
+        lecture.save()
+
+    # checking user permissions in case of open download url
+    # outside of download button
+    if user.active_membership:
+        file_name = str(lecture.vimeo_video_id) + '.mp4'
+        req = requests.get(lecture.download_url, stream=True, timeout=(5, 10))
+        if req.status_code == 200:
+            response = HttpResponse(req, content_type='video/mp4')
+            response['Content-Disposition'] = 'attachment; filename=' + str(file_name)
+            return response
+        else:
+            messages.warning(request, 'Bummer! Your download has failed')
+            return render(request, 'courses/view_lecture.html', {'lecture': lecture})
 
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
