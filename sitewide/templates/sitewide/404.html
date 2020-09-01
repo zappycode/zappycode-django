@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="row justify-content-around align-items-center bg-primary">
+        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+            <h1 class="display-3 text-white mb-3">Oops!</h1>
+            <h2 class="text-white">We couldn't find the page you were looking for. 😓 </h2>
+
+            <h3 class="text-white">Maybe we lost it. It'll be up again if it existed before.</h3>
+            <br>
+            <h5 class="text-white">Meanwhile, could you try retyping the address? If you see this page again and please contact us.</h5>
+
+
+        </div>
+    </div>
+
+{% endblock %}

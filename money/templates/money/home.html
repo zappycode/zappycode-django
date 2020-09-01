@@ -36,7 +36,7 @@
             <h1 class="text-white">$<span class="underline-red">{{ expenses|floatformat:0|intcomma }}</span></h1>
         </div>
         <div class="col-md-3 col-4 text-center">
-            {% if is_profit %}
+            {% if profit %}
                 <h3 class="text-white">Profit</h3>
                 <h1 class="text-white">${{ profit|floatformat:0|intcomma }}</h1>
             {% else %}
