@@ -117,7 +117,9 @@
                             <div id="card-errors" role="alert"></div>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up with Card</button>
+                        <div class="text-center my-2">OR</div>
+                        <div id="paypal-button-container"></div>
                         <hr class="my-4">
                     </form>
                     <div class="text-center">
@@ -242,5 +244,64 @@
             // Submit the form
             form.submit();
         }
+    </script>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AYsx8ddPQR4mlcj1XOS9HdjqZosxY1SYR9kZ4iGktoB3NxIGEfqnsgkG2VuZJagmmPCVZIEtUp0z8WBY&vault=true&disable-funding=credit,card" data-sdk-integration-source="button-factory"></script>
+    <script>
+        paypal.Buttons({
+            style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'paypal',
+
+            },
+            createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                    {% if request.GET.plan == 'monthly5' %}
+                        'plan_id': 'P-1YB61571V04958518L5G6WZA'
+                    {% elif request.GET.plan == 'monthly10' %}
+                        'plan_id': 'P-03C15976PK486472ML5G6WTY'
+                    {% elif request.GET.plan == 'monthly15' %}
+                        'plan_id': 'P-9DC62922UP140294JL5G6WLY'
+                    {% elif request.GET.plan == 'monthly20' %}
+                        'plan_id': 'P-57V6750556162122LL4WMRWI'
+                    {% elif request.GET.plan == 'monthly25' %}
+                        'plan_id': 'P-50101792WJ0546847L4WH4WY'
+                    {% elif request.GET.plan == 'monthly30' %}
+                        'plan_id': 'P-7A358714F7601202BL5HI7TQ'
+                    {% elif request.GET.plan == 'monthly35' %}
+                        'plan_id': 'P-2UK85844HB728712PL5HI7ZI'
+                    {% elif request.GET.plan == 'monthly40' %}
+                        'plan_id': 'P-9K3410413F7861254L5HI76A'
+                    {% elif request.GET.plan == 'monthly45' %}
+                        'plan_id': 'P-8M708363CH801192BL5HJAEA'
+                    {% elif request.GET.plan == 'yearly50' %}
+                        'plan_id': 'P-6U504875VT704683FL5HJD7I'
+                    {% elif request.GET.plan == 'yearly100' %}
+                        'plan_id': 'P-2DH96336PW845584RL5HJEEQ'
+                    {% elif request.GET.plan == 'yearly150' %}
+                        'plan_id': 'P-4EH42121279058236L5HJEJA'
+                    {% elif request.GET.plan == 'yearly200' %}
+                        'plan_id': 'P-78H42109X21073059L5HJEOI'
+                    {% elif request.GET.plan == 'yearly250' %}
+                        'plan_id': 'P-11L12753BA012325FL5HJETQ'
+                    {% elif request.GET.plan == 'yearly300' %}
+                        'plan_id': 'P-6R513374GY418920GL5HJEXI'
+                    {% elif request.GET.plan == 'yearly350' %}
+                        'plan_id': 'P-82L69039NG549621RL5HJGUI'
+                    {% elif request.GET.plan == 'yearly400' %}
+                        'plan_id': 'P-6NG56401SN412304JL5HJGZY'
+                    {% elif request.GET.plan == 'yearly450' %}
+                        'plan_id': 'P-3RB38188PW153053KL5HJFCQ'
+                    {% else %}
+                        'plan_id': 'P-50101792WJ0546847L4WH4WY'
+                    {% endif %}
+                });
+            },
+            onApprove: function (data, actions) {
+                alert(data.subscriptionID);
+            }
+        }).render('#paypal-button-container');
     </script>
 {% endblock %}
