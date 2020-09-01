@@ -1,6 +1,7 @@
 import datetime
 
 from allauth.account.forms import SignupForm
+from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -64,3 +65,17 @@ def iap_signup(request):
             print(e)
             return JsonResponse({'error': 'Something went wrong. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
+
+
+@csrf_exempt
+def login(request):
+    data = JSONParser().parse(request)
+    user = authenticate(request, email=data['email'], password=data['password'])
+    if user is None:
+        return JsonResponse({'error': 'Could not login. Please check username and password'}, status=400)
+    else:
+        try:
+            token = Token.objects.get(user=user)
+        except:
+            token = Token.objects.create(user=user)
+        return JsonResponse({'token': str(token)}, status=200)
