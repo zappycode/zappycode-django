@@ -6,6 +6,7 @@ environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -16,7 +17,8 @@ SECRET_KEY = env.str('SECRET_KEY', default='ThisIsAWeakSauceSecretKey')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.str('DEBUG', default=True)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', '127.0.0.1', default=[])  # Switch with below line when Debug = False
+#ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 SILENCED_SYSTEM_CHECKS = ["urls.W002"]
 
@@ -69,7 +71,7 @@ ROOT_URLCONF = 'zappycode.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

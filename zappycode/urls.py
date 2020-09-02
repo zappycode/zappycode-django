@@ -7,6 +7,9 @@ import sitewide.views
 import challenge.views
 import courses.views
 import allauth.account.views
+import sitewide
+
+handler404 = 'sitewide.views.error404'
 
 urlpatterns = [
                   path('', sitewide.views.home, name='home'),

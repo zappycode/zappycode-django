@@ -32,6 +32,11 @@ def paypal(request):
     return render(request, 'sitewide/paypal.html')
 
 
+def error404(request, exception):
+    data={}
+    return render(request, 'sitewide/404.html', data)
+
+
 @login_required
 def account(request):
     forms = AccountSettingsForm()
@@ -91,3 +96,4 @@ def cancel_subscription(request):
         return redirect('account')
 
     return redirect('home')
+
