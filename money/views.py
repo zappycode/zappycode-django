@@ -6,9 +6,11 @@ from .models import Month
 def home(request):
     months = Month.objects.order_by('-year', '-month')
     totals = Month.objects.aggregate(revenue=Sum('revenue'), expenses=Sum('expenses'))
-    profit = totals['revenue'] - totals['expenses']
+    profit = 0
+    if totals['revenue'] is not None and totals['expenses'] is not None:
+        profit = totals['revenue'] - totals['expenses']
     return render(request, 'money/home.html',
-                  {'months': months, 'revenue': totals['revenue'], 'expenses': totals['expenses'], 'profit': profit, 'is_profit': profit > 0})
+                  {'months': months, 'revenue': totals['revenue'], 'expenses': totals['expenses'], 'profit': profit, 'is_profit': profit >= 0})
 
 
 def view_month(request, month_pk, month_slug):
