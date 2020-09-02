@@ -1,8 +1,9 @@
 import time
 import stripe
-
+from django.views import View
 from .forms import AccountSettingsForm
 from .models import ZappyUser
+from invites.models import Invite
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from courses.models import Course
@@ -97,3 +98,24 @@ def cancel_subscription(request):
 
     return redirect('home')
 
+
+class CheckActiveMemberships(View):
+
+    def get(self, request):
+        active_members = ZappyUser.objects.filter(active_membership=False)
+        users_membership_expired = []
+
+        for user in active_members:
+            if user.invites_used.exists() and Invite.objects.get(receiver=user).is_expired():
+                # user.active_membership = False
+                # user.save()
+                users_membership_expired.append(user.email)
+        if len(users_membership_expired) == 1:
+            message = 'Membership of one user has expired.'
+        elif len(users_membership_expired) > 1:
+            message = 'Memberships of ' + str(len(users_membership_expired)) + ' users have expired.'
+        else:
+            message = 'None of memberships has expired'
+
+        messages.info(request, message)
+        return redirect('home')
