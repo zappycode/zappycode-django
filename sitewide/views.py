@@ -1,6 +1,7 @@
 import time
 import stripe
-from django.views import View
+from django.http import HttpResponse
+
 from .forms import AccountSettingsForm
 from .models import ZappyUser
 from invites.models import Invite
@@ -8,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from courses.models import Course
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 import environ
 
 env = environ.Env()
@@ -34,7 +36,7 @@ def paypal(request):
 
 
 def error404(request, exception):
-    data={}
+    data = {}
     return render(request, 'sitewide/404.html', data)
 
 
@@ -99,23 +101,21 @@ def cancel_subscription(request):
     return redirect('home')
 
 
-class CheckActiveMemberships(View):
+@staff_member_required
+def check_active_memberships(request):
+    active_members = ZappyUser.objects.filter(active_membership=True)
+    users_membership_expired = set()
 
-    def get(self, request):
-        active_members = ZappyUser.objects.filter(active_membership=False)
-        users_membership_expired = []
+    for user in active_members:
+        for invite in Invite.objects.filter(receiver=user):
+            if invite.is_expired() and user.paypal_subscription_id is None:
+                users_membership_expired.add(user)
+            else:
+                users_membership_expired.discard(user)
+                break
 
-        for user in active_members:
-            if user.invites_used.exists() and Invite.objects.get(receiver=user).is_expired():
-                # user.active_membership = False
-                # user.save()
-                users_membership_expired.append(user.email)
-        if len(users_membership_expired) == 1:
-            message = 'Membership of one user has expired.'
-        elif len(users_membership_expired) > 1:
-            message = 'Memberships of ' + str(len(users_membership_expired)) + ' users have expired.'
-        else:
-            message = 'None of memberships has expired'
+    for user in users_membership_expired:
+        user.active_membership = False
+        user.save()
 
-        messages.info(request, message)
-        return redirect('home')
+    return HttpResponse(f"Done! {len(users_membership_expired)} user memberships canceled. " + ' '.join(map(str, users_membership_expired)))

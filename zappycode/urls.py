@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -15,7 +14,7 @@ handler404 = 'sitewide.views.error404'
 urlpatterns = [
                   path('', sitewide.views.home, name='home'),
                   path('admin/', admin.site.urls),
-                  path('check', staff_member_required(sitewide.views.CheckActiveMemberships.as_view()), name='check_membership'),
+                  path('check', sitewide.views.check_active_memberships, name='check_membership'),
                   path('courses', include('courses.urls')),
                   path('api', include('api.urls')),
                   path('posts', include('posts.urls')),
