@@ -10657,4 +10657,31 @@ body {
     background: linear-gradient(40deg, transparent, yellow);
 }
 
-/*# sourceMappingURL=sitewide3.css.map */
+@media (max-width: 450px) {
+    .display-3 {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 365px) {
+    .display-3 {
+        font-size: 3.3rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+
+    .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+        width: fit-content;
+    }
+
+    .navbar {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/*# sourceMappingURL=sitewide4.css.map */
