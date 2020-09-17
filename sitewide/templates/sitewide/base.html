@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static "sitewide/fontawesome-free/css/all.min.css" %}">
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static "sitewide/sitewide.css" %}" rel="stylesheet">
+    <link href="{% static "sitewide/sitewide4.css" %}" rel="stylesheet">
 
     <!-- Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'sitewide/favicon/apple-touch-icon.png' %}">
@@ -25,11 +25,14 @@
     <meta name="msapplication-TileColor" content="#603cba">
     <meta name="theme-color" content="#ffffff">
 
-    <script async defer data-domain="zappycode.com" src="https://plausible.io/js/plausible.js"></script>
+    {% if not debug %}
+        <script async defer data-domain="zappycode.com" src="https://plausible.io/js/plausible.js"></script>
+    {% endif %}
 
 
     {% block head %}
-        {% include "sitewide/pretty_socials.html" with object=page description="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!" %}{% endblock %}
+        {% include "sitewide/pretty_socials.html" with object=page description="Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!" %}
+    {% endblock %}
 </head>
 
 <body class="h-100 bg-primary">
