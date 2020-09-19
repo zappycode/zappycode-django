@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.urls import reverse
 from django.utils.text import slugify
 import requests
 import environ
@@ -24,25 +25,25 @@ class Course(models.Model):
         return self.title
 
     def sorted_sections(self):
-        return self.section_set.order_by('number')
+        return self.sections.order_by('number')
 
 
 class Section(models.Model):
     title = models.CharField(max_length=255)
-    course = models.ForeignKey(to=Course, on_delete=models.CASCADE)
+    course = models.ForeignKey(to=Course, on_delete=models.CASCADE, related_name='sections')
     number = models.IntegerField(validators=[MinValueValidator(1)])
 
     def __str__(self):
         return self.title
 
     def sorted_lectures(self):
-        return self.lecture_set.order_by('number')
+        return self.lectures.order_by('number')
 
 
 class Lecture(models.Model):
     title = models.CharField(max_length=255)
     vimeo_video_id = models.CharField(max_length=50, blank=True)
-    section = models.ForeignKey(to=Section, on_delete=models.CASCADE)
+    section = models.ForeignKey(to=Section, on_delete=models.CASCADE, related_name='lectures')
     number = models.IntegerField(validators=[MinValueValidator(1)])
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
@@ -106,6 +107,18 @@ class Lecture(models.Model):
                                   + str(self.vimeo_video_id) + '/?fields=files', headers=headers)
         try:
             download_url = video_data.json()['files'][0]['link']
+            self.download_url = download_url
+            self.save()
             return download_url
         except KeyError:
             return None
+
+    # Get all download URLs
+
+    # from courses.models import Lecture
+    # lectures = Lecture.objects.all()
+    # for lecture in lectures:
+    #     lecture.get_download_url()
+
+    def lecture_url(self):
+        return 'https://ZappyCode.com' + reverse('view_lecture', kwargs={'course_slug': self.section.course.slug, 'lecturepk': self.id, 'lecture_slug': self.slug()})

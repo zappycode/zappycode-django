@@ -1,17 +1,18 @@
 import datetime
-
+import json
+import requests
+import environ
 from allauth.account.forms import SignupForm
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
-import requests
-from django.conf import settings
-import environ
 from rest_framework.authtoken.models import Token
 from rest_framework.parsers import JSONParser
-
+from courses.models import Course
+from .permissions import IsMember
+from .serializers import CourseSerializer, CourseWithSectionsAndLecturesSerializer
+from rest_framework import generics, permissions
 from sitewide.models import ZappyUser
 
 env = environ.Env()
@@ -79,3 +80,14 @@ def login(request):
         except:
             token = Token.objects.create(user=user)
         return JsonResponse({'token': str(token)}, status=200)
+
+
+class CourseList(generics.ListAPIView):
+    queryset = Course.objects.all().filter(published=True).order_by('-release_date')
+    serializer_class = CourseSerializer
+
+
+class CourseWithSectionsAndLectures(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated, IsMember]
+    queryset = Course.objects.all()
+    serializer_class = CourseWithSectionsAndLecturesSerializer

@@ -3,10 +3,10 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from rest_framework import generics, permissions
+
 from .models import Lecture, Section, Course
 from sitewide.models import ZappyUser
-from .serializers import CourseSerializer
+
 import requests
 from django.contrib import messages
 
@@ -16,8 +16,7 @@ def download_video(request, lecture_id):
     lecture = get_object_or_404(Lecture, pk=lecture_id)
     user = ZappyUser.objects.get(email=request.user.email)
     if not lecture.download_url:
-        lecture.download_url = lecture.get_download_url()
-        lecture.save()
+        lecture.get_download_url()
 
     # checking user permissions in case of open download url
     # outside of download button
@@ -49,8 +48,3 @@ def course_landing_page(request, course_slug):
 def all_courses(request):
     courses = Course.objects.filter(published=True).order_by('-release_date')
     return render(request, 'courses/all_courses.html', {'courses': courses})
-
-
-class CourseList(generics.ListAPIView):
-    queryset = Course.objects.all().filter(published=True).order_by('-release_date')
-    serializer_class = CourseSerializer
