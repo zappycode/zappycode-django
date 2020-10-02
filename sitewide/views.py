@@ -105,14 +105,32 @@ def cancel_subscription(request):
 def check_active_memberships(request):
     active_members = ZappyUser.objects.filter(active_membership=True)
     users_membership_expired = set()
+    active_membership = set()
+
+    # grab list of cancelled stripe subscriptions - not active subs, unpaid, or past_due etc..
+    canceled_subs = stripe.Subscription.list(status='canceled')
 
     for user in active_members:
         for invite in Invite.objects.filter(receiver=user):
             if invite.is_expired() and user.paypal_subscription_id is None:
                 users_membership_expired.add(user)
             else:
+                # remember only users with active invites - not those with paypal
+                if not invite.is_expired():
+                    active_membership.add(user)
                 users_membership_expired.discard(user)
                 break
+
+        # -- stripe check -- #
+        # users with active invitation are not going to be stripe checked
+        if user not in active_membership and user.stripe_id:
+            for a_stripe in canceled_subs:
+                # if customer id match sub id add to expired memberships and break for loop. else check another stripe
+                if user.stripe_id == a_stripe['customer'] and user.stripe_subscription_id == a_stripe['id'] and user.paypal_subscription_id is None:
+                    users_membership_expired.add(user)
+                    break
+                else:
+                    users_membership_expired.discard(user)
 
     for user in users_membership_expired:
         user.active_membership = False
