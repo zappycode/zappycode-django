@@ -38,13 +38,19 @@ INSTALLED_APPS = [
     'sitewide',
     'challenge',
     'posts',
+    'tutorials',
     'money',
     'invites',
 
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
-
+    'django_extensions',
+    'imagekit',
+    'django_quill',
+    'taggit',
+    'django_social_share',
+    
     # All Auth
     'allauth',
     'allauth.account',
@@ -182,6 +188,33 @@ DEFAULT_FROM_EMAIL = 'ZappyCode <nick@ZappyCode.com>'
 # Celery Setup
 
 CELERY_RESULT_BACKEND = 'django-db'
+
+# Taggit Configuration
+
+TAGGIT_CASE_INSENSITIVE = True
+
+# WYSIWYG Quill Configuration
+
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'font': []},
+                    {'header': [2, 3, 4, 5, 6]},
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    {'color': []},
+                    {'background': []},
+                ],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                ['code-block', 'code', 'link'],
+            ]
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

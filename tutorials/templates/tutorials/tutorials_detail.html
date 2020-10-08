@@ -1,0 +1,89 @@
+{% extends 'tutorials/base.html' %}
+
+{% load static social_share %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'tutorials/css/tutorial_detail.css' %}">
+<link rel="stylesheet" href="{% static 'tutorials/css/atom-one-dark.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-lg-8 main-content">
+            <article class="p-4 bg-dark">
+                <header class="d-flex flex-column justify-content-center mb-4">
+                    {% if tutorial.preview_image %}
+                    <img src="{{ tutorial.preview_image.url }}" alt="{{ tutorial.title }}" class="img-fluid">
+                    {% endif %}
+                    <h1 class="mt-3 mb-2 text-light">{{ tutorial.title }}</h1>
+                    <div class="wrapper text-light">
+                        <span class="mr-3"><i class="fas fa-user mr-2"></i> {{ tutorial.author }}</span>
+                        <span class="mr-3"><i class="far fa-clock mr-2"></i> {{ tutorial.get_read_time }}</span>
+                        <span><i class="far fa-calendar mr-2"></i> {{ tutorial.published }}</span>
+                    </div>
+                </header>
+                <main class="content">
+                    {{ tutorial.content.html|safe }}
+                    <div class="social-share mt-3 d-flex">
+                        <span class="facebook-share mr-3 bg-light py-1 px-2 rounded">
+                            {% post_to_facebook tutorial "Share to Facebook!" %}
+                        </span>
+                        <span class="twitter-share bg-light py-1 px-2 rounded">
+                            {% post_to_twitter "New Tutorial: {{ tutorial.title }}. Check it out!" tutorial "Post to Twitter" %}
+                        </span>
+                    </div>
+                    <hr class="bg-light">
+                </main>
+                <footer>
+                    <div class="card bg-secondary">
+                        <div class="row no-gutters">
+                            <div class="col-sm-12 col-md-4">
+                                {% if object.author.pic %}
+                                <img src="{{ object.author.pic.url }}" alt="{{ object.author }}" class="img-fluid">
+                                {% else %}
+                                <img src="https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="" class="img-fluid">
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-12 col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title text-light">{{ object.author }}</h5>
+                                    <p class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed lectus non enim maximus vulputate.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </footer>
+            </article>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <aside class="bg-dark p-4">
+                <h5 class="text-light mb-3">Other Tutorials You Might Like</h5>
+                {% for tutorial in similar_tutorials %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tutorial.title }}</h5>
+                        <p class="card-text">{{ tutorial.content.html|safe|truncatechars_html:100 }}</p>
+                        <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary">Read Tutorial</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'tutorials/js/highlight.pack.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
+{% endblock %}

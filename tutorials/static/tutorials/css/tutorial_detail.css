@@ -1,0 +1,5 @@
+.main-content p, 
+.main-content p span {
+    color: white !important;
+    margin: 0;
+}

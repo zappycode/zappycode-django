@@ -11,3 +11,4 @@ zappycode/.env
 supervisord.conf
 celerybeat-schedule
 node_modules/
+zappycodevenv

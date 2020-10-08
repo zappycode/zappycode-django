@@ -1,0 +1,38 @@
+{% extends 'tutorials/base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-around align-items-center bg-primary">
+    <div class="col-lg-7 col-md-8 col-11  text-center">
+        <h1 class="display-3 text-white mb-3">Tutorials</h1>
+        <h3 class="text-white mb-5">Tackle a topic. Learn a new skill. Have a blast.</h3>
+    </div>
+</div>
+
+<div class="row bg-dark pt-5">
+
+    {% for tutorial in object_list %}
+    {% if not forloop.counter|divisibleby:"2" %}
+    <div class="col-md-4 offset-md-2 col-10 offset-1">
+        {% else %}
+        <div class="col-md-4 col-10 offset-md-0 offset-1">
+            {% endif %}
+
+            <a href="{{ tutorial.get_absolute_url }}">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ tutorial.thumbnail.url }}" class="card-img-top img-fluid" width="100%" height="225">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tutorial.title }}</h5>
+                        <p class="card-text">{{ tutorial.content.html|safe|truncatechars_html:150 }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        {% if forloop.counter|divisibleby:"2" %}
+        <div class="w-100"></div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% endblock %}

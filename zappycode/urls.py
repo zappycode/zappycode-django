@@ -18,6 +18,7 @@ urlpatterns = [
                   path('courses', include('courses.urls')),
                   path('api', include('api.urls')),
                   path('posts', include('posts.urls')),
+                  path('tutorials', include('tutorials.urls')),
                   path('money', include('money.urls')),
                   path('somebodylovesyou', include('invites.urls')),
                   path('account', sitewide.views.account, name='account'),
