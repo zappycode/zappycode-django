@@ -62,7 +62,7 @@
         </div>
         <div class="col-sm-12 col-lg-4">
             <aside class="bg-dark p-4">
-                <div class="wrapper mb-4">
+                <div class="toc-wrapper mb-4">
                     <h4 class="text-light">Table of Contents</h4>
                     <div class="card">
                         <div class="card-body">
@@ -107,24 +107,28 @@
 
         const toc = document.querySelector('.toc');
         const toc_items = document.querySelectorAll('.content h2');
-        let i = 1;
-        toc_items.forEach(function (item) {
-            toc.innerHTML += `<li><a href="#toc-${i}" class="toc-link"><span class="mr-2 font-weight-bold">#</span>${item.innerText}</a></li>`;
-            item.setAttribute('id', `toc-${i}`);
-            i++;
-        });
 
-        const toc_links = toc.querySelectorAll('a');
-        toc_links.forEach(function (link) {
-            link.addEventListener('click', function (event) {
-                event.preventDefault();
-                const href = link.getAttribute("href");
+        if (toc_items.length) {
+            let i = 1;
+            toc_items.forEach(function (item) {
+                toc.innerHTML += `<li><a href="#toc-${i}" class="toc-link"><span class="mr-2 font-weight-bold">#</span>${item.innerText}</a></li>`;
+                item.setAttribute('id', `toc-${i}`);
+                i++;
+            });
+            const toc_links = toc.querySelectorAll('a');
+            toc_links.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const href = link.getAttribute("href");
 
-                document.querySelector(href).scrollIntoView({
-                    behavior: "smooth"
-                });
+                    document.querySelector(href).scrollIntoView({
+                        behavior: "smooth"
+                    });
+                })
             })
-        })
+        } else {
+            document.querySelector(".toc-wrapper").remove()
+        }
     });
 </script>
 {% endblock %}
