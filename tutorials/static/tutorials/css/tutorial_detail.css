@@ -3,3 +3,20 @@
     color: white !important;
     margin: 0;
 }
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+    color: white !important;
+    margin: 0;
+}
+
+
+.toc {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

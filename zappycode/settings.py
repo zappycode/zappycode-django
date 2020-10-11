@@ -206,8 +206,7 @@ QUILL_CONFIGS = {
                     {'header': [2, 3, 4, 5, 6]},
                     {'align': []},
                     'bold', 'italic', 'underline', 'strike', 'blockquote',
-                    {'color': []},
-                    {'background': []},
+    
                 ],
                 [{'list': 'ordered'}, {'list': 'bullet'}],
                 ['code-block', 'code', 'link'],

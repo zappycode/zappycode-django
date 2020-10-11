@@ -66,16 +66,34 @@
         </div>
         <div class="col-sm-12 col-lg-4">
             <aside class="bg-dark p-4">
-                <h5 class="text-light mb-3">Other Tutorials You Might Like</h5>
-                {% for tutorial in similar_tutorials %}
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ tutorial.title }}</h5>
-                        <p class="card-text">{{ tutorial.content.html|safe|truncatechars_html:100 }}</p>
-                        <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary">Read Tutorial</a>
+                <div class="wrapper mb-4">
+                    <h4 class="text-light">Table of Contents</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <nav>
+                                <ol class="toc">
+
+                                </ol>
+                            </nav>
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="wrapper">
+                    <h5 class="text-light mb-3">Other Tutorials You Might Like</h5>
+                    {% for tutorial in similar_tutorials %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">{{ tutorial.title }}</h5>
+                            <div class="wrapper text-dark">
+                                <span class="mr-2"><i class="fas fa-user"></i> {{ tutorial.author }}</span>
+                                <span class="mr-2"><i class="far fa-clock"></i> {{ tutorial.get_read_time }}</span>
+                            </div>
+                            <p class="card-text">{{ tutorial.content.html|safe|truncatechars_html:100 }}</p>
+                            <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary">Read Tutorial</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </aside>
         </div>
     </div>
@@ -89,6 +107,26 @@
         document.querySelectorAll('pre').forEach((block) => {
             hljs.highlightBlock(block);
         });
+
+        const toc = document.querySelector('.toc');
+        const toc_links = toc.querySelectorAll('a');
+        const toc_items = document.querySelectorAll('.content h2');
+        let i = 1;
+        toc_items.forEach(function (item) {
+            toc.innerHTML += `<li><a href="#toc-${i}"><span class="mr-2 font-weight-bold">#</span>${item.innerText}</a></li>`;
+            item.setAttribute('id', `toc-${i}`);
+            i++;
+        });
+        toc_links.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                const href = link.getAttribute("href");
+
+                document.querySelector(href).scrollIntoView({
+                    behavior: "smooth"
+                });
+            })
+        })
     });
 </script>
 {% endblock %}
