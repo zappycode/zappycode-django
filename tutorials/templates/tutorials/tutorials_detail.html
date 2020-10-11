@@ -2,6 +2,14 @@
 
 {% load static social_share %}
 
+{% block title %}
+{{ tutorial.title }}
+{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ tutorial.content.html|safe|truncatewords_html:25 }}">
+{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'tutorials/css/tutorial_detail.css' %}">
 <link rel="stylesheet" href="{% static 'tutorials/css/atom-one-dark.css' %}">
