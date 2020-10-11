@@ -7,10 +7,7 @@
 {% endblock %}
 
 {% block head %}
-<meta name="description" content="{{ tutorial.content.html|safe|truncatewords_html:25 }}">
-{% endblock %}
-
-{% block head %}
+<meta name="description" content="Level up your skills with our tutorial: {{ tutorial.title }}.">
 <link rel="stylesheet" href="{% static 'tutorials/css/tutorial_detail.css' %}">
 <link rel="stylesheet" href="{% static 'tutorials/css/atom-one-dark.css' %}">
 {% endblock %}

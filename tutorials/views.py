@@ -3,11 +3,11 @@ from django.views.generic import ListView, DetailView
 from .models import Tutorial
 
 class TutorialListView(ListView):
-    model = Tutorial
+    queryset = Tutorial.objects.published()
     template_name = "tutorials/tutorials_list.html"
 
-class TutorialDetailView(DetailView):
-    model = Tutorial    
+class TutorialDetailView(DetailView): 
+    queryset = Tutorial.objects.published()  
     template_name = "tutorials/tutorials_detail.html"
 
     def get_context_data(self, *args, **kwargs):
