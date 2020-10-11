@@ -118,13 +118,10 @@
         });
 
         const toc_links = toc.querySelectorAll('a');
-        console.log(toc_links)
         toc_links.forEach(function (link) {
-            console.log(link)
             link.addEventListener('click', function (event) {
                 event.preventDefault();
                 const href = link.getAttribute("href");
-                console.log(href)
 
                 document.querySelector(href).scrollIntoView({
                     behavior: "smooth"
