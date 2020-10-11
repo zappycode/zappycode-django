@@ -16,13 +16,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-lg-8 main-content">
-            <article class="p-4 bg-dark">
+            <article class="p-4 bg-light">
                 <header class="d-flex flex-column justify-content-center mb-4">
                     {% if tutorial.preview_image %}
                     <img src="{{ tutorial.preview_image.url }}" alt="{{ tutorial.title }}" class="img-fluid">
                     {% endif %}
-                    <h1 class="mt-3 mb-2 text-light">{{ tutorial.title }}</h1>
-                    <div class="wrapper text-light">
+                    <h1 class="mt-3 mb-2 ">{{ tutorial.title }}</h1>
+                    <div class="wrapper">
                         <span class="mr-3"><i class="fas fa-user mr-2"></i> {{ tutorial.author }}</span>
                         <span class="mr-3"><i class="far fa-clock mr-2"></i> {{ tutorial.get_read_time }}</span>
                         <span><i class="far fa-calendar mr-2"></i> {{ tutorial.published }}</span>
@@ -31,12 +31,8 @@
                 <main class="content">
                     {{ tutorial.content.html|safe }}
                     <div class="social-share mt-3 d-flex">
-                        <span class="facebook-share mr-3 bg-light py-1 px-2 rounded">
-                            {% post_to_facebook tutorial "Share to Facebook!" %}
-                        </span>
-                        <span class="twitter-share bg-light py-1 px-2 rounded">
-                            {% post_to_twitter "New Tutorial: {{ tutorial.title }}. Check it out!" tutorial "Post to Twitter" %}
-                        </span>
+                        {% post_to_facebook tutorial "Share to Facebook!" %}
+                        {% post_to_twitter "New Tutorial: {{ tutorial.title }}. Check it out!" tutorial "Post to Twitter" %}
                     </div>
                     <hr class="bg-light">
                 </main>
@@ -52,8 +48,8 @@
                             </div>
                             <div class="col-sm-12 col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title text-light">{{ object.author }}</h5>
-                                    <p class="card-text">
+                                    <h5 class="card-title text-light mb-3">{{ object.author }}</h5>
+                                    <p class="card-text text-light">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed lectus non enim maximus vulputate.
                                     </p>
                                 </div>
