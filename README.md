@@ -1,5 +1,5 @@
   
-# ![](docs/zappycode.png) ZappyCode - Coding is Fun
+# ![](sitewide/static/sitewide/ZappyCodeLogoMini.png) ZappyCode - Coding is Fun
 Learning to code should also be fun. That's why we built Zappycode! A community of learners that don't like doing things the boring way. Join and see what it's all about. 
 
 ## Issues
