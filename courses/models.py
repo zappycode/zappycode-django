@@ -16,6 +16,7 @@ class Course(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='course_images')
     vimeo_promo_video_id = models.CharField(max_length=50)
+    youtube_video_id = models.CharField(max_length=50, null=True, blank=True)
     release_date = models.DateField()
     first_lecture = models.ForeignKey(to='Lecture', on_delete=models.DO_NOTHING)
     download_link = models.URLField(blank=True)

@@ -80,9 +80,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe id="video" class="embed-responsive-item"
-                                src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}" frameborder="0"
-                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        {% if course.youtube_video_id %}
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ course.youtube_video_id }}?modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        {% else %}
+                            <iframe id="video" class="embed-responsive-item"
+                                    src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}" frameborder="0"
+                                    allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        {% endif %}
                     </div>
                 </div>
             </div>
