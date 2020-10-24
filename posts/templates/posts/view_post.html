@@ -1,46 +1,74 @@
 {% extends "sitewide/base.html" %}
-{% load static %}
+{% load static social_share %}
 {% block head %}
-    <link href="{% static 'challenge/rainbow.css' %}" rel="stylesheet" type="text/css">
-    {% include "sitewide/pretty_socials.html" with title=post.title description=post.body|striptags|escape|truncatechars:300 %}
+<link rel="stylesheet" href="{% static 'posts/css/posts_detail.css' %}">
+<link rel="stylesheet" href="{% static 'posts/css/rainbow.css' %}">
+{% include "sitewide/pretty_socials.html" with title=post.title description=post.body|striptags|escape|truncatechars:300 %}
 {% endblock %}
 
 {% block content %}
-    <div class="row justify-content-around align-items-center">
-        <div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
+<article class="row justify-content-around align-items-center">
+    <div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
+        <header>
             <h1 class="big-title mb-3 text-center">{{ post.title }}</h1>
 
             {% if post.author %}
-                <p class="text-center">Written by Resident Baller:</p>
-                <img class="mx-auto d-block" height="150px" src="{{ post.author.pic.url }}">
-                <h3 class="text-center">{{ post.author.username }}</h3>
+            <p class="text-center">Written by Resident Baller:</p>
+            <img class="mx-auto d-block" height="150px" src="{{ post.author.pic.url }}">
+            <h3 class="text-center">{{ post.author.username }}</h3>
             {% endif %}
+            <div class="wrapper d-flex justify-content-center mb-5">
+                <span class="mr-3"><i class="far fa-clock mr-1"></i> {{ post.get_read_time }}</span>
+                <span><i class="far fa-calendar mr-1"></i> {{ post.published|date:"M j, Y" }}</span>
+            </div>
+        </header>
 
-            {{ post.body|safe }}
+        <main class="main-content px-2 px-md-5">
+            {{ post.content.html|safe }}
 
-            {% if post.bonus and post.bonus_title %}
+            {% if post.member_content %}
+            <div class="mt-4 mb-3">
                 <img class="img-fluid mb-2" height="150px" src="{% static 'sitewide/MembersOnly.png' %}">
-                <h1 class="big-title mb-3 text-center">{{ post.bonus_title }}</h1>
-                {% if user.active_membership %}
-                    {{ post.bonus|safe }}
-                {% else %}
-                    {{ post.bonus|striptags|escape|truncatechars:300 }}
-                    <h1 class="text-center">Wanna read the rest?</h1>
-                    <h5 class="text-center">Gotta have a membership to get the bonus part of this post. Sign up and join
-                        da
-                        crew!</h5>
-                    <div class="text-center">
-                        <a href="{% url 'pricing' %}" class="btn btn-danger mt-2">Sign Up</a>
-                    </div>
-                {% endif %}
+            </div>
 
+            {% if user.active_membership %}
+
+            <!-- Members Only Content -->
+            {{ post.member_content.html|safe }}
+
+            {% else %}
+            <!-- Members Content Preview -->
+            <div class="mb-3">
+                {{ post.member_content.html|striptags|escape|truncatechars:300 }}
+            </div>
+
+            <h2 class="text-center mb-2 h1">Wanna read the rest?</h2>
+            <h5 class="text-center mb-2">Gotta have a membership to get the bonus part of this post. Sign up and join
+                da
+                crew!</h5>
+            <div class="text-center">
+                <a href="{% url 'pricing' %}" class="btn btn-danger mt-2">Sign Up</a>
+            </div>
             {% endif %}
 
-        </div>
+            {% endif %}
+            <div class="social-share mt-3 d-flex">
+                {% post_to_facebook post "Share to Facebook!" %}
+                {% post_to_twitter "New Tutorial: {{ tutorial.title }}. Check it out!" post "Post to Twitter" %}
+            </div>
+        </main>
     </div>
+</article>
 
 {% endblock %}
 
 {% block javascript %}
-    <script src="{% static 'challenge/rainbow-custom.min.js' %}"></script>
+<script src="{% static 'posts/js/highlight.pack.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    });
+</script>
 {% endblock %}

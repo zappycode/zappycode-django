@@ -1,14 +1,9 @@
 from django.contrib import admin
-from .models import Post, Image
+from .models import Post
 from django.utils.safestring import mark_safe
 
 
-class ImageInline(admin.StackedInline):
-    model = Image
-
-
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [ImageInline]
     list_display = ['title', 'link']
 
     def link(self, obj):

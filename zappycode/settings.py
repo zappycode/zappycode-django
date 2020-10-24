@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
+    'imagekit',
+    'django_quill',
+    'django_social_share',
 
     # All Auth
     'allauth',
@@ -204,3 +207,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# WYSIWYG Quill Configuration
+
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'font': []},
+                    {'header': [2, 3, 4, 5, 6]},
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    
+                ],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                ['code-block', 'link', 'code'],
+            ]
+        }
+    }
+}
