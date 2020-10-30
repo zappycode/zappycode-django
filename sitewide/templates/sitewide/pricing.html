@@ -2,93 +2,105 @@
 {% load static %}
 
 {% block head %}
-    {% include "sitewide/pretty_socials.html" with title="ZappyCode Membership" description="We'd love it if you'd pay $25 a month but if you're broke, fine by us." %}
+{% include "sitewide/pretty_socials.html" with title="ZappyCode Membership" description="We'd love it if you'd pay $25 a month but if you're broke, fine by us." %}
 {% endblock %}
 
 {% block content %}
-    <div class="row justify-content-around align-items-center bg-primary">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
-            <h1 class="display-3 text-white mb-3">ZappyCode Membership</h1>
-            <h3 class="text-white">What's included with your membership?</h3>
+<div class="row justify-content-around align-items-center bg-primary">
+    <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+        <h1 class="display-3 text-white mb-3">ZappyCode Membership</h1>
+        <h3 class="text-white">What's included with your membership?</h3>
 
-            <h5 class="text-white">⭐️Access to all ZappyCode courses⭐️</h5>
-            <h5 class="text-white">⭐️Bonus material in tutorials⭐️</h5>
-            <h5 class="text-white">⭐️Access to user forms⭐️</h5>
+        <h5 class="text-white">⭐️Access to all ZappyCode courses⭐️</h5>
+        <h5 class="text-white">⭐️Bonus material in tutorials⭐️</h5>
+        <h5 class="text-white">⭐️Access to user forms⭐️</h5>
 
-        </div>
     </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-light">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
-            <h1 class="display-3 mb-3">Pick Your Own Price</h1>
-            <p class="lead text-dark lh-180 mx-auto">
-                We'd love it if you'd pay $25 a month but if you're broke, fine by us. Move the slider below and see how
-                Nick (Commander-in-Chief) reacts.
-            </p>
-            <h1 id="face">😄</h1>
-            <span class="h1" id="price">$25</span><span style="font-size: large;" id="monthYear">/month</span>
-            <input type="range" class="custom-range" min="5" max="45" step="5" value="25" id="homePagePriceSlider">
-            <br>
-            <br>
-            <button id="monthlyBtn" type="button" class="btn btn-warning active">Monthly</button>
-            <button id="yearlyBtn" type="button" class="btn btn-warning">Yearly</button>
-            <br>
-            <br>
-            <button id="buyButton" class="btn btn-primary">
-                <span class="btn-inner--text">Join Now</span>
-                <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
-            </button>
+<div class="row justify-content-around align-items-center bg-light">
+    <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
+        <h1 class="display-3 mb-3">Pick Your Own Price</h1>
+        <p class="lead text-dark lh-180 mx-auto">
+            We'd love it if you'd pay $25 a month but if you're broke, fine by us. Move the slider below and see how
+            Nick (Commander-in-Chief) reacts.
+        </p>
+        <h1 id="face">😄</h1>
+        <span class="h1" id="price">$25</span><span style="font-size: large;" id="monthYear">/month</span><span class="ml-2" id="percentOff" style="font-size: large;"></span>
+        <input type="range" class="custom-range" min="5" max="45" step="5" value="25" id="homePagePriceSlider">
+        <br>
+        <br>
+        <button id="monthlyBtn" type="button" class="btn btn-warning active">Monthly</button>
+        <button id="yearlyBtn" type="button" class="btn btn-warning">Yearly</button>
+        <br>
+        <br>
+        <button id="buyButton" class="btn btn-primary">
+            <span class="btn-inner--text">Join Now</span>
+            <span class="btn-inner--icon"><i class="fas fa-shopping-cart"></i></span>
+        </button>
 
-        </div>
     </div>
+</div>
 
 {% endblock %}
 
 {% block javascript %}
-    <script>
+<script>
 
-        var monthOrYear = 'monthly';
+    var monthOrYear = 'monthly';
 
-        function updatePrice() {
-            var emojiFaces = {5: '😭', 10: '😐', 15: '🤨', 20: '🙂', 25: '😄', 30: '😁', 35: '🤩', 40: '😍', 45: '🐐'};
-            $('#face').html(emojiFaces[$('#homePagePriceSlider').val()]);
-            if (monthOrYear == 'monthly') {
-                $('#price').html('$' + $('#homePagePriceSlider').val());
-                $('#monthYear').html('/month');
-            } else {
-                $('#price').html('$' + ($('#homePagePriceSlider').val() * 10));
-                $('#monthYear').html('/year');
-            }
+    function updatePrice() {
+        var emojiFaces = { 5: '😭', 10: '😐', 15: '🤨', 20: '🙂', 25: '😄', 30: '😁', 35: '🤩', 40: '😍', 45: '🐐' };
+        $('#face').html(emojiFaces[$('#homePagePriceSlider').val()]);
+        if (monthOrYear == 'monthly') {
+            $('#price').html('$' + $('#homePagePriceSlider').val());
+            $('#monthYear').html('/month');
+        } else {
+            $('#price').html('$' + ($('#homePagePriceSlider').val() * 10));
+            $('#monthYear').html('/year');
         }
+    }
 
-        $(document).on('input', '#homePagePriceSlider', function () {
+    function percentOff() {
+        let defaultPrice = 25;
+        let price = parseFloat($('#homePagePriceSlider').val());
+        let percent = Math.round(100 - (price / defaultPrice * 100));
+        if (price < 25) {
+            $("#percentOff").html(percent + "% off!");
+        } else {
+            $("#percentOff").html("");
+        }
+    }
+
+    $(document).on('input', '#homePagePriceSlider', function () {
+        updatePrice();
+        percentOff();
+    });
+
+    $(document).ready(function () {
+        $('#monthlyBtn').click(function () {
+            monthOrYear = 'monthly';
             updatePrice();
+            $('#monthlyBtn').addClass('active');
+            $('#yearlyBtn').removeClass('active');
         });
 
-        $(document).ready(function () {
-            $('#monthlyBtn').click(function () {
-                monthOrYear = 'monthly';
-                updatePrice();
-                $('#monthlyBtn').addClass('active');
-                $('#yearlyBtn').removeClass('active');
-            });
-
-            $('#yearlyBtn').click(function () {
-                monthOrYear = 'yearly';
-                updatePrice();
-                $('#yearlyBtn').addClass('active');
-                $('#monthlyBtn').removeClass('active');
-            });
-
-            $('#buyButton').click(function () {
-                var price = $('#homePagePriceSlider').val();
-                if (monthOrYear == 'yearly') {
-                    price = $('#homePagePriceSlider').val() * 10
-                }
-                window.location.href = '/auth/signup?plan=' + monthOrYear + price;
-            });
+        $('#yearlyBtn').click(function () {
+            monthOrYear = 'yearly';
+            updatePrice();
+            $('#yearlyBtn').addClass('active');
+            $('#monthlyBtn').removeClass('active');
         });
 
+        $('#buyButton').click(function () {
+            var price = $('#homePagePriceSlider').val();
+            if (monthOrYear == 'yearly') {
+                price = $('#homePagePriceSlider').val() * 10
+            }
+            window.location.href = '/auth/signup?plan=' + monthOrYear + price;
+        });
+    });
 
-    </script>
+
+</script>
 {% endblock %}
