@@ -89,6 +89,10 @@
                                    autofocus>
                             <label for="id_email">Email Address</label>
                         </div>
+                        {#   div for errors from paypal email validation  #}
+                        <div hidden id="email-errors" class="alert alert-danger">
+                         <strong id="error-email-text"></strong>
+                        </div>
                         {% for error in form.email.errors %}
                             <div class="alert alert-danger">
                                 <strong>{{ error|escape }}</strong>
@@ -101,6 +105,8 @@
                             <label for="id_password1">Password</label>
                         </div>
 
+                        {#   div for errors from paypal password validation  #}
+                        <div hidden id="password-errors" class="alert alert-danger"></div>
                         {% for error in form.password1.errors %}
                             <div class="alert alert-danger">
                                 <strong>{{ error|escape }}</strong>
@@ -123,20 +129,7 @@
                         <hr class="my-4">
                     </form>
                     <div class="text-center">
-                        <a href="
-
-
-
-
-
-
-
-
-
-
-
-
-                                {% url 'account_login' %}{% if 'next' in request.GET %}?next={{ request.GET.next }}{% endif %}"
+                        <a href="{% url 'account_login' %}{% if 'next' in request.GET %}?next={{ request.GET.next }}{% endif %}"
                            role="button" class="btn btn-info">Have an Account? Login Here</a>
                     </div>
                 </div>
@@ -245,9 +238,24 @@
             form.submit();
         }
     </script>
-
     <script src="https://www.paypal.com/sdk/js?client-id=AYsx8ddPQR4mlcj1XOS9HdjqZosxY1SYR9kZ4iGktoB3NxIGEfqnsgkG2VuZJagmmPCVZIEtUp0z8WBY&vault=true&disable-funding=credit,card" data-sdk-integration-source="button-factory"></script>
     <script>
+        // function to get csrf token from cookies. it will be needed for post method in fetch()
+        function getCookie(name) {
+          let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                    }
+                }
+            }
+          return cookieValue;
+        }
         paypal.Buttons({
             style: {
                 shape: 'rect',
@@ -257,7 +265,9 @@
 
             },
             createSubscription: function (data, actions) {
+
                 return actions.subscription.create({
+
                     {% if request.GET.plan == 'monthly5' %}
                         'plan_id': 'P-1YB61571V04958518L5G6WZA'
                     {% elif request.GET.plan == 'monthly10' %}
@@ -297,10 +307,76 @@
                     {% else %}
                         'plan_id': 'P-50101792WJ0546847L4WH4WY'
                     {% endif %}
+
                 });
             },
+            // we need to make some some server-side validation so we use
+            // asynchronous validation like in paypal docs (even UX is a bit worse):
+            // https://developer.paypal.com/docs/checkout/integration-features/validation/#asynchronous-validation
+            onClick: function(data, actions) {
+              // prepare data to send to server
+              let dataForServer = {
+                email: $('#id_email').val(),
+                password: $('#id_password1').val(),
+              }
+              // we have to add credentials option and csrf token to headers to avoid 403 error
+              return fetch('/paypal_validation', {
+                credentials: 'same-origin',
+                method: 'post',
+                headers: {
+                  "X-CSRFToken": getCookie("csrftoken"),
+                  "Accept": "application/json",
+                  'content-type': 'application/json'
+                },
+                body: JSON.stringify(dataForServer),
+               }).then(function(res) {
+                return res.json();
+                  }).then(function(data) {
+
+                  // If there are a validation errors, reject, otherwise resolve
+                    if (!data.email_valid || !data.password_valid) {
+                      // if password is not valid show errors
+                      if (data.password_errors) {
+                        $('#password-errors').empty();
+                        $('#id_password1').focus() ;
+                        $.each( data.password_errors, function( key, value ) {
+                          $('#password-errors').append('<div><strong id="error-email-text">' + value + ' </strong></div>' ).removeAttr("hidden");
+                        });
+                      } else {
+                        $('#password-errors').attr("hidden", true).empty();
+                      }
+                      // if email is not valid shoow errors
+                        if (data.email_error){
+                          $('#id_email').focus() ;
+                          $('#error-email-text').text(data.email_error);
+                          $('#email-errors').removeAttr("hidden");
+                        } else if (!data.email_error){
+                          $('#email-errors').attr("hidden", true);
+                        }
+                      return actions.reject();
+                    } else {
+                      //if email and password are valid hide error messages
+                      $('#email-errors').attr("hidden", true);
+                      $('#password-errors').attr("hidden", true).empty();
+                      return actions.resolve();
+                    }
+                  });
+              },
+            //capture paypal subscription and submit the form
+            //code taken mostly from function stripeTokenHandler(token), which is a bit above :)
             onApprove: function (data, actions) {
-                alert(data.subscriptionID);
+
+              let form = document.getElementById('payment-form');
+
+              // create hidden input to capture subscription ID
+              let hiddenInput = document.createElement('input');
+              hiddenInput.setAttribute('type', 'hidden');
+              hiddenInput.setAttribute('name', 'paypalID');
+              hiddenInput.setAttribute('value', data.subscriptionID);
+              form.appendChild(hiddenInput);
+
+              // submit the form
+              form.submit();
             }
         }).render('#paypal-button-container');
     </script>

@@ -32,6 +32,19 @@ class CustomSignupForm(SignupForm):
                                          f'You now have free access to ZappyCode for the next {invite.days_left()} day{pluralize(invite.days_left())}!')
                         return user
             raise forms.ValidationError('Something went really wrong fam')
+        # prepare signup for paypal save. request sent from paypal.Buttons onClick onApprove
+        elif 'paypalID' in request.POST :
+            if request.user.is_anonymous:
+                try:
+                    user = super(CustomSignupForm, self).save(request)
+                    user.active_membership = True
+                    user.paypal_subscription_id = request.POST['paypalID']
+                    user.save()
+                    messages.success(request, 'Yes, yes, yes pal. You\'re now a part of ZappyCode!')
+                    return user
+                except Exception as e:
+                    raise forms.ValidationError('Things went really wrong fam. You\'ve got error:', e,
+                                                ' Contact support please')
         else:
             try:
                 stripe.api_key = env.str('STRIPE_API_KEY', default='')

@@ -1,6 +1,11 @@
 import time
 import stripe
-from django.http import HttpResponse
+
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.validators import validate_email
+from django.contrib.auth.password_validation import validate_password
+from rest_framework.utils import json
+from django.http import HttpResponse, JsonResponse
 
 from .forms import AccountSettingsForm
 from .models import ZappyUser
@@ -33,6 +38,45 @@ def newsletter(request):
 
 def paypal(request):
     return render(request, 'sitewide/paypal.html')
+
+
+# view for validate email and password with paypal smart button
+def paypal_validation(request):
+    # capture data sent from paypal.Buttons onClick
+    to_validate = json.loads(request.body)
+
+    # prepare dictionary to be sure there won't be empty json sent
+    data = {'password_valid': True,
+            'password_errors': None,
+            'email_valid': True,
+            'email_error': None,
+            }
+    try:
+        # for password validation use validator django.core.validators
+        validate_password(to_validate['password'])
+        data['password_valid'] = True
+        data['password_errors'] = None
+    except ValidationError as e:
+        data['password_valid'] = False
+        data['password_errors'] = e.messages
+
+    try:
+        # for email validation use validator from django.core.validators
+        validate_email(to_validate['email'])
+        try:
+            # if email has got proper format check if is already used
+            ZappyUser.objects.get(email=to_validate['email'])
+            data['email_valid'] = False
+            data['email_error'] = 'Email address is already in use pal'
+        except ObjectDoesNotExist:
+            data['email_valid'] = True
+            data['email_error'] = None
+    except ValidationError:
+        data['email_valid'] = False
+        data['email_error'] = 'Enter a valid email address pal'
+    # send result of validation to client in json format.
+    # it gonna be captured in paypal.Buttons onClick
+    return JsonResponse(data, safe=True)
 
 
 def error404(request, exception):
