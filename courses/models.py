@@ -17,6 +17,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to='course_images')
     vimeo_promo_video_id = models.CharField(max_length=50)
     youtube_video_id = models.CharField(max_length=50, null=True, blank=True)
+    promo_download_url = models.URLField(blank=True, null=True)
     release_date = models.DateField()
     first_lecture = models.ForeignKey(to='Lecture', on_delete=models.DO_NOTHING)
     download_link = models.URLField(blank=True)
@@ -27,6 +28,23 @@ class Course(models.Model):
 
     def sorted_sections(self):
         return self.sections.order_by('number')
+
+    def get_download_url(self):
+        headers = {'Authorization': 'bearer ' + env.str('VIMEO_BEARER', default='')}
+        video_data = requests.get('https://api.vimeo.com/videos/'
+                                  + str(self.vimeo_promo_video_id) + '/?fields=files', headers=headers)
+        try:
+            download_url = video_data.json()['files'][0]['link']
+            self.promo_download_url = download_url
+            self.save()
+            return download_url
+        except KeyError:
+            return None
+
+        # from courses.models import Course
+        # courses = Course.objects.all()
+        # for course in courses:
+        #     course.get_download_url()
 
 
 class Section(models.Model):
