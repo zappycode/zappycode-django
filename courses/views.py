@@ -1,8 +1,9 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404
+from rest_framework.utils import json
 
 from .models import Lecture, Section, Course
 from sitewide.models import ZappyUser
@@ -24,7 +25,7 @@ def download_video(request, lecture_id):
         file_name = str(lecture.vimeo_video_id) + '.mp4'
         req = requests.get(lecture.download_url, stream=True, timeout=(5, 10))
         if req.status_code == 200:
-            response = HttpResponse(req, content_type='video/mp4')
+            response = StreamingHttpResponse(req, content_type='video/mp4')
             response['Content-Disposition'] = 'attachment; filename=' + str(file_name)
             return response
         else:
@@ -37,6 +38,15 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
     if not lecture.thumbnail_url:
         lecture.thumbnail_url = lecture.get_thumbnail_url()
         lecture.save()
+    headers = {'Api-Username': 'system',
+               'Api-Key': 'b7e6041e3b10e396ca213a42df8b2a1586845e7ca911597fb57913012f8bb86',
+               'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:79.0) Gecko/20100101',
+               'content-type': 'application/json'}
+
+    req = requests.get('https://zappydisq.ga/latest.json', headers).json()
+
+    for i in req['topic_list']['topics']:
+        print(i)
     return render(request, 'courses/view_lecture.html', {'lecture': lecture})
 
 
