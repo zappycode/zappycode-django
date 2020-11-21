@@ -106,27 +106,3 @@ class CustomSignupForm(SignupForm):
 
             except Exception as e:
                 raise forms.ValidationError(e)
-
-
-class AccountSettingsForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args,**kwargs)
-        # erase label from pic, set no validation on hidden pic input
-        self.fields['pic'].label = ''
-        self.fields['pic'].required = False
-
-    class Meta:
-        model = ZappyUser
-        fields = ['pic']
-
-        # ImageField is switched to display none.
-        # Purpose: styling of FileInput's button is impossible.
-        # But there is possibility of styling related label
-        # which is made in account.html file
-        widgets = {
-            'pic': forms.ClearableFileInput(
-                attrs={
-                    'style': "display: none",
-                },
-            ),
-        }

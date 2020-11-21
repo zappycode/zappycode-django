@@ -1,5 +1,6 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
+{% load avatar_tags %}
 
 {% block head %}
     {% include "sitewide/pretty_socials.html" with title="ZappyCode Account" description="All courses are included in your ZappyCode membership." %}
@@ -13,9 +14,6 @@
             <h1>{{ user.username }}'s Account</h1>
         </div>
     </div>
-
-
-
     <div class="row align-items-center justify-content-around bg-light">
 
 
@@ -29,30 +27,25 @@
                     billing cycle.
                 </div>
             {% endif %}
-
-            <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {% if request.user.pic %}
-                    <label>Change your profile picture:</label>
+                {% if request.user|has_avatar %}
+                    <label>Your Current Avatar</label>
                     <div class="d-block">
-                        <img id='preview_avatar' alt="profile picture" class="ml-4" height="150px" width="150px"
-                             src="../media/{{ request.user.pic }}">
-                        <button class="btn align-top btn-outline-primary border-1 p-0 m-0" style="font-size: 0.5rem;"
-                                type=submit name="delete" data-toggle="tooltip" title="Delete profile picture">
-                            <img alt="delete picture" height="20px" width="20px" class="m-0 p-0 border-0"
-                                 src="{% static 'sitewide/plug4pics.png' %}">
-                        </button>
+                         {% avatar user 150 %}
                     </div>
                 {% else %}
                     <label>Add your profile picture.<br> It should be a square:</label>
                     <img id='preview_avatar' alt="profile picture" class="mx-auto d-block" height="150px" width="150px"
                          src="{% static 'sitewide/plug4pics.png' %}">
                 {% endif %}
-                {{ forms }}
-                <label for="id_pic" class="mt-2 btn btn-primary " style="cursor: pointer;">Upload</label>
-                <button type=submit name="save" class="btn btn-primary ">Save</button>
-            </form>
-
+                <br/>
+                {% if request.user|has_avatar %}
+                  <a href = "{% url 'avatar_change' %}" class = 'btn btn-success'>Change Avatar</a>
+                {% else %}
+                  <a href = "{% url 'avatar_change' %}" class = 'btn btn-success'>Upload Avatar</a>
+                {% endif %}
+                  <a href = '{% url "avatar_delete" %}' class="btn btn-danger ">Delete</a>
+              <br/>
             {% if user.active_membership and not user.cancel_at_period_end %}
                 <br>
                 <hr>

@@ -20,7 +20,7 @@ urlpatterns = [
                   path('posts', include('posts.urls')),
                   path('money', include('money.urls')),
                   path('somebodylovesyou', include('invites.urls')),
-                  path('account', sitewide.views.account, name='account'),
+                  path('account/avatar/',include('avatar.urls')),
                   path('pricing', sitewide.views.pricing, name='pricing'),
                   path('payment_success', sitewide.views.payment_success, name='payment_success'),
                   path('cancel_subscription', sitewide.views.cancel_subscription, name='cancel_subscription'),

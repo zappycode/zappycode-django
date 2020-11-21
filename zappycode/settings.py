@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
-
+    #For some reason I was unable to activate the virtual env so just install these two dependencies (django-avatar and django-crispy-forms)
+    'avatar',
+    'crispy_forms',
     # All Auth
     'allauth',
     'allauth.account',
@@ -204,3 +206,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AVATAR_HASH_FILENAMES = False
+AVATAR_CACHE_ENABLED = False

@@ -6,8 +6,6 @@ from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.utils import json
 from django.http import HttpResponse, JsonResponse
-
-from .forms import AccountSettingsForm
 from .models import ZappyUser
 from invites.models import Invite
 from django.shortcuts import render, redirect
@@ -84,27 +82,6 @@ def paypal_validation(request):
 
 def error404(request, exception):
     return render(request, 'sitewide/404.html')
-
-
-@login_required
-def account(request):
-    forms = AccountSettingsForm()
-    if request.method == 'POST':
-        user = request.user
-        form = AccountSettingsForm(request.POST, request.FILES)
-
-        if 'delete' in request.POST:
-            user.pic.delete()
-            messages.success(request, 'You\'ve deleted profile picture.')
-        elif form.is_valid() and form.cleaned_data['pic']:
-            user.pic = form.cleaned_data['pic']
-            user.save()
-            messages.success(request, 'Boom! You\'ve got new profile picture.')
-            return redirect('/account/')
-        else:
-            messages.warning(request, 'You need to load picture to save it')
-    return render(request, 'account/account.html', {'forms': forms})
-
 
 def payment_success(request):
     # Set your secret key: remember to change this to your live secret key in production

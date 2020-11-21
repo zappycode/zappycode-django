@@ -24,4 +24,4 @@ environ = "*"
 requests = "*"
 
 [requires]
-python_version = "3.6.9"
+python_version = "*"

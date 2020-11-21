@@ -1,0 +1,33 @@
+{% extends 'sitewide/base.html' %}
+{% load avatar_tags %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <br/>
+    <div class = 'container' id = 'avatchange'>
+    <h1>Your current avatar</h1>
+    <hr/>
+    {% avatar user %}
+    {% if not avatars %}
+        <p>You haven't uploaded an avatar yet. Please upload one now.</p>
+    {% else %}
+        <form method="POST"  action = '{% url "avatar_change" %}'>
+          {% csrf_token %}
+            <ul>
+                {{ primary_avatar_form|crispy }}
+            </ul>
+            <button type = 'submit' class = 'btn btn-info btn-icon rounded-pill hover-translate-y-n3 mt-4'>Choose New Default</button>
+        </form>
+    {% endif %}
+    <br/>
+    <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+        {% csrf_token %}
+        {{ upload_avatar_form|crispy }}
+        <button type = 'submit' class = 'btn btn-info btn-icon rounded-pill hover-translate-y-n3 mt-4'>Upload New Image</button>
+    </form>
+  </div>
+  <style>
+    #avatchange{
+      color:white;
+    }
+  </style>
+{% endblock %}
