@@ -207,4 +207,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AVATAR_HASH_FILENAMES = False
+AVATAR_THUMB_FORMAT = 'PNG'
 AVATAR_CACHE_ENABLED = False
