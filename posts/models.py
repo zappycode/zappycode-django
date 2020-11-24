@@ -7,8 +7,8 @@ from django.utils.text import slugify
 from imagekit.models import ProcessedImageField
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-from django_quill.fields import QuillField
 from django.utils import timezone
+from tinymce.models import HTMLField
 
 STATUS_CHOICES = (
     ('P', 'Published'),
@@ -27,8 +27,8 @@ class PostsManager(models.Manager):
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
-    content = QuillField()
-    member_content = QuillField()
+    content = HTMLField()
+    member_content = HTMLField()
     author = models.ForeignKey(ZappyUser, on_delete=models.CASCADE, null=True, blank=True)
     preview_image = ProcessedImageField(
         blank=True,

@@ -14,7 +14,9 @@
 
             {% if post.author %}
             <p class="text-center">Written by Resident Baller:</p>
+            {% if post.author.pic %}
             <img class="mx-auto d-block" height="150px" src="{{ post.author.pic.url }}">
+            {% endif %}
             <h3 class="text-center">{{ post.author.username }}</h3>
             {% endif %}
             <div class="wrapper d-flex justify-content-center mb-5">
@@ -24,7 +26,7 @@
         </header>
 
         <main class="main-content px-2 px-md-5">
-            {{ post.content.html|safe }}
+            {{ post.content|safe }}
 
             {% if post.member_content %}
             <div class="mt-4 mb-3">
@@ -34,7 +36,7 @@
             {% if user.active_membership %}
 
             <!-- Members Only Content -->
-            {{ post.member_content.html|safe }}
+            {{ post.member_content|safe }}
 
             {% else %}
             <!-- Members Content Preview -->

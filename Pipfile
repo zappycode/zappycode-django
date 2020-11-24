@@ -22,10 +22,10 @@ future = "*"
 djangorestframework = "*"
 environ = "*"
 requests = "*"
-django-quill-editor = "*"
 django-imagekit = "*"
 readtime = "*"
 django-social-share = "*"
+django-tinymce = "*"
 
 [requires]
 python_version = "3.6.9"

@@ -28,6 +28,8 @@ urlpatterns = [
                   path('newsletter', sitewide.views.newsletter, name='newsletter'),
                   path('paypal', sitewide.views.paypal, name='paypal'),
 
+                  path('tinymce/', include('tinymce.urls')),
+
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
                   path("login", allauth.account.views.login, name="account_login"),
