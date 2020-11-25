@@ -1,7 +1,5 @@
-from datetime import datetime
-
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404
 
 from .models import Lecture, Section, Course
@@ -24,7 +22,7 @@ def download_video(request, lecture_id):
         file_name = str(lecture.vimeo_video_id) + '.mp4'
         req = requests.get(lecture.download_url, stream=True, timeout=(5, 10))
         if req.status_code == 200:
-            response = HttpResponse(req, content_type='video/mp4')
+            response = StreamingHttpResponse(req, content_type='video/mp4')
             response['Content-Disposition'] = 'attachment; filename=' + str(file_name)
             return response
         else:
