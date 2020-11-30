@@ -26,9 +26,10 @@ class PostsManager(models.Manager):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
-    content = HTMLField()
-    member_content = HTMLField()
+    title = models.CharField(max_length=200)  
+    content = HTMLField(null=True)
+    member_content = HTMLField(null=True)
+
     author = models.ForeignKey(ZappyUser, on_delete=models.CASCADE, null=True, blank=True)
     preview_image = ProcessedImageField(
         blank=True,
