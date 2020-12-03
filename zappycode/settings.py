@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
+    'imagekit',
+    'django_social_share',
+    'tinymce',
 
     # All Auth
     'allauth',
@@ -204,3 +207,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# WYSIWYG Configurations
+

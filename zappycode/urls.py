@@ -29,6 +29,8 @@ urlpatterns = [
                   path('paypal', sitewide.views.paypal, name='paypal'),
                   path('paypal_validation', sitewide.views.paypal_validation, name='paypal_validation'),
 
+                  path('tinymce/', include('tinymce.urls')),
+
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
                   path("login", allauth.account.views.login, name="account_login"),
