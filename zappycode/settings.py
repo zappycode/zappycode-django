@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'imagekit',
     'django_social_share',
-    'tinymce',
+    # 'tinymce',
 
     # All Auth
     'allauth',
