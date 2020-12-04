@@ -13,7 +13,8 @@ from tinymce.models import HTMLField
 STATUS_CHOICES = (
     ('P', 'Published'),
     ('D', 'Draft'),
-) 
+)
+
 
 class PostsManager(models.Manager):
     def get_queryset(self):
@@ -26,7 +27,7 @@ class PostsManager(models.Manager):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)  
+    title = models.CharField(max_length=200)
     content = HTMLField(null=True)
     member_content = HTMLField(null=True)
 
@@ -34,18 +35,18 @@ class Post(models.Model):
     preview_image = ProcessedImageField(
         blank=True,
         upload_to='images/tutorials/',
-        processors=[ResizeToFill(900,650)],
+        processors=[ResizeToFill(900, 650)],
         format='JPEG',
-        options={'quality':85}
+        options={'quality': 85}
     )
     thumbnail = ImageSpecField(
         source='preview_image',
-        processors=[ResizeToFill(250,200)],
+        processors=[ResizeToFill(250, 200)],
         format='JPEG',
-        options={'quality':100}
+        options={'quality': 100}
     )
     published = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1,
                               choices=STATUS_CHOICES,
@@ -67,5 +68,3 @@ class Post(models.Model):
         string = str(self.content)
         result = readtime.of_html(string)
         return result
-
-
