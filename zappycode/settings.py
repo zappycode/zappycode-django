@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
+    'imagekit',
+    'django_social_share',
+    'tinymce',
 
     # All Auth
     'allauth',
