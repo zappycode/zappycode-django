@@ -22,6 +22,8 @@ future = "*"
 djangorestframework = "*"
 environ = "*"
 requests = "*"
+django-crispy-forms = "*"
+django-avatar = "*"
 
 [requires]
 python_version = "*"
