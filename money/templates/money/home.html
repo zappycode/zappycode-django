@@ -3,148 +3,156 @@
 {% load humanize %}
 
 {% block head %}
-    {% include "sitewide/pretty_socials.html" with title="ZappyCode Open Financials" description="Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's going on financially and hear your thoughts." %}
+{% include "sitewide/pretty_socials.html" with title="ZappyCode Open Financials" description="Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's going on financially and hear your thoughts." %}
 {% endblock %}
 
 {% block content %}
 
-    <div class="row justify-content-around align-items-center bg-success">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-2">
-            <h1 class="display-3 text-white mb-3 text-center">Open Financials</h1>
-            <p class="lead text-white">
-                Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's
-                going on financially and hear your thoughts.
-                Click around and see how a given month went for us. We also have a plan to make ZappyCode grow. See that
-                below.
-            </p>
-        </div>
+<div class="row justify-content-around align-items-center bg-success">
+    <div class="col-lg-7 col-md-8 col-11 pt-4 pb-2">
+        <h1 class="display-3 text-white mb-3 text-center">Open Financials</h1>
+        <p class="lead text-white">
+            Ever wanted to see the numbers behind a business? See em all here! We think it's fun to share what's
+            going on financially and hear your thoughts.
+            Click around and see how a given month went for us. We also have a plan to make ZappyCode grow. See that
+            below.
+        </p>
     </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-success">
-        <div class="col-lg-7 col-md-8 col-11 text-center">
-            <h1 class="text-white">2020 Totals</h1>
-        </div>
+<div class="row justify-content-around align-items-center bg-success">
+    <div class="col-lg-7 col-md-8 col-11 text-center">
+        <h1 class="text-white">2020 Totals</h1>
     </div>
+</div>
 
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-3 col-4 text-center">
-            <h3 class="text-white">Revenue</h3>
-            <h1 class="text-white">${{ revenue|floatformat:0|intcomma }}</h1>
-        </div>
-        <div class="col-md-3 col-4 text-center">
-            <h3 class="text-white">Expenses</h3>
-            <h1 class="text-white">$<span class="underline-red">{{ expenses|floatformat:0|intcomma }}</span></h1>
-        </div>
-        <div class="col-md-3 col-4 text-center">
-            {% if is_profit %}
-                <h3 class="text-white">Profit</h3>
-                <h1 class="text-white">${{ profit|floatformat:0|intcomma }}</h1>
-            {% else %}
-                <h3 class="text-white">Loss</h3>
-                <h1 class="text-white">$<span class="underline-red">{{ profit|floatformat:0|intcomma }}</span></h1>
-            {% endif %}
+<div class="row row justify-content-center bg-success">
+    <div class="col-md-3 col-4 text-center pb-4">
+        <h3 class="text-white">Revenue</h3>
+        <h1 class="text-white">${{ revenue|floatformat:0|intcomma }}</h1>
+    </div>
+    <div class="col-md-3 col-4 text-center">
+        <h3 class="text-white">Expenses</h3>
+        <h1 class="text-white">$<span class="underline-red">{{ expenses|floatformat:0|intcomma }}</span></h1>
+    </div>
+    <div class="col-md-3 col-4 text-center">
+        {% if is_profit %}
+        <h3 class="text-white">Profit</h3>
+        <h1 class="text-white">${{ profit|floatformat:0|intcomma }}</h1>
+        {% else %}
+        <h3 class="text-white">Loss</h3>
+        <h1 class="text-white">$<span class="underline-red">{{ profit|floatformat:0|intcomma }}</span></h1>
+        {% endif %}
 
-        </div>
     </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-success pt-4">
-        <div class="col-lg-7 col-md-8 col-11">
-            <h1 class="text-white">Funding Plan</h1>
-            <p class="text-white lead">Hey so this is Nick (Commander-in-Chief) and speaking. I've been working for
-                myself for about 6 years, and something I've never been great at is putting money back into my business
-                to help it grow. I'll spend money where I need to but when I have a chance to take CA$H home I usually
-                do :) With ZappyCode, I really want to see it grow so I've set up a plan to help me learn how to put
-                more money into growing things.</p>
-            <p class="text-white lead">For 2020, I've set aside $14,000 to put in ZappyCode. Each month I have a
-                predetermined amount of money to spend on things. In addition to the monthly money, all revenue will be
-                going back into ZappyCode. That means that in 2020, i will make no money personally from Zappy Code.</p>
+<div class="row">
+    <div class="col bg-success">
+        <div class="container">
+            <div class="p-4 bg-light rounded">
+                <canvas id="MRR-chart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 
-        </div>
-    </div>
+<div class="row justify-content-around align-items-center bg-success pt-4">
+    <div class="col-lg-7 col-md-8 col-11">
+        <h1 class="text-white">Funding Plan</h1>
+        <p class="text-white lead">Hey so this is Nick (Commander-in-Chief) and speaking. I've been working for
+            myself for about 6 years, and something I've never been great at is putting money back into my business
+            to help it grow. I'll spend money where I need to but when I have a chance to take CA$H home I usually
+            do :) With ZappyCode, I really want to see it grow so I've set up a plan to help me learn how to put
+            more money into growing things.</p>
+        <p class="text-white lead">For 2020, I've set aside $14,000 to put in ZappyCode. Each month I have a
+            predetermined amount of money to spend on things. In addition to the monthly money, all revenue will be
+            going back into ZappyCode. That means that in 2020, i will make no money personally from Zappy Code.</p>
 
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">January</h3>
-            <h4 class="text-white">$500</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">February</h3>
-            <h4 class="text-white">$1,000</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">March</h3>
-            <h4 class="text-white">$1,000</h4>
-        </div>
     </div>
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">April</h3>
-            <h4 class="text-white">$1,500</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">May</h3>
-            <h4 class="text-white">$2,000</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">June</h3>
-            <h4 class="text-white">$2,000</h4>
-        </div>
-    </div>
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">July</h3>
-            <h4 class="text-white">$1,500</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">August</h3>
-            <h4 class="text-white">$1,500</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">September</h3>
-            <h4 class="text-white">$1,000</h4>
-        </div>
-    </div>
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">October</h3>
-            <h4 class="text-white">$1,000</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">November</h3>
-            <h4 class="text-white">$500</h4>
-        </div>
-        <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">December</h3>
-            <h4 class="text-white">$500</h4>
-        </div>
-    </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-success pt-4">
-        <div class="col-lg-7 col-md-8 col-11">
-            <p class="text-white lead">The hope is that at the end of 2020, there will be enough revenue that I no
-                longer have to be feeding money into ZappyCode to continue growth. Then starting in 2021, I'll slowly
-                start taking some money home. My thought is each month I'll take home an additional 2% of revenue until
-                I am at one point am taking home 50% of revenue. I hope long term to keep that ratio at 50% but we'll
-                see where things go. This is all new to me and I'd love to hear from you. Tweet <a
-                        href="https://twitter.com/ZappyCode">@ZappyCode</a> any thoughts
-                or ideas you have on how to improve the business side of ZappyCode.</p>
-        </div>
+<div class="row row justify-content-center bg-success">
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">January</h3>
+        <h4 class="text-white">$500</h4>
     </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">February</h3>
+        <h4 class="text-white">$1,000</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">March</h3>
+        <h4 class="text-white">$1,000</h4>
+    </div>
+</div>
+<div class="row row justify-content-center bg-success">
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">April</h3>
+        <h4 class="text-white">$1,500</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">May</h3>
+        <h4 class="text-white">$2,000</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">June</h3>
+        <h4 class="text-white">$2,000</h4>
+    </div>
+</div>
+<div class="row row justify-content-center bg-success">
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">July</h3>
+        <h4 class="text-white">$1,500</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">August</h3>
+        <h4 class="text-white">$1,500</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">September</h3>
+        <h4 class="text-white">$1,000</h4>
+    </div>
+</div>
+<div class="row row justify-content-center bg-success">
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">October</h3>
+        <h4 class="text-white">$1,000</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">November</h3>
+        <h4 class="text-white">$500</h4>
+    </div>
+    <div class="col-md-2 col-4 text-center">
+        <h3 class="text-white">December</h3>
+        <h4 class="text-white">$500</h4>
+    </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-success pt-4">
-        <div class="col-lg-7 col-md-8 col-11 text-center">
-            <h1 class="text-white">Monthly Reports</h1>
-        </div>
+<div class="row justify-content-around align-items-center bg-success pt-4">
+    <div class="col-lg-7 col-md-8 col-11">
+        <p class="text-white lead">The hope is that at the end of 2020, there will be enough revenue that I no
+            longer have to be feeding money into ZappyCode to continue growth. Then starting in 2021, I'll slowly
+            start taking some money home. My thought is each month I'll take home an additional 2% of revenue until
+            I am at one point am taking home 50% of revenue. I hope long term to keep that ratio at 50% but we'll
+            see where things go. This is all new to me and I'd love to hear from you. Tweet <a href="https://twitter.com/ZappyCode">@ZappyCode</a> any thoughts
+            or ideas you have on how to improve the business side of ZappyCode.</p>
     </div>
+</div>
 
-    <div class="row justify-content-around align-items-center bg-success pt-4">
-        <div class="col-lg-7 col-md-8 col-11">
-            {% for month in months %}
-                <h3><a href="{% url 'money:view_month' month.id month.slug %}"
-                       class="text-white underline-purple">{{ month }}</a></h3>
-            {% endfor %}
-        </div>
+<div class="row justify-content-around align-items-center bg-success pt-4">
+    <div class="col-lg-7 col-md-8 col-11 text-center">
+        <h1 class="text-white">Monthly Reports</h1>
     </div>
+</div>
+
+<div class="row justify-content-around align-items-center bg-success pt-4">
+    <div class="col-lg-7 col-md-8 col-11">
+        {% for month in months %}
+        <h3><a href="{% url 'money:view_month' month.id month.slug %}" class="text-white underline-purple">{{ month }}</a></h3>
+        {% endfor %}
+    </div>
+</div>
 
 
 
@@ -156,5 +164,43 @@
 
 
 {% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script data-json="{{ data }}" id="data"></script>
+<script>
+    var ctx = document.getElementById("MRR-chart").getContext("2d");
+    var json_data = JSON.parse(document.getElementById("data").dataset.json);
+    var months = json_data.map(obj => obj.month);
+    var mrr = json_data.map(obj => parseFloat(obj.mrr))
 
+    var MRRchart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: months,
+            datasets: [{
+                label: 'MRR',
+                backgroundColor: 'rgba(110, 0, 255, 0.3)',
+                borderColor: 'rgb(110, 0, 255)',
+                pointBorderColor: "rgb(110, 0, 255)",
+                data: mrr
+            }],
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Monthly Recurring Revenue',
+                fontSize: 32,
+                fontFamily: "'Nunito', 'sans-serif'",
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return '$' + value.toFixed(2);
+                        }
+                    }
+                }]
+            }
+        }
+    })
+</script>
 {% endblock %}
