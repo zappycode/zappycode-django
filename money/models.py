@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 class MonthManager(models.Manager):
     def to_json(self):
-        """ Returns all objects as a list of JSON objects with format {"month": month, "mrr": mrr} """
+        """ Returns all objects as a list of JSON objects in chronological order with format {"month": month, "mrr": mrr} """
         qs = self.get_queryset().order_by('year', 'month').values("month", "mrr")
         list_of_dicts = list(qs)
         for single_dict in list_of_dicts:
