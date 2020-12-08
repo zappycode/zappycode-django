@@ -35,9 +35,6 @@ class Post(models.Model):
     preview_image = ProcessedImageField(
         blank=True,
         upload_to='images/tutorials/',
-        processors=[ResizeToFill(900, 650)],
-        format='JPEG',
-        options={'quality': 85}
     )
     thumbnail = ImageSpecField(
         source='preview_image',
