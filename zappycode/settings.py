@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'imagekit',
     'django_social_share',
-    # 'tinymce',
+    'tinymce',
 
     # All Auth
     'allauth',
@@ -207,3 +207,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# TINYMCE The WYSIWYG Editor
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace,code",
+}
+TINYMCE_SPELLCHECKER = True
