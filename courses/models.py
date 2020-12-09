@@ -29,6 +29,11 @@ class Course(models.Model):
     def sorted_sections(self):
         return self.sections.order_by('number')
 
+    def get_absolute_url(self):
+        return reverse("course_landing_page", kwargs={
+            "course_slug": self.slug,
+        })
+
     def get_download_url(self):
         headers = {'Authorization': 'bearer ' + env.str('VIMEO_BEARER', default='')}
         video_data = requests.get('https://api.vimeo.com/videos/'

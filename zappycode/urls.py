@@ -3,11 +3,19 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView, TemplateView
+from django.contrib.sitemaps.views import sitemap
+from .sitemap import StaticViewSitemap, CourseSitemap, MoneySitemap 
 import sitewide.views
 import challenge.views
 import courses.views
 import allauth.account.views
 import sitewide
+
+sitemaps = {
+     'static': StaticViewSitemap,
+     'courses': CourseSitemap,
+     'money': MoneySitemap,
+}
 
 handler404 = 'sitewide.views.error404'
 
@@ -32,6 +40,7 @@ urlpatterns = [
                   path('tinymce/', include('tinymce.urls')),
 
                   path("robots.txt", TemplateView.as_view(template_name="sitewide/robots.txt", content_type="text/plain")),
+                  path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
 
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
