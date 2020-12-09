@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 import sitewide.views
 import challenge.views
 import courses.views
@@ -30,6 +30,8 @@ urlpatterns = [
                   path('paypal_validation', sitewide.views.paypal_validation, name='paypal_validation'),
 
                   path('tinymce/', include('tinymce.urls')),
+
+                  path("robots.txt", TemplateView.as_view(template_name="sitewide/robots.txt", content_type="text/plain")),
 
                   # Auth
                   path("auth/signup", allauth.account.views.signup, name="account_signup"),
