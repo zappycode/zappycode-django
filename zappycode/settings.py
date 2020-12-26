@@ -40,13 +40,14 @@ INSTALLED_APPS = [
     'posts',
     'money',
     'invites',
+    'chit_chat',
 
     # 3rd Party
     'djcelery_email',
     'django_celery_results',
-    'imagekit',
-    'django_social_share',
-    'tinymce',
+    # 'imagekit',
+    # 'django_social_share',
+    # 'tinymce',
 
     # All Auth
     'allauth',
@@ -186,6 +187,11 @@ DEFAULT_FROM_EMAIL = 'ZappyCode <nick@ZappyCode.com>'
 
 CELERY_RESULT_BACKEND = 'django-db'
 
+# Discourse settings
+DISCOURSE_BASE_URL = 'https://chitchat.zappycode.com'
+DISCOURSE_SSO_SECRET = env.str('DISCOURSE_SSO_SECRET', default='')
+DISCOURSE_API_KEY = env.str('DISCOURSE_API_KEY', default='')
+DISCOURSE_USER_NAME = env.str('DISCOURSE_API_NAME', default='')
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404
 
+from chit_chat.views import get_topics
+from zappycode.settings import DISCOURSE_BASE_URL
 from .models import Lecture, Section, Course
 from sitewide.models import ZappyUser
 
@@ -35,14 +37,39 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
     if not lecture.thumbnail_url:
         lecture.thumbnail_url = lecture.get_thumbnail_url()
         lecture.save()
-    return render(request, 'courses/view_lecture.html', {'lecture': lecture})
+
+    #  get issues from specific category to fill chit chat q&a box
+    topics = get_topics(course_slug)
+    return render(request, 'courses/view_lecture.html', {
+        'lecture': lecture,
+        'topics': topics[0],
+        'table_title': topics[1],
+        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+    })
 
 
 def course_landing_page(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
-    return render(request, 'courses/course_landing_page.html', {'course': course})
+
+    # get most popular issues to fill chit chat box
+    topics = get_topics('top')
+    return render(request, 'courses/course_landing_page.html', {
+        'course': course,
+        'topics': topics[0],
+        'table_title': topics[1],
+        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+    })
 
 
 def all_courses(request):
     courses = Course.objects.filter(published=True).order_by('-release_date')
-    return render(request, 'courses/all_courses.html', {'courses': courses})
+
+    # get issues to fill chit chat box
+    topics = get_topics('last')
+
+    return render(request, 'courses/all_courses.html', {
+        'courses': courses,
+        'topics': topics[0],
+        'table_title': topics[1],
+        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+    })
