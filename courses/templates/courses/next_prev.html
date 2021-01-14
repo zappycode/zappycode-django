@@ -5,7 +5,7 @@
        href="{% url 'view_lecture' lecture.prev_lecture.section.course.slug lecture.prev_lecture.id lecture.prev_lecture.slug %}"
        {% else %}style="pointer-events: none;"{% endif %}>Previous
     </a>
-    {% if user.active_membership %}
+    {% if user.active_membership and lecture.vimeo_video_id %}
     <a id="download" role="button" class="btn btn-light "
        href="{% url 'download' lecture.id %}" type="video/mp4">
          <i class="fas fa-download mr-2"></i>Download
