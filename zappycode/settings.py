@@ -218,6 +218,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # TINYMCE The WYSIWYG Editor
 
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace,code",
+    'plugins': "table,spellchecker,paste,searchreplace,code,anchor,codesample,emoticons,image,lists",
+    'toolbar': 'undo redo | styleselect | bold italic code | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | emoticons codesample image anchor'
+    'file_picker_types': 'image',
 }
 TINYMCE_SPELLCHECKER = True
