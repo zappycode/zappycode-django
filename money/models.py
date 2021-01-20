@@ -2,6 +2,7 @@ from django.db import models
 import calendar
 import json
 from django.utils.text import slugify
+from django.urls import reverse
 
 class MonthManager(models.Manager):
     def to_json(self):
@@ -42,3 +43,10 @@ class Month(models.Model):
 
     def profit_or_loss_abs(self):
         return abs(self.revenue - self.expenses)
+
+    def get_absolute_url(self):
+        return reverse('money:view_month', kwargs={
+            "month_pk": self.id,
+            "month_slug": self.slug(),
+        })
+
