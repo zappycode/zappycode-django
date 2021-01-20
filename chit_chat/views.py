@@ -30,13 +30,13 @@ def get_topics(course_slug=''):
     table_title = 'Recent Chit Chat Issues'
     category_details = None
 
-    if 'django' in course_slug or 'python' in course_slug:
+    if 'django'.capitalize() in course_slug.capitalize() or 'python'.capitalize() in course_slug.capitalize():
         response = requests.get(DISCOURSE_BASE_URL + '/c/6.json', headers)
         table_title = 'Recent Django Issues'
-    elif 'kotlin' in course_slug:
+    elif 'kotlin'.capitalize() in course_slug.capitalize():
         response = requests.get(DISCOURSE_BASE_URL + '/c/7.json', headers)
         table_title = 'Recent Kotlin Issues'
-    elif 'swift' in course_slug:
+    elif 'swift'.capitalize() in course_slug.capitalize() or 'swiftui'.capitalize() in course_slug.capitalize() or 'ios'.capitalize() in course_slug.capitalize():
         response = requests.get(DISCOURSE_BASE_URL + '/c/8.json', headers)
         table_title = 'Recent Swift Issues'
     elif course_slug == 'last':
@@ -67,6 +67,12 @@ def get_topics(course_slug=''):
                     users['avatar_template'] = '/user_avatar/' + DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):] + '/' + users['username'] \
                                                + '/25' + users['avatar_template'][users['avatar_template'].rfind('/'):]
                     posters[key] = {'poster': users, 'description': description}
+
+            if topic['last_posted_at']:
+                last_posted_at = topic['last_posted_at']
+            else:
+                last_posted_at =  topic['created_at']
+
             context = {
                 'id': topic['id'],
                 'title': topic['title'],
@@ -77,7 +83,7 @@ def get_topics(course_slug=''):
                 'posts_count': topic['posts_count'] - 1,
                 'views': topic['views'],
                 'created_at': datetime.strptime(topic['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ"),
-                #'last_posted_at': datetime.strptime(topic['last_posted_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+                'last_posted_at': datetime.strptime(last_posted_at, "%Y-%m-%dT%H:%M:%S.%fZ")
             }
             topics.append(context)
     else:
