@@ -77,7 +77,7 @@ def get_topics(course_slug=''):
                 'posts_count': topic['posts_count'] - 1,
                 'views': topic['views'],
                 'created_at': datetime.strptime(topic['created_at'], "%Y-%m-%dT%H:%M:%S.%fZ"),
-                'last_posted_at': datetime.strptime(topic['last_posted_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
+                #'last_posted_at': datetime.strptime(topic['last_posted_at'], "%Y-%m-%dT%H:%M:%S.%fZ")
             }
             topics.append(context)
     else:
