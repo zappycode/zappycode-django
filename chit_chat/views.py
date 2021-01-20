@@ -51,7 +51,7 @@ def get_topics(course_slug=''):
     if response.status_code == 200:
         topics_list = response.json()['topic_list']['topics'][:number_of_topics]
         topics = []
-        i = 1
+
         for topic in topics_list:
             posters = {
                 'Orig': None,
