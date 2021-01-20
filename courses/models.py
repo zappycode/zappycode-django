@@ -81,7 +81,7 @@ class Lecture(models.Model):
         # and order set by sections and numbers
         __lectures = self.__class__.objects.filter(
             section__course_id=self.section.course.id
-        ).order_by('section_id', 'number').exclude(section_id__lt=self.section_id)
+        ).order_by('section__number', 'number').exclude(section__number__lt=self.section.number)
 
         # last() lecture of the course are specific one
         # - has got no any next element
@@ -90,16 +90,17 @@ class Lecture(models.Model):
         else:
             # threw out from the set all lectures
             # - earlier and actual - after return first element
-            __next_lectures = __lectures.exclude(section_id=self.section_id, number__lte=self.number)
+            __next_lectures = __lectures.exclude(section_id=self.section.id, number__lte=self.number)
             return __next_lectures.first()
 
     def prev_lecture(self):
         # retrieving all the course lectures,
         # exclude all from sections greater than section of actual element
         # and order set by sections and numbers
+
         __lectures = self.__class__.objects.filter(
             section__course_id=self.section.course.id
-        ).order_by('section_id', 'number').exclude(section_id__gt=self.section_id)
+        ).order_by('section__number', 'number').exclude(section__number__gt=self.section.number)
 
         # first() lecture of the course is specific one - has got no any prev element
         if self.id == __lectures.first().id:
