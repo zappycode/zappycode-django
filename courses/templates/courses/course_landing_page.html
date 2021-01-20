@@ -34,6 +34,7 @@
                    target="_blank">Download</a>
             {% endif %}
         </div>
+
     </div>
 
 
@@ -46,7 +47,13 @@
     </div>
 
     <div class="row justify-content-around align-items-center bg-success pt-3">
-        <div class="col-lg-6 col-10">
+        <div class="col-lg-6 col-10 mb-3">
+            {% if not user.active_membership %}
+              {% if topics %}
+                <h2 class="text-center text-white">Community bail out</h2>
+                <div>{% include 'chit_chat/topicList.html' %}</div>
+              {% endif %}
+            {% endif %}
             <h2 class="text-center text-white">Outline</h2>
             {% for section in course.sorted_sections %}
 

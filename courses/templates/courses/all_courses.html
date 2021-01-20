@@ -21,11 +21,13 @@
     <div class="row bg-dark pt-5">
 
     {% for course in courses %}
+
         {% if not forloop.counter|divisibleby:"2" %}
             <div class="col-md-4 offset-md-2 col-10 offset-1">
         {% else %}
             <div class="col-md-4 col-10 offset-md-0 offset-1">
         {% endif %}
+
 
     <a href="{% url 'course_landing_page' course.slug %}">
         <div class="card mb-4 shadow-sm">
@@ -41,9 +43,15 @@
         {% if forloop.counter|divisibleby:"2" %}
             <div class="w-100"></div>
         {% endif %}
+         {% if forloop.counter == 2 %}
+              <div class="row col-12 col-sm-12 justify-content-center m-auto">
+                   {% if topics %}
+                     <div class="pl-1 pr-1 col-lg-8 col-md-8 col-sm-10 col-10">
+                       {% include 'chit_chat/topicList.html' %}
+                     </div>
+                   {% endif %}
+             </div>
+        {% endif %}
     {% endfor %}
-
-
-
 </div>
 {% endblock %}

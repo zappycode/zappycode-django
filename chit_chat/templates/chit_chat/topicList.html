@@ -1,0 +1,44 @@
+<table class="w-auto rounded table-responsive bg-white table-primary table table-fixed table-hover ">
+  <thead class="">
+
+      <tr class="text-primary">
+        <th onClick="parent.open('https://{{ discourse_url }}/')" style="cursor: pointer;" scope="col" data-sort-order="default" class="border-top-0 w-75">{{ table_title }}</th>
+        <th scope="col" data-sort-order="posters" class="border-top-0 w-100" aria-label="Posters"><span hidden>Avatar</span></th>
+        <th scope="col" data-sort-order="posts" class="d-none d-sm-table-cell border-top-0 w-25">Replies</th>
+        <th scope="col" data-sort-order="views" class="d-none d-sm-table-cell border-top-0 w-25">Views</th>
+        <th scope="col" data-sort-order="activity" class="d-none d-sm-table-cell text-center border-top-0 w-25">Activity</th>
+    </tr>
+
+  </thead>
+  <tbody id="trows" class="table-hover">
+      {% for topic in topics|dictsortreversed:"last_posted_at" %}
+        <tr onClick="parent.open('https://{{ discourse_url }}/t/{{ topic.slug }}/{{ topic.id }}')" id="{{ topic.id }}" class="text-primary">
+          <td class="" >
+            <div style="cursor: pointer;" class="font-weight-bolder">{{ topic.title }}</div>
+            <div class="small ">
+              {% if topic.category %}
+                <span class="mr-1 font-weight-bolder small" onClick="parent.open('https://{{ discourse_url }}/c/{{ topic.category.parent_category_id }}/{{ topic.category.id }}')" style="cursor: pointer">
+                  <i class="fa fa-square " style="background: #{{ topic.category.color }}; color: #{{ topic.category.color }}"></i>
+                  {{ topic.category.name }}
+                </span>
+              {% endif %}
+              {% for tag in topic.tags %}
+                <span onClick="parent.open('https://{{ discourse_url }}/tag/{{ tag }}')" style="cursor: pointer">{{ tag }}{% if not forloop.last %}, {% endif %}</span>
+              {% endfor %}
+            </div>
+          </td>
+          <td class="align-middle" colspan="1">
+            <img alt="avatar" src="https://{{ discourse_url }}{{ topic.posters.Orig.poster.avatar_template }}" class="rounded-circle " title="{{ topic.posters.Orig.poster.username }} - {{ topic.posters.Orig.description }}" aria-label="{{ topic.posters.Orig.poster.username }} - {{ topic.posters.Orig.description }}">
+            {% if topic.posters.Most %}
+              <img alt="avatar" src="https://{{ discourse_url }}{{ topic.posters.Most.poster.avatar_template }}" class="rounded-circle " title="{{ topic.posters.Most.poster.username }} - {{ topic.posters.Most.description }}" aria-label="{{ topic.posters.Most.poster.username }} - {{ topic.posters.Most.description }}">
+            {% endif %}
+          </td>
+          <td class="align-middle d-none d-sm-table-cell text-center" title="This topic has {{ topic.posts_count }} repl{{ topic.posts_count|pluralize:"y,ies" }}" colspan="1"><span class="" aria-label="This topic has {{ topic.posts_count }} reply{{ topic.posts_count|pluralize }}">{{ topic.posts_count }}</span></td>
+          <td class="align-middle d-none d-sm-table-cell text-center" colspan="1"><span class="" title="This topic has been viewed {{ topic.views }} time{{ topic.views|pluralize }}">{{ topic.views }}</span></td>
+          <td class="align-middle d-none d-sm-table-cell text-center" colspan="1" ><span title="First post: {{ topic.created_at }}&#10;Last post: {{ topic.last_posted_at }}">{{ topic.last_posted_at|timesince }} </span></td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+
