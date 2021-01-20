@@ -3,6 +3,8 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
+
+import chit_chat.views
 import sitewide.views
 import challenge.views
 import courses.views
@@ -15,7 +17,7 @@ urlpatterns = [
                   path('', sitewide.views.home, name='home'),
                   path('admin/', admin.site.urls),
                   path('check', sitewide.views.check_active_memberships, name='check_membership'),
-                  path('courses', include('courses.urls')),
+                  path('courses/', include('courses.urls')),
                   path('api', include('api.urls')),
                   path('posts', include('posts.urls')),
                   path('money', include('money.urls')),
@@ -28,7 +30,7 @@ urlpatterns = [
                   path('newsletter', sitewide.views.newsletter, name='newsletter'),
                   path('paypal', sitewide.views.paypal, name='paypal'),
                   path('paypal_validation', sitewide.views.paypal_validation, name='paypal_validation'),
-
+                  path('discourse/sso', chit_chat.views.discourse_sso, name='discourse_sso'),
                   path('tinymce/', include('tinymce.urls')),
 
                   # Auth

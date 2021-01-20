@@ -64,8 +64,21 @@
 
     <div class="row justify-content-around align-items-center bg-success pt-3">
         <div class="col-lg-6 col-10">
-            <h2 class="text-center text-white">Outline</h2>
-            <div class="list-group">
+
+           <ul role="tablist" id="myTab" class="nav nav-pills justify-content-center">
+             <li class="nav-item">
+               <a class="nav-link active" data-toggle="tab" href="#outline"> <h2 class="text-center">Outline</h2></a>
+             </li>
+             {% if topics %}
+             <li class="nav-item ">
+               <a class=" nav-link" data-toggle="tab" href="#topic-list"><h2 class="text-center ">Q&A</h2></a>
+             </li>
+             {% endif %}
+           </ul>
+
+            <div class="tab-content mt-3">
+              <div class="tab-pane active show" role="tabpanel" id="outline">
+                <div class="list-group mb-3">
                 {% for section in lecture.section.course.sorted_sections %}
                     <li class="list-group-item  list-group-item-dark">{{ section.number }} - {{ section.title }}</li>
                     {% for listed_lecture in section.sorted_lectures %}
@@ -83,8 +96,18 @@
                         {% endif %}
                     {% endfor %}
                 {% endfor %}
+                </div>
+
+              </div>
+
+              <div class="tab-pane fade col-12" role="tabpanel" id="topic-list">
+                   {% include 'chit_chat/topicList.html' %}
+              </div>
+
             </div>
+
         </div>
+
     </div>
     <div id="download-info" class="row card-img-overlay align-items-center justify-content-center bg-transparent position-fixed" style="display: none !important">
         <div class="border border-white p-3 p-lg-3 big-title font-weight-bold text-center text-white link-white " style="background: rgba(110, 0, 255, .85)">Grabbing your download, one sec...</div>
@@ -95,18 +118,43 @@
 
     <script>
         $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
+            let params = {param : 'download'};
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $('#load_more').click(function (){
+                 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                 function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                 }
+
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                           xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+                $.ajax({
+                    url: this.href,
+                    global: false,
+                    success: function() {
+                      console.log('load more wciśnięty');
+                    },
+                });
+            });
 
             $("#download").click(function () {
                 $.ajax({
                     url: this.href,
+
                 });
             });
-        }).ajaxStart(function () {
-            $("#download-info").show()
+        }).ajaxStart(function (e) {
+                  $("#download-info").show();
         })
             .ajaxComplete(function () {
-                $("#download-info").delay(500).fadeOut();
+                  $("#download-info").delay(500).fadeOut();
             });
     </script>
 
