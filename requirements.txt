@@ -11,4 +11,3 @@ Pillow==8.1.0
 stripe==2.55.1
 readtime==1.1.1
 paypalrestsdk==1.13.1
-

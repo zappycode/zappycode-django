@@ -2,6 +2,9 @@
 # ![](sitewide/static/sitewide/ZappyCodeLogoMini.png) ZappyCode - Coding is Fun
 Learning to code should also be fun. That's why we built Zappycode! A community of learners that don't like doing things the boring way. Join and see what it's all about. 
 
+## Learn How to Run Locally
+[![Link to Tutorial on Setting Up ZappyCode](sitewide/static/sitewide/GitHub.png)](https://zappycode.com/posts/14/running-zappycode-open-source-locally-django)
+
 ## Issues
 Feel free to submit issues and enhancement requests under the issues tab. 
 

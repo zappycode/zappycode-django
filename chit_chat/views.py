@@ -30,13 +30,14 @@ def get_topics(course_slug=''):
     table_title = 'Recent Chit Chat Issues'
     category_details = None
 
-    if 'django'.capitalize() in course_slug.capitalize() or 'python'.capitalize() in course_slug.capitalize():
+    if 'django'.lower() in course_slug.lower() or 'python'.lower() in course_slug.lower():
         response = requests.get(DISCOURSE_BASE_URL + '/c/6.json', headers)
         table_title = 'Recent Django Issues'
-    elif 'kotlin'.capitalize() in course_slug.capitalize():
+    elif 'kotlin'.lower() in course_slug.lower():
         response = requests.get(DISCOURSE_BASE_URL + '/c/7.json', headers)
         table_title = 'Recent Kotlin Issues'
-    elif 'swift'.capitalize() in course_slug.capitalize() or 'swiftui'.capitalize() in course_slug.capitalize() or 'ios'.capitalize() in course_slug.capitalize():
+    elif 'swift'.lower() in course_slug.lower() or 'swiftui'.lower() in course_slug.lower() \
+            or 'ios'.lower() in course_slug.lower():
         response = requests.get(DISCOURSE_BASE_URL + '/c/8.json', headers)
         table_title = 'Recent Swift Issues'
     elif course_slug == 'last':

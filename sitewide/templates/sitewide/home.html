@@ -1,11 +1,21 @@
 {% extends "sitewide/base.html" %}
 {% load static %}
 
+{% block head %}
+<meta name="description" content="Learning to code should also be fun. That's why we built Zappycode! A community of learners that don't like doing things the boring way. Join and see what it's all about.">
+{% endblock %}
+
 {% block content %}
 
     <div class="row justify-content-around align-items-center bg-primary">
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
             <h1 class="display-3 text-white mb-3">Coding Is Fun</h1>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item"
+                        src="https://player.vimeo.com/video/506665048" frameborder="0"
+                        allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <br>
             <p class="lead text-white lh-180 mx-auto">
                 Learning to code should also be fun. That's why we built Zappycode! A community of learners that don't
                 like doing things the boring way. Join and see what it's all about.
@@ -24,7 +34,7 @@
                 Trying to learn something new? Rather than watching a bunch of half-baked YouTube videos and tutorials
                 that haven't been updated in 3 years, come take one of our complete end to end courses designed for you!
             </p>
-            <img class="img-fluid pb-4" src="{% static 'sitewide/topCourses.png' %}">
+            <img class="img-fluid pb-4" src="{% static 'sitewide/topCourses.png' %}" alt="Most popular courses are all included">
             <a href="{% url 'all_courses' %}" class="btn btn-primary rounded-pill hover-translate-y-n3 mt-4">
                 All Courses <i class="fas fa-list"></i>
             </a>
@@ -40,7 +50,8 @@
             </p>
             <h1 id="face">😄</h1>
             <span class="h1" id="price">$25</span><span style="font-size: large;" id="monthYear">/month</span>
-            <input type="range" class="custom-range" min="5" max="45" step="5" value="25" id="homePagePriceSlider">
+            <label for="price-slider" class="d-none">Price</label>
+            <input type="range" name="price-slider" class="custom-range" min="5" max="45" step="5" value="25" id="homePagePriceSlider">
             <br>
             <br>
             <button id="monthlyBtn" type="button" class="btn btn-warning active">Monthly</button>
@@ -65,7 +76,7 @@
                 Also! Those who help with the coding or business side of the site, get free membership!
             </p>
             <br>
-            <a href="https://github.com/zappycode/zappycode-django" target="_blank"
+            <a href="https://github.com/zappycode/zappycode-django" rel="noopener noreferrer" target="_blank"
                class="btn btn-info btn-icon rounded-pill hover-translate-y-n3 mt-4">
                 <span class="btn-inner--text">Source Code</span>
                 <span class="btn-inner--icon"><i class="fas fa-sign-in-alt"></i></span>

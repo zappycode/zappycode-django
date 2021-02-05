@@ -1,0 +1,12 @@
+User-Agent: *
+Disallow: /admin/
+Disallow: /tinymce/
+Disallow: /check
+Disallow: /account
+Disallow: /somebodylovesyou
+Disallow: /payment_success
+Disallow: /cancel_subscription
+Disallow: /paypal_validation
+Disallow: /paypal
+Disallow: /logout
+Disallow: /password/set
