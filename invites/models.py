@@ -23,6 +23,15 @@ class Invite(models.Model):
     def get_absolute_url(self):
         return reverse('invites:invite_landing_page', kwargs={'token': self.token})
 
+    # method to check if user has got active invite.
+    # if yes return expiration date, if not return None
+    @staticmethod
+    def has_invite(user):
+        for invite in Invite.objects.filter(receiver_id=user.id):
+            if not invite.is_expired():
+                return invite.end_date
+        return None
+
     def is_expired(self):
         return date.today() > self.end_date
 

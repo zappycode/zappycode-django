@@ -1,0 +1,14 @@
+Django==3.1.5
+django-allauth==0.44.0
+django-celery-email==3.0.0
+django-celery-results==2.0.1
+django-environ==0.4.5
+django-imagekit==4.0.2
+django-social-share==2.1.1
+django-tinymce==3.2.0
+djangorestframework==3.12.2
+Pillow==8.1.0
+stripe==2.55.1
+readtime==1.1.1
+paypalrestsdk==1.13.1
+
