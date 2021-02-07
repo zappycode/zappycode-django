@@ -28,3 +28,11 @@ class Invite(models.Model):
 
     def days_left(self):
         return (self.end_date - date.today()).days
+
+    @property
+    def is_valid(self):
+        # This looks ugly. But the basic definition of valid invitation:
+        # 1. Invitation is not expired
+        # 2. receiver is None (this is my understanding of you code. 
+        #   Not sure if the second point is correctly interpretated)
+        return not self.is_expired and self.receiver is None

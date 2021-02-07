@@ -23,3 +23,43 @@ class LastCommit(models.Model):
     commit_url = models.URLField()
     commit_time = models.DateTimeField()
     last_checked = models.DateTimeField()
+
+
+PAYMENT_TYPES = [
+    ('m', 'Monthly'),
+    ('y', 'Yearly')
+]
+
+
+class PaymentPlan(models.Model):
+    _id = models.CharField(
+        primary_key=True,
+        editable=False,
+        max_length=20
+    )
+    _type = models.CharField(
+        max_length=1,
+        choices=PAYMENT_TYPES
+    )
+    amount = models.PositiveIntegerField()
+    plan = models.CharField(
+        max_length=16,
+        help_text="no plan_ prefix is required."
+    )
+
+    def __str__(self):
+        return self._id
+
+    class Meta:
+        ordering = ('_type', 'amount', )
+
+    def save(self, *args, **kwargs):
+        if self._type == 'm':
+            self._id = f'monthly{self.amount}'
+        else:
+            self._id = f'yearly{self.amount}'
+        super().save(*args, **kwargs)
+
+    @property
+    def displayed_plan(self):
+        return f'plan_{self.plan}'
