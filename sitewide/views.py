@@ -148,7 +148,7 @@ def account(request):
                           + "has got corrupted membership. " \
                             "There is no valid subscription (active or cancelled) or invitation. "
                 send_mail("Broken membership", message, request.user.email,
-                          [env.str('FEEDBACK_EMAIL_RECEIVER')], fail_silently=False)
+                          [env.str('ADMIN_EMAIL')], fail_silently=False)
     else:
         form = AccountSettingsForm(request.POST, request.FILES)
         if 'delete' in request.POST:
@@ -245,7 +245,7 @@ def cancel_subscription(request, membership):
                       + "Apple receipt: " + str(request.user.apple_receipt) + "\n" + "Reasons: " + reasons
             subject = "Cancellation request of Apple subscription"
 
-        send_mail(subject, message, request.user.email, [env.str('FEEDBACK_EMAIL_RECEIVER')], fail_silently=False)
+        send_mail(subject, message, request.user.email, [env.str('ADMIN_EMAIL')], fail_silently=False)
         return redirect('account')
 
     return redirect('home')
