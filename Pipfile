@@ -26,6 +26,7 @@ django-imagekit = "*"
 readtime = "*"
 django-social-share = "*"
 django-tinymce = "*"
+paypalrestsdk = "*"
 
 [requires]
 python_version = "3.6.9"
