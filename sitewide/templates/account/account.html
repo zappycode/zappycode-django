@@ -7,63 +7,154 @@
 
 {% block content %}
 
-
     <div class="row justify-content-around align-items-center bg-light">
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5">
-            <h1>{{ user.username }}'s Account</h1>
+        <div class="text-center col-lg-7 col-md-8 col-11 pt-3">
+            <div class="h2 text-break text-left">{{ user.username }}'s Account
+                <br>
+                <span class="text-primary h4">{{ request.user.email }}</span></div>
         </div>
     </div>
 
+    <div class="row justify-content-around bg-light">
 
 
-    <div class="row align-items-center justify-content-around bg-light">
+        <div class="col-lg-7 col-md-8 col-11 pb-3 text-left">
+          <div class="row">
 
+            <div class="col-sm-3 mt-3 ">
+              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                <a class="nav-link na" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-membership" role="tab" aria-controls="v-pills-messages" aria-selected="false">Membership</a>
+              </div>
+            </div>
 
-        <div class="col-lg-7 col-md-8 col-11 pt-4 pb-5 text-center">
-
-
-            {% if user.cancel_at_period_end %}
-                <br>
-                <div class="alert alert-danger" role="alert">
-                    Your subscription has been canceled. You'll still have access to ZappyCode until the end of the
-                    billing cycle.
-                </div>
-            {% endif %}
-
-            <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% if request.user.pic %}
-                    <label>Change your profile picture:</label>
-                    <div class="d-block">
-                        <img id='preview_avatar' alt="profile picture" class="ml-4" height="150px" width="150px"
-                             src="../media/{{ request.user.pic }}">
-                        <button class="btn align-top btn-outline-primary border-1 p-0 m-0" style="font-size: 0.5rem;"
-                                type=submit name="delete" data-toggle="tooltip" title="Delete profile picture">
+            <div class="mt-3 col-sm-9">
+              <div class="tab-content text-center" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                   <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
+                     {% csrf_token %}
+                     {% if request.user.pic %}
+                        <label class="h6">Change your profile picture:</label>
+                        <div class="d-block ">
+                          <img id='preview_avatar' alt="profile picture" class="ml-4" height="150px" width="150px"
+                                 src="../media/{{ request.user.pic }}">
+                          <button class="btn align-top btn-outline-primary border-1 p-0 m-0" style="font-size: 0.5rem;"
+                                    type=submit name="delete" data-toggle="tooltip" title="Delete profile picture">
                             <img alt="delete picture" height="20px" width="20px" class="m-0 p-0 border-0"
-                                 src="{% static 'sitewide/plug4pics.png' %}">
-                        </button>
-                    </div>
-                {% else %}
-                    <label>Add your profile picture.<br> It should be a square:</label>
-                    <img id='preview_avatar' alt="profile picture" class="mx-auto d-block" height="150px" width="150px"
-                         src="{% static 'sitewide/plug4pics.png' %}">
-                {% endif %}
-                {{ forms }}
-                <label for="id_pic" class="mt-2 btn btn-primary " style="cursor: pointer;">Upload</label>
-                <button type=submit name="save" class="btn btn-primary ">Save</button>
-            </form>
+                                     src="{% static 'sitewide/plug4pics.png' %}">
+                          </button>
+                        </div>
+                     {% else %}
+                        <label class="">Add your profile picture.<br> It should be a square:</label>
+                        <img id='preview_avatar' alt="profile picture" class="mx-auto d-block" height="150px" width="150px"
+                             src="{% static 'sitewide/plug4pics.png' %}">
+                     {% endif %}
+                     {{ forms }}
+                     <label for="id_pic" class="mt-2 btn btn-primary " style="cursor: pointer;">Upload</label>
+                     <button type=submit name="save" class="btn btn-primary ">Save</button>
+                   </form>
+                   <hr>
+                   <form method="post" action="{% url 'account_reset_password' %}">
+                       {% csrf_token %}
+                       <button class="btn btn-warning" type="submit">Reset password</button>
+                   </form>
+                </div>
 
-            {% if user.active_membership and not user.cancel_at_period_end %}
-                <br>
-                <hr>
-                <form method="post" action="{% url 'cancel_subscription' %}">
-                    {% csrf_token %}
-                    <button class="btn btn-danger" type="submit">Cancel Subscription</button>
-                </form>
-            {% elif not user.active_membership %}
-                <br>
-                <a class="btn btn-primary" href="{% url 'pricing' %}" role="button">Buy Subscription</a>
-            {% endif %}
+                <div class="tab-pane fade" id="v-pills-membership" role="tabpanel" aria-labelledby="v-pills-membership-tab">
+                  {% if not membership_warning and user.cancel_at_period_end %}
+                    <div class="alert alert-danger" role="alert">
+                      Your subscription has been canceled. You'll still have access to ZappyCode until the end of the
+                      billing cycle{% if membership.expiration_date %}, i.e. up to {{ membership.expiration_date }}{% endif %}.
+                    </div>
+                  {% elif membership_warning %}
+                    <div class="alert alert-warning" role="alert">
+                      Your membership is corrupted. ZappyCode is going to take care of it.
+                    </div>
+                  {% endif %}
+
+                  {% if user.active_membership and not user.cancel_at_period_end and not membership_warning %}
+                   {% if membership.type != "invite" %}
+                     <div class="alert alert-success" role="alert">
+                        You have got valid {{ membership.type }} subscription.
+                        {% if membership.expiration_date %}
+                          Your membership expires on {{ membership.expiration_date }}.
+                        {% endif %}
+                      </div>
+
+                      <!-- Button trigger modal -->
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalBox">
+                        Cancel Subscription
+                      </button>
+                       <!-- Modal -->
+                     <form method="post" action="{% url 'cancel_subscription' membership.type %}">
+                       {% csrf_token %}
+                       <div class="modal fade" id="ModalBox" tabindex="-1" role="dialog" aria-labelledby="ModalBoxTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content align-items-center">
+                          <div class="pl-md-5 pr-md-5 border-bottom-0 modal-header">
+                            <h5 class="modal-title" id="ModalBoxLongTitle">Are you sure? We'll miss you. Tell us, please, why you leave ZappyCode:</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="text-left modal-body">
+                            <div>
+                              <input type="checkbox" id="expensive" value="It costs me too much" name="reason">
+                              <label class="mb-1 align-middle" for="expensive">It costs me too much</label>
+                            </div>
+                            <div>
+                              <input type="checkbox" id="boring" value="Courses are boring" name="reason">
+                              <label class="mb-1 align-middle" for="boring">Courses are boring</label>
+                            </div>
+                            <div class="text-break">
+                              <input type="checkbox" id="nothing-to_learn" value="There is nothing I would like to learn" name="reason">
+                              <label class="mb-1 align-middle"  for="nothing-to_learn">There is nothing to learn</label>
+                            </div>
+                            <div>
+                              <input type="checkbox" id="outdated" value="Stuff on ZappyCode is outdated" name="reason">
+                              <label class="mb-1 align-middle" for="outdated">Stuff here is outdated</label>
+                            </div>
+                            <div class="">
+                              <input type="checkbox" id="give-up" value="I've give up coding" name="reason">
+                              <label class="mb-1 align-middle" for="give-up">I've give up coding</label>
+                            </div>
+                            <div class="">
+                              <input type="checkbox" id="other" value="Other" name="reason">
+                              <label class="mb-1 align-middle" for="other">Other:</label>
+                            </div>
+                            <div >
+                                <textarea class="form-control" id="other-reasons" name="other-reasons" rows="3" disabled></textarea>
+                            </div>
+                          </div>
+                          <div class="border-top-0 modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                             <button class="btn btn-danger" type="submit">
+                                 {% if membership.type == 'apple' %}
+                                     Send cancel request
+                                 {% else %}
+                                     Cancel Subscription
+                                 {% endif %}
+                             </button>
+
+                          </div>
+                        </div>
+                        </div>
+                       </div>
+                     </form>
+                   {% else %}
+                     <div class="alert alert-success" role="alert">
+                       You have got valid invitation.
+                     {% if membership.expiration_date %}It expires on {{ membership.expiration_date }}.{% endif %}
+                     </div>
+                   {% endif %}
+                 {% elif not user.active_membership %}
+                   <br>
+                   <a class="btn btn-primary" href="{% url 'pricing' %}" role="button">Buy Subscription</a>
+                 {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 
@@ -91,7 +182,16 @@
 
         // fetch url from hidden ImageField
         $("#id_pic").change(function () {
-            readURL(this);
+          readURL(this);
+        });
+        // enable/disable textarea for 'other' reason depends on checkbox state
+        $("#other").change(function () {
+          $('#other-reasons').prop("disabled", !$(this).is(":checked")).focus();
+        });
+        // clear all checkboxes when modal is closed
+        $('#ModalBox').on('hidden.bs.modal', function() {
+            $(this).find("input[type=checkbox]").prop("checked", false)
+            $('#other-reasons').prop("disabled", true);
         });
     </script>
 {% endblock %}

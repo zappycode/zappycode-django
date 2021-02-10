@@ -1,5 +1,6 @@
 import os
 import environ
+import paypalrestsdk
 
 env = environ.Env()
 environ.Env.read_env()
@@ -193,6 +194,19 @@ DISCOURSE_BASE_URL = 'https://chitchat.zappycode.com'
 DISCOURSE_SSO_SECRET = env.str('DISCOURSE_SSO_SECRET', default='')
 DISCOURSE_API_KEY = env.str('DISCOURSE_API_KEY', default='')
 DISCOURSE_USER_NAME = env.str('DISCOURSE_API_NAME', default='')
+
+# PayPal settings
+if DEBUG:
+    PAYPAL_MODE = 'sandbox'
+else:
+    PAYPAL_MODE = 'live'
+
+paypalrestsdk.configure({
+  'mode': PAYPAL_MODE, #sandbox or live
+  'client_id': env.str('PAYPAL_CLIENT_ID'),
+  'client_secret': env.str('PAYPAL_SECRET') })
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

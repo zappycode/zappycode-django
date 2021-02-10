@@ -1,14 +1,18 @@
 import time
+from datetime import datetime
+
 import stripe
 
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
+from paypalrestsdk import BillingAgreement
 from rest_framework.utils import json
 from django.http import HttpResponse, JsonResponse
 
 from .forms import AccountSettingsForm
-from .models import ZappyUser
+from .models import ZappyUser, CancellationReasons
 from invites.models import Invite
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -88,11 +92,65 @@ def error404(request, exception):
 
 @login_required
 def account(request):
-    forms = AccountSettingsForm()
-    if request.method == 'POST':
-        user = request.user
-        form = AccountSettingsForm(request.POST, request.FILES)
+    user = request.user
+    membership_warning = True
+    membership = {}
 
+    if request.method == 'GET':
+        forms = AccountSettingsForm()
+        if user.apple_product_id:
+            # try statement in case of apple_expires_date is None for some reason
+            try:
+                if user.apple_expires_date >= datetime.now():
+                    membership = {
+                        "type": "apple",
+                        "apple_product_id": user.apple_product_id,
+                        "expiration_date": user.apple_expires_date
+                    }
+                    membership_warning = None
+            except TypeError:
+                membership = {
+                    "type": "apple",
+                    "apple_product_id": user.apple_product_id,
+                    "expiration_date": None
+                }
+                membership_warning = None
+
+        if user.stripe_subscription_id and membership_warning:
+            stripe_sub = user.check_stripe()
+
+            if stripe_sub[0] == 'active':
+                membership = {
+                   "type": "stripe",
+                   "expiration_date": stripe_sub[1]
+                }
+                membership_warning = None
+
+        if user.paypal_subscription_id and membership_warning:
+            paypal_sub = user.check_paypal()
+
+            if paypal_sub[0] == "active" or (paypal_sub[0] == "cancelled" and paypal_sub[1] >= datetime.now()):
+                membership = {
+                     "type": "paypal",
+                     "expiration_date": paypal_sub[1]
+                }
+                membership_warning = None
+
+        if membership_warning:
+            if Invite.has_invite(request.user):
+                membership = {
+                    "type": "invite",
+                    "expiration_date": Invite.has_invite(request.user)
+                }
+                membership_warning = None
+            else:
+                message = "User " + request.user.username + ", email: " + request.user.email \
+                          + "has got corrupted membership. " \
+                            "There is no valid subscription (active or cancelled) or invitation. "
+                send_mail("Broken membership", message, request.user.email,
+                          [env.str('ADMIN_EMAIL')], fail_silently=False)
+    else:
+        form = AccountSettingsForm(request.POST, request.FILES)
         if 'delete' in request.POST:
             user.pic.delete()
             messages.success(request, 'You\'ve deleted profile picture.')
@@ -100,10 +158,13 @@ def account(request):
             user.pic = form.cleaned_data['pic']
             user.save()
             messages.success(request, 'Boom! You\'ve got new profile picture.')
-            return redirect('/account/')
         else:
             messages.warning(request, 'You need to load picture to save it')
-    return render(request, 'account/account.html', {'forms': forms})
+        return redirect('/account')
+
+    return render(request, 'account/account.html', {
+        'forms': forms, 'membership': membership, "membership_warning": membership_warning
+    })
 
 
 def payment_success(request):
@@ -134,14 +195,57 @@ def payment_success(request):
 
 
 @login_required
-def cancel_subscription(request):
+def cancel_subscription(request, membership):
+    subject = ""
+    message = ""
+    reasons = ""
     if request.method == 'POST':
-        subscription = stripe.Subscription.retrieve(request.user.stripe_subscription_id)
-        subscription.cancel_at_period_end = True
-        request.user.cancel_at_period_end = True
-        subscription.save()
-        request.user.save()
-        messages.success(request, 'Your subscription has been canceled')
+        # save reasons of cancellation to the db
+        for reason in request.POST.getlist('reason'):
+            if reason != 'Other':
+                CancellationReasons(reason = reason, membership_type=membership, user=request.user).save()
+                reasons += str(reason) + ", "
+            else:
+                CancellationReasons(reason=request.POST["other-reasons"], membership_type=membership, user=request.user).save()
+                reasons += request.POST["other-reasons"]
+
+        if membership == 'stripe':
+            # modify used to hit API only once
+            stripe.Subscription.modify(
+                request.user.stripe_subscription_id,
+                cancel_at_period_end=True,
+            )
+            request.user.cancel_at_period_end = True
+            request.user.save()
+            message = "I've cancelled subscription': " + str(request.user.stripe_subscription_id) + "\n"\
+                      + "\n" + "Reasons: " + reasons
+            subject = "Cancellation of Stripe subscription"
+            messages.success(request, 'Your subscription has been canceled')
+        elif membership == 'paypal':
+            cancel_note = {"note": "Canceling the agreement"}
+            if BillingAgreement.find(request.user.paypal_subscription_id).cancel(cancel_note):
+                messages.success(request, 'Your subscription has been canceled')
+                request.user.cancel_at_period_end = True
+                request.user.save()
+                message = "I've cancelled subscription': " + str(request.user.paypal_subscription_id) + "\n" \
+                          + "\n" + "Reasons: " + reasons
+                subject = "Cancellation of Paypal subscription"
+            # send email with cancel request if automatic cancellation failed
+            else:
+                message = "I would like to cancel my subscription id: " + str(request.user.paypal_subscription_id) + "\n" \
+                          + "Reasons: " + reasons
+                subject = "Cancellation request of paypal subscription"
+                messages.warning(request, 'Something went wrong. Your subscription has been not canceled. '
+                                          'Email with cancellation request has been sent to ZappyCode')
+        elif membership == 'apple':
+            messages.success(request, 'Email with cancel request of your subscription '
+                                      'has been successfully sent to ZappyCode. '
+                                      'We cancel your subscription as soon as it\'s possible')
+            message = "I would like to cancel my subscription id: " + str(request.user.apple_product_id) + "\n"\
+                      + "Apple receipt: " + str(request.user.apple_receipt) + "\n" + "Reasons: " + reasons
+            subject = "Cancellation request of Apple subscription"
+
+        send_mail(subject, message, request.user.email, [env.str('ADMIN_EMAIL')], fail_silently=False)
         return redirect('account')
 
     return redirect('home')
