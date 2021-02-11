@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="">
     <div class="row justify-content-around align-items-center bg-success">
         <div class="col-lg-7 col-md-8 col-11 pt-4 pb-2">
             <h1 class="display-3 text-white mb-3 text-center">Open Financials</h1>
@@ -26,16 +26,16 @@
         </div>
     </div>
 
-    <div class="row row justify-content-center bg-success">
-        <div class="col-md-3 col-4 text-center pb-4">
+    <div class="row justify-content-center bg-success">
+        <div class="col-md-3 col-sm-5 text-center pb-4">
             <h3 class="text-white">Revenue</h3>
             <h1 class="text-white">${{ revenue|floatformat:0|intcomma }}</h1>
         </div>
-        <div class="col-md-3 col-4 text-center">
+        <div class="col-md-3 col-sm-5 text-center">
             <h3 class="text-white">Expenses</h3>
             <h1 class="text-white">$<span class="underline-red">{{ expenses|floatformat:0|intcomma }}</span></h1>
         </div>
-        <div class="col-md-3 col-4 text-center">
+        <div class="col-md-3 col-sm-5 text-center">
             {% if is_profit %}
                 <h3 class="text-white">Profit</h3>
                 <h1 class="text-white">${{ profit|floatformat:0|intcomma }}</h1>
@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col bg-success">
             <div class="container">
-                <div class="p-4 bg-light rounded">
+                <div style="position: relative; height:70vh; " class="p-4 my-4 bg-light rounded ">
                     <canvas id="MRR-chart"></canvas>
                 </div>
             </div>
@@ -110,7 +110,8 @@
             <h4 class="text-white">$1,500</h4>
         </div>
         <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">September</h3>
+            <h3 class="d-none d-sm-block text-white">September</h3>
+            <h3 class="d-sm-none text-white">Sept.</h3>
             <h4 class="text-white">$1,000</h4>
         </div>
     </div>
@@ -120,11 +121,13 @@
             <h4 class="text-white">$1,000</h4>
         </div>
         <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">November</h3>
+            <h3 class="d-none d-sm-block text-white">November</h3>
+            <h3 class="d-sm-none text-white">Nov.</h3>
             <h4 class="text-white">$500</h4>
         </div>
         <div class="col-md-2 col-4 text-center">
-            <h3 class="text-white">December</h3>
+            <h3 class="d-none d-sm-block text-white">December</h3>
+            <h3 class="d-sm-none text-white">Dec.</h3>
             <h4 class="text-white">$500</h4>
         </div>
     </div>
@@ -154,7 +157,7 @@
         </div>
     </div>
 
-
+</div>
 
 
 
@@ -164,7 +167,7 @@
 
 
 {% block javascript %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
     <script data-json="{{ data }}" id="data"></script>
     <script>
         var ctx = document.getElementById("MRR-chart").getContext("2d");
@@ -185,6 +188,7 @@
                 }],
             },
             options: {
+                maintainAspectRatio: false,
                 title: {
                     display: true,
                     text: 'Monthly Recurring Revenue',
