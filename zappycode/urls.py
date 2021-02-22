@@ -85,5 +85,6 @@ urlpatterns = [
                   path('mac/', RedirectView.as_view(
                       url='https://www.udemy.com/macos-programming-for-ios-developers-mac-apps-os-x-cocoa/?couponCode=YOUTUBEMAC')),
                   path('pa/', RedirectView.as_view(url='https://www.pythonanywhere.com/?affiliate_id=006444cc')),
+                  path('weekend/', RedirectView.as_view(url='https://zappycode.com/posts/15/python-in-a-weekend')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,
                                                                                          document_root=settings.STATIC_ROOT)
