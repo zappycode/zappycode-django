@@ -1,0 +1,27 @@
+<div class="accordion" id="accordionOutline">
+
+   {% for section in course.sorted_sections %}
+      <div class="card panel panel-primary">
+        <div class="card-header {% cycle "bg-info" "bg-primary" "bg-warning" "bg-dark" "bg-danger" "bg-success" "bg-secondary "%}  " id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn {% cycle "btn-info" "btn-primary" "btn-warning" "btn-dark" "btn-danger" "btn-success" "btn-secondary "%} bg " type="button" data-toggle="collapse" data-target="#collapse_{{ forloop.counter0 }}" aria-expanded="true" aria-controls="collapse_{{ forloop.counter0 }}">
+              {{ section.number }} - {{ section.title }}
+            </button>
+          </h2>
+        </div>
+        <div id="collapse_{{ forloop.counter0 }}" class="collapse {% if forloop.counter0 == 0 %}show{% endif %}" aria-labelledby="heading_{{ forloop.counter0 }}" data-parent="#accordionOutline">
+          <div class="card-body">
+            {% for listed_lecture in section.sorted_lectures %}
+              <!-- make a thing that if the current lecture make it unclickable and active -->
+              <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
+                <li class="border-0 border-left-0 border-right-0 list-group-item list-group-item-action {% cycle "list-group-item-danger" "list-group-item-info" "list-group-item-secondary" "list-group-item-primary" "list-group-item-warning" "list-group-item-dark" "list-group-item-success" %} {% if lecture.id == listed_lecture.id %}active{% endif %}">{{ listed_lecture.number }}
+                    - {{ listed_lecture.title }}{% if listed_lecture.preview %}
+                        <span class="badge badge-primary">Preview</span>{% endif %}</li>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+   {% endfor %}
+
+</div>
