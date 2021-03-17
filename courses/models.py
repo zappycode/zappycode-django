@@ -22,6 +22,7 @@ class Course(models.Model):
     first_lecture = models.ForeignKey(to='Lecture', on_delete=models.DO_NOTHING)
     download_link = models.URLField(blank=True)
     published = models.BooleanField(default=True)
+    total_video_time = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
 
     def __str__(self):
         return self.title

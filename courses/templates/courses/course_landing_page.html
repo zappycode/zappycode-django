@@ -7,99 +7,151 @@
 
 {% block content %}
 
-    <div class="row justify-content-center bg-dark pt-3">
+    <div class="row justify-content-center bg-dark pt-4 pl-lg-3">
+         <div class="order-last order-lg-first col-lg-6 col-xl-5 text-center align-self-center shadow ">
+            <h1 class="d-none d-xl-block text-white mt-3" style="font-size: 2.1vw">{{ course.title }}</h1>
+            <h2 class="d-xl-none text-white mt-3" >{{ course.title }}</h2>
+            <hr class="bg-white">
+            <h4 class="d-none d-xl-block text-light mt-2 mb-2" style="font-size: 1.5vw">{{ course.subtitle }}</h4>
+            <h5 class="d-xl-none text-light mt-2 mb-2" >{{ course.subtitle }}</h5>
+            <hr class="bg-white">
 
-        <div class="col-lg-4 col-md-6 col-8">
-            <div class="text-center">
-                <img src="{{ course.image.url }}" class="img-fluid">
+            <div class="text-right mt-3 mt-xl-5">
+              <a class="btn btn-primary"
+                href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
+                role="button">Start Course <i class="fas fa-play-circle"></i></a>
+              {% if user.active_membership %}
+                <a class="btn btn-success" href="{{ course.download_link }}" role="button" target="_blank">Download <i class="fas fa-cloud-download-alt"></i></a>
+              {% else %}
+                <a onclick="$('#membershipNeededModal').modal('show');" class="btn btn-success text-white" role="button"
+                   target="_blank">Download <i class="fas fa-cloud-download-alt"></i></a>
+              {% endif %}
+                <a class="btn btn-warning text-white mt-1 mt-sm-0" data-toggle="modal" data-target="#shareModal" href="#" role="button">Share <i class="fas fa-share-alt-square"></i></a>
             </div>
-            <div class="center_on_image text-center">
-                <a onclick="$('#promoVidModal').modal('show');"><img src="{% static 'sitewide/play-button.png' %}"
-                                                                     height="100" width="100"></a>
+
+            <div class="h4 text-left text-primary pt-3 pt-xl-5 pb-3">
+              {% if course.total_video_time %}
+                <div class="badge badge-warning "><i class="fas fa-clock"></i> {{ course.total_video_time|floatformat }} hour{{ course.total_video_time|pluralize }}</div>
+              {% endif %}
+                <div class="badge badge-warning "><i class="fab fa-youtube"></i> {{ videos_number }} video{{ videos_number|pluralize }}</div>
+                <div class="badge badge-warning mt-1 mt-sm-0"><i class="fas fa-calendar-day"></i> Updated: {{ course.release_date|date:"n/Y" }}</div>
             </div>
+        </div>
+        <div class="order-first order-lg-last col-lg-6 col-xl-6 align-self-center">
+            <div class="embed-responsive embed-responsive-16by9">
+                {% if course.youtube_video_id %}
+                    <iframe  src="https://www.youtube.com/embed/{{ course.youtube_video_id }}?modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {% else %}
+                    <iframe id="video" class="embed-responsive-item" src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                {% endif %}
+            </div>
+
         </div>
     </div>
 
     <div class="row justify-content-center bg-dark py-3">
-        <div class="col-lg-6 col-md-8 col-10 text-center">
-            <h1 class="text-white">{{ course.title }}</h1>
-            <h4 class="text-light">{{ course.subtitle }}</h4>
-            <a class="btn btn-primary"
-               href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
-               role="button">Start Course</a>
-            {% if user.active_membership %}
-                <a class="btn btn-success" href="{{ course.download_link }}" role="button" target="_blank">Download</a>
-            {% else %}
-                <a onclick="$('#membershipNeededModal').modal('show');" class="btn btn-success text-white" role="button"
-                   target="_blank">Download</a>
-            {% endif %}
-        </div>
+
 
     </div>
 
 
 
-    <div class="row justify-content-around align-items-center bg-light pt-3">
-        <div class="col-10">
+    <div class="row justify-content-center bg-success">
+      <div class="col-lg-5 col-xl-7 pl-lg-0">
+        <div class="row justify-content-lg-center justify-content-xl-end align-items-center pl-lg-0 pr-lg-0 bg-light pt-3">
+          <div id="truncateDesc" class="ml-lg-3 col-lg-11 pl-lg-0 pr-lg-0 pr-xl-3 col-xl-11 pl-xl-3">
             <h2 class="text-center">Description</h2>
-            <p>{{ course.description|safe }}</p>
-        </div>
-    </div>
+            <p class="border-0 border-primary">
+                {{ course.description|safe|truncatewords_html:100 }}
+              <p>
+                <a class="text-white badge badge-danger show-hide" id="showMore">Click for more... &raquo;</a>
+              </p>
+            </p>
+          </div>
 
-    <div class="row justify-content-around align-items-center bg-success pt-3">
-        <div class="col-lg-6 col-10 mb-3">
+          <div id="fullDesc" class="ml-lg-3 col-lg-11 pl-lg-0 pr-lg-0 pr-xl-3 col-xl-11 pl-xl-3" hidden>
+            <h2 class="text-center">Description</h2>
+            <p class="border-0 border-primary">
+                {{ course.description|safe }}
+                <p>
+                <a class="text-white badge badge-danger show-hide" id="collapse">Collapse... &raquo;</a>
+                </p>
+            </p>
+          </div>
+        </div>
+
+        <div class="row justify-content-lg-center justify-content-xl-end align-items-center bg-success pb-3 pt-3">
+            <div class="col-lg-11 col-xl-11 ml-lg-3 pl-lg-0 pl-xl-3 pr-lg-0 pr-xl-3 mb-3">
+                <h2 class="text-center text-white">Outline</h2>
+                {% include 'courses/outline.html' %}
+
+            </div>
+        </div>
+      </div >
+
+      <div class="col-lg-7  col-xl-5 justify-content-start bg-warning pr-lg-0 pr-xl-2">
+        <div class="pr-0 col-lg-12 col-xl-11 pl-0 pr-md-0 pr-lg-3 pt-3">
             {% if not user.active_membership %}
               {% if topics %}
                 <h2 class="text-center text-white">Community bail out</h2>
                 <div>{% include 'chit_chat/topicList.html' %}</div>
               {% endif %}
             {% endif %}
-            <h2 class="text-center text-white">Outline</h2>
-            {% for section in course.sorted_sections %}
-
-                <li class="list-group-item  list-group-item-dark">{{ section.number }} - {{ section.title }}</li>
-                {% for listed_lecture in section.sorted_lectures %}
-
-                    <!-- make a thing that if the current lecture make it unclickable and active -->
-
-                    <a href="{% url 'view_lecture' listed_lecture.section.course.slug listed_lecture.id listed_lecture.slug %}">
-                        <li class="list-group-item list-group-item-action {% if lecture.id == listed_lecture.id %}active{% endif %}">{{ listed_lecture.number }}
-                            - {{ listed_lecture.title }}{% if listed_lecture.preview %}
-                                <span class="badge badge-primary">Preview</span>{% endif %}</li>
-                    </a>
-                {% endfor %}
-            {% endfor %}
         </div>
+
+        <div class="row col-xl-11 pr-0">
+            <h2 class="col-12 text-center text-white">Try more fancy courses</h2>
+            <div class="row">
+           {% for course in rand_courses %}
+            <div class="col-12 col-sm-6 pr-0 pr-lg-3">
+               <a href="{% url 'course_landing_page' course.slug %}">
+                 <div class="card mb-4 shadow-sm mr-0">
+                    <img alt="" src="{{ course.image.url }}" class="card-img-top img-fluid" width="100%" height="225">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ course.title }}</h5>
+                      <p class="card-text">{{ course.subtitle }}</p>
+                    </div>
+                 </div>
+               </a>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+
+      </div>
     </div>
 
-
-
-    <!-- Promo Vid Modal -->
-    <div class="modal fade" id="promoVidModal" tabindex="-1" role="dialog"
-         aria-labelledby="promoVidModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="promoVidModalTitle">{{ course.title }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <!-- Modal for share button -->
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content col-12">
                 <div class="modal-body">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        {% if course.youtube_video_id %}
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ course.youtube_video_id }}?modestbranding=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        {% else %}
-                            <iframe id="video" class="embed-responsive-item"
-                                    src="https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}" frameborder="0"
-                                    allow="autoplay; fullscreen" allowfullscreen></iframe>
-                        {% endif %}
+                    <div class="justify-content-around d-flex">
+                        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" data-toggle="tooltip" data-placement="top" title="Share on Twitter" target="_blank" class=""> <i class=" img-thumbnail rounded-circle bg-transparent border-0 fab fa-twitter fa-3x" style="color:#00acee;"></i>
+
+                        </a>
+                        <a href="https://facebook.com/sharer.php?display=popup&u={{ request.build_absolute_uri }}" data-toggle="tooltip" data-placement="top" title="Share on Facebook" target="_blank" class=""> <i class="img-thumbnail rounded-circle bg-transparent  border-0 fab fa-facebook fa-3x" style="color: #3b5998;"></i>
+
+                        </a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" data-toggle="tooltip" data-placement="top" title="Share on LinkedIn" target="_blank" class=""> <i class="img-thumbnail rounded-circle bg-transparent  border-0 fab fa-linkedin fa-3x" style="color: #0e76a8 ;"></i>
+
+                        </a>
+                        <a href="mailto:?subject=Nice ZappyCode course&body=Check out this: {{ request.build_absolute_uri }}" data-toggle="tooltip" data-placement="top" title="Email course" target="_blank" class=""> <i class="img-thumbnail rounded-circle fas  border-0 fa-envelope-square fa-3x bg-transparent" style="color: #6f42c1;"></i>
+
+                        </a>
+                    </div>
+
+                </div>
+                <div class="modal-footer"> <label style="font-weight: 600"><span class="message text-danger"></span></label>
+                    <div class="row form-row justify-content-between col-12">
+                        <input class="col-10 col-sm-11 text-primary form-control border-0" type="text" placeholder="{{ request.build_absolute_uri }}" readonly id="urlInput" aria-describedby="inputGroup-sizing-default" style="height: 40px;">
+
+                        <button class="border-0 bg-transparent" data-toggle="tooltip" data-placement="bottom" title="Copy to clipboard" onclick="copyToClipboard('#urlInput')"><i class="text-primary far fa-clone"></i></button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Membership needed Modal -->
     <div class="modal fade" id="membershipNeededModal" tabindex="-1" role="dialog"
          aria-labelledby="membershipNeededModalTitle" aria-hidden="true">
@@ -125,18 +177,36 @@
 
 {% block javascript %}
     <script>
+        function copyToClipboard (element) {
+
+          $(element).val($(element).attr('placeholder')) ;
+          $(element).select();
+
+          try {
+            // copy to clipboard selected text and display success msg
+            document.execCommand("copy");
+            $('.message').text("Course link copied to clipboard");
+          } catch (err) {
+            // display error msg
+            $('.message').text("Oops, unable to copy!!!");
+          }
+          $(element).val('');
+
+        }
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip()
 
-            $('#promoVidModal').on('show.bs.modal', function (e) {
-                $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}?autoplay=1');
+            $(".show-hide").click(function () {
+              let full=$("#fullDesc")
+              let truncate=$("#truncateDesc")
+              let bool=full.is(":hidden")
 
-            })
+              full.attr('hidden',!bool)
+              truncate.attr('hidden',bool)
+            });
 
-            $('#promoVidModal').on('hide.bs.modal', function (e) {
 
-                $("#video").attr('src', 'https://player.vimeo.com/video/{{ course.vimeo_promo_video_id }}');
 
-            })
         });
 
     </script>

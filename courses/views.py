@@ -1,3 +1,4 @@
+import random
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404
@@ -49,11 +50,29 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
 
 
 def course_landing_page(request, course_slug):
+    videos_number = 0
     course = get_object_or_404(Course, slug=course_slug)
+
+    # count number of videos
+    sections_ids = course.sections.values_list('id', flat=True)
+    all_course_lectures = Lecture.objects.filter(section_id__in=sections_ids)
+    for lecture in all_course_lectures:
+        if lecture.vimeo_video_id:
+            videos_number += 1
+
+    # collect ids for choosing random courses (for right side snippets)
+    ids = Course.objects.values_list('id', flat=True)
+    records_number = 4
+    # pull random ids
+    rand_ids = random.sample(list(ids), records_number)
+    # collect random records
+    random_records = Course.objects.filter(id__in=rand_ids)
 
     # get most popular issues to fill chit chat box
     topics = get_topics('top')
     return render(request, 'courses/course_landing_page.html', {
+        'rand_courses': random_records,
+        'videos_number': videos_number,
         'course': course,
         'topics': topics[0],
         'table_title': topics[1],
