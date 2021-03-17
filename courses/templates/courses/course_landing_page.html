@@ -61,7 +61,7 @@
         <div class="row justify-content-lg-center justify-content-xl-end align-items-center pl-lg-0 pr-lg-0 bg-light pt-3">
           <div id="truncateDesc" class="ml-lg-3 col-lg-11 pl-lg-0 pr-lg-0 pr-xl-3 col-xl-11 pl-xl-3">
             <h2 class="text-center">Description</h2>
-            <p class="border-left border-primary">
+            <p class="border-0 border-primary">
                 {{ course.description|safe|truncatewords_html:100 }}
               <p>
                 <a class="text-white badge badge-danger show-hide" id="showMore">Click for more... &raquo;</a>
@@ -71,9 +71,11 @@
 
           <div id="fullDesc" class="ml-lg-3 col-lg-11 pl-lg-0 pr-lg-0 pr-xl-3 col-xl-11 pl-xl-3" hidden>
             <h2 class="text-center">Description</h2>
-            <p class="border-left border-primary">
+            <p class="border-0 border-primary">
                 {{ course.description|safe }}
+                <p>
                 <a class="text-white badge badge-danger show-hide" id="collapse">Collapse... &raquo;</a>
+                </p>
             </p>
           </div>
         </div>
