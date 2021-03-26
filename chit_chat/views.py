@@ -65,8 +65,11 @@ def get_topics(course_slug=''):
                 if 'Original Poster' in description or 'Most Recent Poster' in description:
                     key = poster['description'][:4]
                     users = next(user for user in response.json()['users'] if user['id'] == poster['user_id'])
-                    users['avatar_template'] = '/user_avatar/' + DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):] + '/' + users['username'] \
-                                               + '/25' + users['avatar_template'][users['avatar_template'].rfind('/'):]
+                    if 'user_avatar' in users['avatar_template']:
+                        users['avatar_template'] = '/user_avatar/' + DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):] + '/' + users['username'] \
+                                                   + '/25' + users['avatar_template'][users['avatar_template'].rfind('/'):]
+                    else:
+                        users['avatar_template'] = users['avatar_template'][:users['avatar_template'].find('{')] + str(25) + users['avatar_template'][users['avatar_template'].rfind('}') + 1:]
                     posters[key] = {'poster': users, 'description': description}
 
             if topic['last_posted_at']:
