@@ -14,6 +14,7 @@ from .permissions import IsMember
 from .serializers import CourseSerializer, CourseWithSectionsAndLecturesSerializer
 from rest_framework import generics, permissions
 from sitewide.models import ZappyUser
+from django.core.mail import send_mail
 
 env = environ.Env()
 environ.Env.read_env()
@@ -25,8 +26,14 @@ def iap_signup(request):
         data = JSONParser().parse(request)
         receipt = data['receipt']
         if ZappyUser.objects.filter(apple_receipt=receipt).exists():
-            return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True},
-                                status=400)
+            # return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True}, status=400)
+            send_mail(
+                'Check your api/views.py',
+                'I think someone is double dipping on an already used IAP',
+                'nick@zappycode.com',
+                ['nick@zappycode.com'],
+                fail_silently=False,
+            )
         verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
         if 'debug' in data:
             if data['debug']:

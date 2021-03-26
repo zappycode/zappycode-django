@@ -27,6 +27,7 @@ readtime = "*"
 django-social-share = "*"
 django-tinymce = "*"
 paypalrestsdk = "*"
+sentry-sdk = "*"
 
 [requires]
 python_version = "3.6.9"
