@@ -36,9 +36,7 @@ def iap_signup(request):
                 fail_silently=False,
             )
         verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
-        if 'debug' in data:
-            if data['debug']:
-                verify_url = 'https://sandbox.itunes.apple.com/verifyReceipt'
+        
         receipt_json = json.dumps(
             {"receipt-data": receipt, 'password': env.str('APP_SHARED_SECRET', default='')})
         response = requests.request(
@@ -47,6 +45,15 @@ def iap_signup(request):
             headers={'Content-Type': 'application/x-www-form-urlencoded'},
             data=receipt_json
         )
+        
+        if response.status_code == 21007:
+            # Apple docs say try prod and if no dice, then do sandbox https://developer.apple.com/library/archive/technotes/tn2413/_index.html#//apple_ref/doc/uid/DTS40016228-CH1-RECEIPTURL
+            response = requests.request(
+                method='POST',
+                url='https://sandbox.itunes.apple.com/verifyReceipt',
+                headers={'Content-Type': 'application/x-www-form-urlencoded'},
+                data=receipt_json
+            )
 
         res_json = response.json()
         try:
@@ -61,6 +68,14 @@ def iap_signup(request):
             send_mail(
                 'Apple reciept',
                 receipt,
+                'nick@zappycode.com',
+                ['nick@zappycode.com'],
+                fail_silently=False,
+            )
+            
+            send_mail(
+                'Response',
+                str(res_json),
                 'nick@zappycode.com',
                 ['nick@zappycode.com'],
                 fail_silently=False,
