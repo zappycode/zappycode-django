@@ -46,7 +46,9 @@ def iap_signup(request):
             data=receipt_json
         )
         
-        if response.status_code == 21007:
+        res_json = response.json()
+        
+        if res_json['status'] == 21007:
             # Apple docs say try prod and if no dice, then do sandbox https://developer.apple.com/library/archive/technotes/tn2413/_index.html#//apple_ref/doc/uid/DTS40016228-CH1-RECEIPTURL
             response = requests.request(
                 method='POST',
