@@ -56,7 +56,7 @@ def iap_signup(request):
             form = SignupForm(request.POST)
             form.is_valid()
             user = form.save(request)
-            sentry_sdk.set_context("reciept":receipt)
+            sentry_sdk.set_context("reciept":str(receipt))
             sentry_sdk.capture_message("PSomething is wrong fam", level="error")
             # TODO I need to put this back to normal
             # user.apple_product_id = res_json['latest_receipt_info'][-1]['product_id']
