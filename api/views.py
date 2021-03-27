@@ -15,7 +15,7 @@ from .serializers import CourseSerializer, CourseWithSectionsAndLecturesSerializ
 from rest_framework import generics, permissions
 from sitewide.models import ZappyUser
 from django.core.mail import send_mail
-from sentry_sdk import capture_message
+import sentry_sdk
 
 env = environ.Env()
 environ.Env.read_env()
@@ -56,7 +56,8 @@ def iap_signup(request):
             form = SignupForm(request.POST)
             form.is_valid()
             user = form.save(request)
-            capture_message("PSomething is wrong fam", level="error")
+            sentry_sdk.set_context("reciept":receipt)
+            sentry_sdk.capture_message("PSomething is wrong fam", level="error")
             # TODO I need to put this back to normal
             # user.apple_product_id = res_json['latest_receipt_info'][-1]['product_id']
             # user.apple_expires_date = datetime.datetime.fromtimestamp(int(res_json['latest_receipt_info'][-1]['expires_date_ms']) / 1000)
@@ -66,16 +67,16 @@ def iap_signup(request):
             token = Token.objects.create(user=user)
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
-            capture_message("PSomething is wrong fam1", level="error")
+            sentry_sdk.capture_message("PSomething is wrong fam1", level="error")
             return JsonResponse({'error': 'That email has already been taken'},
                                 status=400)
         except KeyError:
-            capture_message("PSomething is wrong fam2", level="error")
+            sentry_sdk.capture_message("PSomething is wrong fam2", level="error")
             return JsonResponse({'error': 'We had problems verifying the receipt. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
         except Exception as e:
             print(e)
-            capture_message("PSomething is wrong fam3", level="error")
+            sentry_sdk.capture_message("PSomething is wrong fam3", level="error")
             return JsonResponse({'error': 'Something went wrong. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
 
