@@ -176,6 +176,7 @@ LOGIN_REDIRECT_URL = 'all_courses'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'account_login'
 ACCOUNT_FORMS = {'signup': 'sitewide.forms.CustomSignupForm'}
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 
 # Site Id that allauth makes us use
 SITE_ID = 1
