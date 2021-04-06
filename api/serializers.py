@@ -7,7 +7,7 @@ from rest_framework import serializers
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'release_date', 'image', 'title', 'subtitle', 'promo_download_url']
+        fields = ['id', 'release_date', 'image', 'title', 'subtitle', 'promo_download_url', 'total_video_time']
 
 
 class LectureSerializer(serializers.ModelSerializer):
