@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "==3.1.1"
+django = "==3.1.8"
 pillow = "*"
 django-allauth = "*"
 render = "*"
