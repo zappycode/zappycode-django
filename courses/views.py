@@ -1,7 +1,7 @@
 import random
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, StreamingHttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from chit_chat.views import get_topics
 from zappycode.settings import DISCOURSE_BASE_URL
@@ -31,6 +31,7 @@ def download_video(request, lecture_id):
         else:
             messages.warning(request, 'Bummer! Your download has failed')
             return render(request, 'courses/view_lecture.html', {'lecture': lecture})
+    return redirect('pricing')
 
 
 def view_lecture(request, course_slug, lecturepk, lecture_slug):
