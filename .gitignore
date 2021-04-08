@@ -8,6 +8,7 @@ db.sqlite3
 /media
 /.idea
 /.nova
+/.vscode
 zappycode/.env
 supervisord.conf
 celerybeat-schedule
