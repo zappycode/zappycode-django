@@ -66,18 +66,9 @@ def iap_signup(request):
             form.is_valid()
             user = form.save(request)
             
-            # Delete this soon
             send_mail(
-                'Apple reciept',
-                receipt,
-                'nick@zappycode.com',
-                ['nick@zappycode.com'],
-                fail_silently=False,
-            )
-            
-            send_mail(
-                'Response',
-                str(res_json),
+                'New Member from the App!',
+                str(data['email']) + ' ' + str(res_json),
                 'nick@zappycode.com',
                 ['nick@zappycode.com'],
                 fail_silently=False,
