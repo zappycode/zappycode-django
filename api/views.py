@@ -3,6 +3,7 @@ import json
 import requests
 import environ
 from allauth.account.forms import SignupForm
+import allauth.account.utils
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
 from django.http import JsonResponse
@@ -16,6 +17,7 @@ from rest_framework import generics, permissions
 from sitewide.models import ZappyUser
 from django.core.mail import send_mail
 import sentry_sdk
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -81,6 +83,9 @@ def iap_signup(request):
             user.apple_receipt = receipt
             user.save()
             token = Token.objects.create(user=user)
+            
+            allauth.account.utils.send_email_confirmation(request, user)
+            
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
             sentry_sdk.capture_message("PSomething is wrong fam1", level="error")
