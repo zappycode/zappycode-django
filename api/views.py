@@ -84,7 +84,7 @@ def iap_signup(request):
             user.save()
             token = Token.objects.create(user=user)
             
-            allauth.account.utils.send_email_confirmation(request, user)
+            allauth.account.utils.send_email_confirmation(request, user, signup=False)
             
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
