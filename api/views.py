@@ -82,7 +82,7 @@ def iap_signup(request):
             user.active_membership = True
             user.apple_receipt = receipt
             user.save()
-            token = Token.objects.create(user=user)ß
+            token = Token.objects.create(user=user)
             
             allauth.account.utils.send_email_confirmation(request, user, signup=True)
             
