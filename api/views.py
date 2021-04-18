@@ -82,9 +82,9 @@ def iap_signup(request):
             user.active_membership = True
             user.apple_receipt = receipt
             user.save()
-            token = Token.objects.create(user=user)
+            token = Token.objects.create(user=user)ß
             
-            allauth.account.utils.send_email_confirmation(request, user, signup=False)
+            allauth.account.utils.send_email_confirmation(request, user, signup=True)
             
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
