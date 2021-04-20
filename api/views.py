@@ -29,14 +29,16 @@ def iap_signup(request):
         data = JSONParser().parse(request)
         receipt = data['receipt']
         if ZappyUser.objects.filter(apple_receipt=receipt).exists():
-            # return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True}, status=400)
+            existing_user = ZappyUser.objects.filter(apple_receipt=receipt).first()
             send_mail(
-                'Check your api/views.py',
-                'I think someone is double dipping on an already used IAP',
+                'This Receipt has already been used',
+                'Existing user email that used this receipt: ' + existing_user.email + '\nThe email that tried to reuse this receipt: ' + data['email'] + '\nReceipt: ' + receipt,
                 'nick@zappycode.com',
                 ['nick@zappycode.com'],
                 fail_silently=False,
             )
+            return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True}, status=400)
+            
         verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
         
         receipt_json = json.dumps(
