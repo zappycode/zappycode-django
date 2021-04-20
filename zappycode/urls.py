@@ -24,6 +24,7 @@ urlpatterns = [
                   path('', sitewide.views.home, name='home'),
                   path('admin/', admin.site.urls),
                   path('check', sitewide.views.check_active_memberships, name='check_membership'),
+                  path('apple_subscriptions', sitewide.views.apple_subscriptions),
                   path('courses', include('courses.urls')),
                   path('api', include('api.urls')),
                   path('posts', include('posts.urls')),

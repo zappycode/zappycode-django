@@ -1,0 +1,5 @@
+<h1>Well hello there!</h1>
+
+{% for user_dict in apple_members %}
+<p>{{ user_dict.user.email }} - {% if user_dict.receipt_json.pending_renewal_info.0.auto_renew_status == '1' %}On Board{% else %}Canceled{% endif %} - {{ user_dict.receipt_json.pending_renewal_info.0.product_id }} - {{ user_dict.receipt_json.latest_receipt_info.0.expires_date_pst }}</p>
+{% endfor %}

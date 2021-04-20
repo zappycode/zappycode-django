@@ -2,7 +2,9 @@ import time
 from datetime import datetime
 
 import stripe
-
+import environ
+import json
+import requests
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.core.validators import validate_email
@@ -10,16 +12,14 @@ from django.contrib.auth.password_validation import validate_password
 from paypalrestsdk import BillingAgreement
 from rest_framework.utils import json
 from django.http import HttpResponse, JsonResponse
-
 from .forms import AccountSettingsForm
 from .models import ZappyUser, CancellationReasons
 from invites.models import Invite
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from courses.models import Course
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-import environ
 
 env = environ.Env()
 environ.Env.read_env()
@@ -251,6 +251,7 @@ def cancel_subscription(request, membership):
     return redirect('home')
 
 
+
 @staff_member_required
 def check_active_memberships(request):
     active_members = ZappyUser.objects.filter(active_membership=True)
@@ -286,3 +287,44 @@ def check_active_memberships(request):
         user.save()
 
     return HttpResponse(f"Done! {len(users_membership_expired)} user memberships canceled. " + ' '.join(map(str, users_membership_expired)))
+
+def get_receipt_data(receipt):
+    verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
+    
+    receipt_json = json.dumps({"receipt-data": receipt, 'password': env.str('APP_SHARED_SECRET', default='')})
+    response = requests.request(
+        method='POST',
+        url=verify_url,
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        data=receipt_json
+    )
+    
+    res_json = response.json()
+    
+    if res_json['status'] == 21007:
+        # Apple docs say try prod and if no dice, then do sandbox https://developer.apple.com/library/archive/technotes/tn2413/_index.html#//apple_ref/doc/uid/DTS40016228-CH1-RECEIPTURL
+        response = requests.request(
+            method='POST',
+            url='https://sandbox.itunes.apple.com/verifyReceipt',
+            headers={'Content-Type': 'application/x-www-form-urlencoded'},
+            data=receipt_json
+        )
+
+    res_json = response.json()
+    
+    return res_json
+    
+@user_passes_test(lambda u: u.is_superuser)
+def apple_subscriptions(request):
+    active_members = ZappyUser.objects.filter(active_membership=True)
+    apple_members = []
+    for user in active_members:
+        print(user.email)
+        if user.apple_receipt:
+            receipt_json = get_receipt_data(user.apple_receipt)
+            apple_members.append({'user' : user, 'receipt_json' : receipt_json})
+            
+    print(apple_members)
+           
+    return render(request, 'account/apple_subscriptions.html', {'apple_members' : apple_members}) 
+    
