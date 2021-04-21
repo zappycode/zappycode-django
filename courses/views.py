@@ -48,6 +48,11 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
     })
 
 
+def deploy_django(request):
+    courses = Course.objects.filter(title__icontains="django").order_by("-release_date")
+    return render(request, 'courses/deploy.html', {'courses': courses})
+
+
 def course_landing_page(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
 

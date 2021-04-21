@@ -39,6 +39,7 @@ urlpatterns = [
                   path('paypal_validation', sitewide.views.paypal_validation, name='paypal_validation'),
                   path('discourse/sso', chit_chat.views.discourse_sso, name='discourse_sso'),
                   path('tinymce/', include('tinymce.urls')),
+                  path('deploy', courses.views.deploy_django, name='django'),
 
                   path("robots.txt", TemplateView.as_view(template_name="sitewide/robots.txt", content_type="text/plain")),
                   path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
