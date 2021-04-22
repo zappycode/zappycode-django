@@ -101,7 +101,7 @@ def account(request):
         if user.apple_product_id:
             # try statement in case of apple_expires_date is None for some reason
             try:
-                if user.apple_expires_date >= datetime.now():
+                if user.apple_receipt is not None:
                     membership = {
                         "type": "apple",
                         "apple_product_id": user.apple_product_id,
@@ -145,7 +145,7 @@ def account(request):
                 membership_warning = None
             else:
                 message = "User " + request.user.username + ", email: " + request.user.email \
-                          + "has got corrupted membership. " \
+                          + " has got a corrupted membership. " \
                             "There is no valid subscription (active or cancelled) or invitation. "
                 send_mail("Broken membership", message, env.str('ADMIN_EMAIL'),
                           [env.str('ADMIN_EMAIL')], fail_silently=False)
