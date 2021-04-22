@@ -98,10 +98,10 @@ def account(request):
 
     if request.method == 'GET':
         forms = AccountSettingsForm()
-        if user.apple_product_id:
+        if user.apple_receipt:
             # try statement in case of apple_expires_date is None for some reason
             try:
-                if user.apple_receipt is not None:
+                if user.apple_expires_date >= datetime.now():
                     membership = {
                         "type": "apple",
                         "apple_product_id": user.apple_product_id,
@@ -111,7 +111,7 @@ def account(request):
             except TypeError:
                 membership = {
                     "type": "apple",
-                    "apple_product_id": user.apple_product_id,
+                    "apple_product_id": "Apple In App Purchase",
                     "expiration_date": None
                 }
                 membership_warning = None

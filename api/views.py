@@ -79,8 +79,8 @@ def iap_signup(request):
             )
             
             # TODO I need to put this back to normal
-            # user.apple_product_id = res_json['latest_receipt_info'][-1]['product_id']
-            # user.apple_expires_date = datetime.datetime.fromtimestamp(int(res_json['latest_receipt_info'][-1]['expires_date_ms']) / 1000)
+            user.apple_product_id = res_json['latest_receipt_info'][-1]['product_id']
+            user.apple_expires_date = datetime.datetime.fromtimestamp(int(res_json['latest_receipt_info'][-1]['expires_date_ms']) / 1000)
             user.active_membership = True
             user.apple_receipt = receipt
             user.save()
