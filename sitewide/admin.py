@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from sitewide.models import ZappyUser
+from sitewide.models import ZappyUser, CancellationReasons
 
 
 class ZappyUserAdmin(admin.ModelAdmin):
@@ -12,3 +12,4 @@ class ZappyUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ZappyUser, ZappyUserAdmin)
+admin.site.register(CancellationReasons)
