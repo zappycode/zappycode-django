@@ -1,0 +1,121 @@
+{% extends "sitewide/base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+      .rotation {
+        animation: spin 2s infinite linear;
+      }
+      @keyframes spin {
+		from {
+                transform: rotate(0deg);
+		}
+		to {
+                transform: rotate(359deg);
+		}
+      }
+
+      .github {
+        animation: spin3D 2s infinite linear;
+      }
+      @keyframes spin3D {
+		from {
+                transform: rotateY(0deg);
+		}
+		to {
+                transform: rotateY(359deg);
+		}
+      }
+    </style>
+
+  <div class="row bg-white justify-content-center">
+    <div class="container">
+      <div class="row justify-content-between">
+        <div class="col-md-8 text-center">
+          <div class="text-left display-2 d-none d-lg-block">How to deploy a&nbsp;Django project</div>
+          <div class="text-left display-4 d-lg-none">How to deploy a&nbsp;Django project</div>
+          <div class="text-left">
+            <p >All guides assume that you keep your project on any VCS. We are using Github. How to prepare the code and push it to Github you find <a href="#">here</a>.</p>
+            <p>Choose below where you want to deploy your project. Linux guide assumes that you have got access to Ubuntu server.</p>
+          </div>
+          <div class="">
+            <a href="https://www.zappycode.com/posts/20/deploy-django-project-on-pythonanywhere" class="mb-3 w-75 btn btn-outline-primary">
+                <img class="w-75" src="{% static 'sitewide/python.png' %}" alt="deploy on pythonanywhere">
+            </a>
+
+            <a href="https://www.zappycode.com/posts/19/deploy-django-project-on-heroku" class="mb-3 w-75 btn btn-outline-success ">
+                <img class="w-75" src="{% static 'sitewide/heroku.png' %}" alt="deploy on heroku" >
+            </a>
+            <a href="https://www.zappycode.com/posts/21/deploying-django-project-on-linux-server-ubuntu-gunicorn-nginx-supervisor-ufw" class="mb-3 w-75 btn btn-outline-warning">
+                 <img class="w-50" src="{% static 'sitewide/linux.png' %}" alt="deploy on linux server" >
+            </a>
+          </div>
+        </div>
+        <div class="row col-md-4 ml-auto mr-auto mt-3">
+          <div class="col-6 col-md-12">
+            <a href="https://www.zappycode.com/posts/1/django-cheat-sheet" class="">
+		      <img class="w-100" id="django" src="{% static 'sitewide/djangoCheetSheetbutton.png' %}" alt="django chaetsheet">
+            </a>
+          </div>
+          <div class="col-6 col-md-12">
+              <a href="https://www.zappycode.com/posts/22/preparing-project-to-deploy-and-pushing-it-to-github" class="btn btn-outline-info shadow rounded-circle" >
+		        <img id="github" class="w-100" src="{% static 'sitewide/github_napisy.png' %}" alt="how to push code to github">
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <! -- links to Django courses -->
+  <div class="row bg-dark ">
+    <div class="container">
+      <div class="row justify-content-center pt-3 ">
+        {% for course in courses %}
+          <div class="col-md-6 col-lg-4">
+            <a href="{% url 'course_landing_page' course.slug %}">
+              <div class="card mb-4 shadow-sm mr-0">
+                <img alt="" src="{{ course.image.url}}" class="card-img-top img-fluid" width="150" height="225">
+                <div class="card-body">
+                  <h5 class="card-title">{{ course.title }}</h5>
+                  <p class="card-text">{{ course.subtitle }}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    $("#django").hover(
+      function() {
+        $(this).addClass("rotation");
+      },
+      function() {
+        $(this).removeClass("rotation");
+      }
+    );
+
+    $("#github").hover(
+      function() {
+        $(this).addClass("github");
+      },
+      function() {
+        $(this).removeClass("github");
+      }
+    );
+  </script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
