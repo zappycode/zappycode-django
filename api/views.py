@@ -70,9 +70,15 @@ def iap_signup(request):
             form.is_valid()
             user = form.save(request)
             
+            dream_and_skill = '[No Dream or Skill]'
+            
+            if 'dream' in data:
+                if 'skill' in data:
+                    dream_and_skill = data['dream'] + ' ' + data['skill']
+            
             send_mail(
                 'New Member from the App!',
-                str(data['email']) + ' ' + str(res_json),
+                str(data['email']) + ' ' + dream_and_skill + ' ' + str(res_json),
                 'nick@zappycode.com',
                 ['nick@zappycode.com'],
                 fail_silently=False,
