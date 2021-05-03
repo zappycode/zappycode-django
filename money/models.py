@@ -1,8 +1,13 @@
+import datetime
+
 from django.db import models
 import calendar
 import json
 from django.utils.text import slugify
 from django.urls import reverse
+
+from sitewide.models import ZappyUser
+
 
 class MonthManager(models.Manager):
     def to_json(self):
@@ -49,4 +54,17 @@ class Month(models.Model):
             "month_pk": self.id,
             "month_slug": self.slug(),
         })
+
+
+class PaypalRevenue(models.Model):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    month = models.IntegerField()
+    year = models.IntegerField()
+    completed = models.BooleanField(default=False)
+
+
+class PaypalUsers(models.Model):
+    subs_details = models.JSONField()
+    user = models.ForeignKey(ZappyUser, on_delete=models.DO_NOTHING)
+    date = models.DateField(default=datetime.datetime.now)
 
