@@ -54,17 +54,3 @@ class Month(models.Model):
             "month_pk": self.id,
             "month_slug": self.slug(),
         })
-
-
-class PaypalRevenue(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    month = models.IntegerField()
-    year = models.IntegerField()
-    completed = models.BooleanField(default=False)
-
-
-class PaypalUsers(models.Model):
-    subs_details = models.JSONField()
-    user = models.ForeignKey(ZappyUser, on_delete=models.DO_NOTHING)
-    date = models.DateField(default=datetime.datetime.now)
-

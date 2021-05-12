@@ -2,9 +2,8 @@
 
 {% block content %}
    <div id="content" class="bg-white container">
-     <div class="row">
-        <div class="col text-center w-100">
-            <div class="row pt-3 mr-auto ml-auto justify-content-between">
+     <div class="col text-center w-100">
+       <div class="row pt-3 mr-auto ml-auto justify-content-between">
                 <h2>Paypal Monthly Stats</h2>
                 <form action="" method="post">
                 {% csrf_token %}
@@ -13,14 +12,11 @@
                     <span id="text">Grab data from the Paypal API</span>
                   </button>
                 </form>
-
             </div>
-            <div class="col pt-md-5 pb-md-5 badge badge-danger mt-4 mb-4">
+       <div class="col pt-md-5 pb-md-5 badge badge-danger mt-4 mb-4">
                 <div class="h3"><strong>MRR on {{ current_date|date }}</strong></div>
                 <div class="badge text-danger badge-pill badge-light"><span class="display-2"><strong>${{ chart.monthly_revenue|floatformat:2 }}</strong></span></div>
             </div>
-
-        </div>
      </div>
 
      <div class="row">
@@ -90,7 +86,8 @@
          </tbody>
       </table>
      </div>
-  </div>
+   </div>
+
 {% endblock %}
 
 {% block javascript %}

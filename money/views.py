@@ -15,7 +15,6 @@ from .models import Month
 from sitewide.models import ZappyUser
 
 
-
 def home(request):
     months = Month.objects.order_by('-year', '-month')
     totals = Month.objects.aggregate(revenue=Sum('revenue'), expenses=Sum('expenses'))
@@ -84,12 +83,14 @@ class Paypal(View):
             if user.paypal_subscription_id:
                 try:
                     billing_agreement = BillingAgreement.find(user.paypal_subscription_id)
+                    if not billing_agreement.id:
+                        continue
                 except ResourceNotFound:
                     print("Billing Agreement Not Found")
-                    break
+                    continue
                 except MethodNotAllowed:
                     print("Billing Agreement Not Found")
-                    break
+                    continue
 
                 if billing_agreement.state.lower() == 'active':
                     if billing_agreement.plan.payment_definitions[0].frequency == 'MONTH':
