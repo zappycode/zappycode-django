@@ -2,7 +2,8 @@ from datetime import datetime
 from operator import itemgetter
 
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -35,14 +36,11 @@ def view_month(request, month_pk, month_slug):
     month = get_object_or_404(Month, pk=month_pk)
     return render(request, 'money/view_month.html', {'month': month})
 
+class SuperuserRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
 
-# access to paypal mrr is restricted. only staff can see page.
-# but if u want bigger restrictions, u can uncomment decorator
-# permission_required. but remember to set it for users u want to grant
-@method_decorator(staff_member_required, name='dispatch')
-# @method_decorator(login_required, name='dispatch')
-# @method_decorator(permission_required('money.view_paypalusers', raise_exception=True), name='dispatch')
-class Paypal(View):
+class Paypal(SuperuserRequiredMixin, View):
     template_name = "paypal_mrr.html"
 
     def __init__(self):

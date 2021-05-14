@@ -1,13 +1,8 @@
-import datetime
-
 from django.db import models
 import calendar
 import json
 from django.utils.text import slugify
 from django.urls import reverse
-
-from sitewide.models import ZappyUser
-
 
 class MonthManager(models.Manager):
     def to_json(self):
