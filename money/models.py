@@ -49,4 +49,3 @@ class Month(models.Model):
             "month_pk": self.id,
             "month_slug": self.slug(),
         })
-

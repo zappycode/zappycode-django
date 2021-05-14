@@ -1,0 +1,102 @@
+{% extends 'sitewide/base.html' %}
+
+{% block content %}
+   <div id="content" class="bg-white container">
+     <div class="col text-center w-100">
+       <div class="row pt-3 mr-auto ml-auto justify-content-between">
+                <h2>Paypal Monthly Stats</h2>
+                <form action="" method="post">
+                {% csrf_token %}
+                  <button id="grab-from-api" type="submit" class="btn btn-outline-info btn-lg">
+                    <span id="spinner" class="spinner-border spinner-border" role="status" aria-hidden="true" hidden></span>
+                    <span id="text">Grab data from the Paypal API</span>
+                  </button>
+                </form>
+            </div>
+       <div class="col pt-md-5 pb-md-5 badge badge-danger mt-4 mb-4">
+                <div class="h3"><strong>MRR on {{ current_date|date }}</strong></div>
+                <div class="badge text-danger badge-pill badge-light"><span class="display-2"><strong>${{ chart.monthly_revenue|floatformat:2 }}</strong></span></div>
+            </div>
+     </div>
+
+     <div class="row">
+       <div class="table-responsive col-12 col-md-9 mt-3">
+         <h2>Prices table</h2>
+         <table class="bg-white table-primary table table-hover">
+           <thead>
+             <tr>
+               <th class="text-center" scope="col">Price of subscription</th>
+               <th class="text-center" scope="col">Number of subscriptions</th>
+               <th class="text-center" scope="col">Type of subscription</th>
+             </tr>
+           </thead>
+           <tbody>
+             {% for key, value in chart.monthly.items %}
+               <tr>
+                 <td class="text-center">${{ key|floatformat }}</td>
+                 <td class="text-center">{{ value|floatformat }}</td>
+                 <td class="text-center"> monthly</td>
+               </tr>
+             {% endfor %}
+             {% for key, value in chart.yearly.items %}
+               <tr>
+                 <td class="text-center">${{ key|floatformat }}</td>
+                 <td class="text-center">{{ value|floatformat }}</td>
+                 <td class="text-center"> yearly </td>
+               </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+       </div>
+       <div class="col-11 col-md-3 text-center align-self-center">
+         <h3>Average prices:</h3>
+         <div class="badge badge-primary p-2 mb-2" >
+           <span class="h2">Monthly <span class="badge badge-light">${{ chart.avg.monthly|floatformat:2 }}</span></span>
+         </div>
+         <div class="badge badge-warning p-2 mb-2" >
+           <span class="h2">Yearly <span class="badge badge-light">${{ chart.avg.yearly|floatformat:2 }}</span></span>
+         </div>
+         <div class="badge badge-success p-2 mb-4">
+           <span class="h2">Combined <span class="badge badge-light">${{ chart.avg.combined|floatformat:2 }}</span></span>
+         </div>
+       </div>
+     </div>
+     <div class="table-responsive">
+       <h2>Active Paypal users</h2>
+       <table class="bg-white table-primary table table-hover">
+         <thead>
+           <tr>
+             <th scope="col">#</th>
+             <th scope="col">User</th>
+             <th scope="col">Email</th>
+             <th class="text-center" scope="col">Subscription price</th>
+             <th class="text-center" scope="col">Type od subscription</th>
+           </tr>
+         </thead>
+         <tbody>
+           {% for user in active_users %}
+             <tr>
+               <th scope="row">{{ forloop.counter }}</th>
+               <td>{{ user.username }}</td>
+               <td>{{ user.email }}</td>
+               <td class="text-center">${{ user.sub_price|floatformat }}</td>
+               <td class="text-center">{{ user.sub_type }}</td>
+             </tr>
+           {% endfor %}
+         </tbody>
+      </table>
+     </div>
+   </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+      $("#grab-from-api").click(
+        function() {
+          $("#spinner").removeAttr("hidden");
+          $("#text").text(" Wait a sec. Fetching data from API");
+        },
+      );
+    </script>
+{% endblock %}
