@@ -6,8 +6,6 @@
             ZappyCode was <span class="text-nowrap">updated 💻 <a href="{{ commit_url }}">{{ last_commit }} ago</a>,</span> <span class="text-nowrap">has
             🧑‍💻 <a href="{% url 'pricing' %}">{{ amount_members }} member{{ amount_members|pluralize }}</a></span> and
             <span class="text-nowrap">{% if latest_month.profit_or_loss >= 0 %}made 🤑 <a href="{% url 'money:home' %}">${{ latest_month.profit_or_loss|floatformat:"0"|intcomma }}{% else %}lost 😵 <a class="a-footer" href="{% url 'money:home' %}">${{ latest_month.profit_or_loss_abs|floatformat:"0"|intcomma }}{% endif %}</a> last month</span>
-            <br>
-            Nick Walter Apps, LLC
         </div>
     </div>
 </div>
