@@ -126,7 +126,12 @@ class Paypal(SuperuserRequiredMixin, View):
         if chart['monthly']:
             monthly = monthly_sum/sum([v for v in chart['monthly'].values()])
 
-        combined = (yearly/12 + monthly)/2
+        if yearly > 0 and monthly > 0:
+            combined = (yearly/12 + monthly)/2
+        elif monthly > 0:
+            combined = monthly
+        else:
+            combined = yearly/12
 
         chart['avg'] = {
             'yearly': yearly,
