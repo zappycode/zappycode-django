@@ -9,18 +9,37 @@
 
     {% if user.active_membership or lecture.preview %}
         <div class="row justify-content-around bg-primary">
-            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-4">
+            <div class="col-lg-7 col-md-8 col-11 pt-4 pb-4 ">
+
+              <div class="position-relative">
+
                 <h1 class="text-white">{{ lecture.title }}</h1>
                 <h5 class="text-dark">{{ lecture.section.title }} - {{ lecture.section.course.title }}</h5>
 
                 {% if lecture.vimeo_video_id %}
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item"
-                                src="https://player.vimeo.com/video/{{ lecture.vimeo_video_id }}" frameborder="0"
-                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                       <iframe id="lecture-video" class="embed-responsive-item"
+                            src="https://player.vimeo.com/video/{{ lecture.vimeo_video_id }}" frameborder="0"
+                            allow="autoplay; fullscreen" allowfullscreen></iframe>
+                       <div id="go-next" hidden>
+                         {% if lecture.next_lecture %}
+                           <div style="background-color: rgba(52,58,64, .7);"
+                             class="card-img-overlay d-flex flex-column align-content-center text-center font-weight-bold text-uppercase justify-content-center">
+                             <a class="text-uppercase text-wrap text-white link-white rounded-circle"
+                                href="{% url 'view_lecture' lecture.next_lecture.section.course.slug lecture.next_lecture.id lecture.next_lecture.slug %}">
+                                <div class="font-weight-bold text-uppercase">Next</div>
+                                <h4>{{ lecture.next_lecture.section.number }}.{{ lecture.next_lecture.number }}. {{ lecture.next_lecture }}</h4>
+                                <h1 class=""><i class="fas fa-step-forward"></i></h1>
+                             </a>
+                             <div class="mt-2">
+                               <a id="cancel-next" href="#" class="text-white link-white">Cancel</a>
+                             </div>
+                           </div>
+                        {% endif %}
+                       </div>
                     </div>
                 {% endif %}
-
+              </div>
                 {% if lecture.text %}
                     <div class="card">
                         <div class="card-body">
@@ -28,8 +47,12 @@
                         </div>
                     </div>
                 {% endif %}
+
+
                 {% include 'courses/next_prev.html' %}
             </div>
+
+
         </div>
     {% else %}
         <div class="row justify-content-around bg-primary">
@@ -97,7 +120,6 @@
                     {% endfor %}
                 {% endfor %}
                 </div>
-
               </div>
 
               <div class="tab-pane fade col-12" role="tabpanel" id="topic-list">
@@ -105,9 +127,7 @@
               </div>
 
             </div>
-
         </div>
-
     </div>
     <div id="download-info" class="row card-img-overlay align-items-center justify-content-center bg-transparent position-fixed" style="display: none !important">
         <div class="border border-white p-3 p-lg-3 big-title font-weight-bold text-center text-white link-white " style="background: rgba(110, 0, 255, .85)">Grabbing your download, one sec...</div>
@@ -116,46 +136,48 @@
 
 {% block javascript %}
 
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
     <script>
+        let lectureVideo = new Vimeo.Player('lecture-video');
+        let nextVideoUrl = $('#next').prop('href');
+
+        lectureVideo.on('ended', function() {
+          let cancel = false;
+
+          if (nextVideoUrl) {
+            $('#go-next').removeAttr('hidden');
+            $('#cancel-next').click(function (){
+              $('#go-next').attr('hidden', true);
+              cancel = true;
+            });
+
+            setTimeout(function(){
+              if (!cancel) {
+                location.href = nextVideoUrl;
+              }
+            }, 5000);
+
+          } else {
+            console.log('no next lecture');
+          }
+        });
+
+
         $(function () {
             let params = {param : 'download'};
             $('[data-toggle="tooltip"]').tooltip();
 
-            $('#load_more').click(function (){
-                 var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-                 function csrfSafeMethod(method) {
-                    // these HTTP methods do not require CSRF protection
-                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-                 }
-
-                $.ajaxSetup({
-                    beforeSend: function(xhr, settings) {
-                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                           xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                        }
-                    }
-                });
-                $.ajax({
-                    url: this.href,
-                    global: false,
-                    success: function() {
-                      console.log('load more wciśnięty');
-                    },
-                });
-            });
-
             $("#download").click(function () {
                 $.ajax({
                     url: this.href,
-
                 });
             });
         }).ajaxStart(function (e) {
-                  $("#download-info").show();
-        })
-            .ajaxComplete(function () {
-                  $("#download-info").delay(500).fadeOut();
-            });
+          $("#download-info").show();
+        }).ajaxComplete(function () {
+          $("#download-info").delay(500).fadeOut();
+        });
     </script>
 
 {% endblock %}
