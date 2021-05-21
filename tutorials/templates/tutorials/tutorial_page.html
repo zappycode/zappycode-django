@@ -1,0 +1,38 @@
+{% extends "sitewide/base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-tutorialpage{% endblock %}
+
+{% block head %}
+		{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro  %}
+		
+		{% with title=page.title %}{{ block.super }}{% endwith%}
+{% endblock %}
+
+{% block content %}
+	<article class="row justify-content-around align-items-center">
+		<div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
+			<header>
+				<h1 class="big-title mb-3 text-center">{{ page.title }}</h1>
+				<div class="wrapper d-flex justify-content-center mb-5">
+					<span class="mr-3"><i class="far fa-clock mr-1"></i> {{ page.get_read_time }}</span>
+					<span><i class="far fa-calendar mr-1"></i> {{ page.date|date:"M j, Y" }}</span>
+				</div>
+			</header>
+
+			<main class="main-content px-2 px-md-5 text-center">
+				{% for block in page.body %}
+					{% if block.block_type == 'image' %}
+					
+						{% image block.value width-1000 class="img-fluid" %}
+						
+					{% else %}
+							{% include_block block %}
+					{% endif %}
+				{% endfor %}
+			</main>
+		</div>
+	</article>
+
+{% endblock %}

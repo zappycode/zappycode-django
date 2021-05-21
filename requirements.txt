@@ -12,3 +12,5 @@ stripe==2.55.1
 readtime==1.1.1
 paypalrestsdk==1.13.1
 sentry-sdk==1.0.0
+wagtail==2.13
+wagtailcodeblock==1.17.1.0

@@ -6,11 +6,15 @@ import chit_chat.views
 from django.views.generic import RedirectView, TemplateView
 from django.contrib.sitemaps.views import sitemap
 from .sitemap import StaticViewSitemap, CourseSitemap, MoneySitemap 
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 import sitewide.views
 import challenge.views
 import courses.views
 import allauth.account.views
 import sitewide
+
 
 sitemaps = {
      'static': StaticViewSitemap,
@@ -71,6 +75,11 @@ urlpatterns = [
                           name="account_reset_password_from_key"),
                   path("password/reset/key/done", allauth.account.views.password_reset_from_key_done,
                        name="account_reset_password_from_key_done"),
+                       
+                  # Wagtail
+                  path('cms/', include(wagtailadmin_urls)),
+                  path('documents/', include(wagtaildocs_urls)),
+                  path('tutorials/', include(wagtail_urls)),
 
                   # These are all direct links
                   path('do/', RedirectView.as_view(url='https://m.do.co/c/1d911d0ac384')),

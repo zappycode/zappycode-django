@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'money',
     'invites',
     'chit_chat',
+    'tutorials',
 
     # 3rd Party
     'djcelery_email',
@@ -59,6 +60,24 @@ INSTALLED_APPS = [
     # Django REST Framework
     'rest_framework',
     'rest_framework.authtoken',
+    
+    # Wagtail
+    
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    
+    'wagtailcodeblock',
+    'modelcluster',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'zappycode.urls'
@@ -93,6 +113,23 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'zappycode.wsgi.application'
+
+# Wagtail
+WAGTAIL_SITE_NAME = 'ZappyCode'
+WAGTAIL_APPEND_SLASH = False
+
+# wagtailcodeblock 
+WAGTAIL_CODE_BLOCK_THEME = 'okaidia'
+WAGTAIL_CODE_BLOCK_LANGUAGES = (
+  ('python', 'Python'),
+  ('swift', 'Swift'),
+  ('json', 'JSON'),
+  ('css', 'CSS'),
+  ('html', 'HTML'),
+  ('javascript', 'JavaScript'),
+  ('kotlin', 'Kotlin'),
+  ('java', 'Java'),
+)
 
 # Logging and Performance
 
