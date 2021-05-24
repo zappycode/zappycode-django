@@ -15,6 +15,7 @@ from paypalrestsdk import BillingAgreement, ResourceNotFound
 from .models import Month
 from sitewide.models import ZappyUser
 
+import time
 
 def home(request):
     months = Month.objects.order_by('-year', '-month')
@@ -79,6 +80,7 @@ class Paypal(SuperuserRequiredMixin, View):
         for user in paypal_users:
             # in case there is empty string instead PayPal sub id
             if user.paypal_subscription_id:
+                time.sleep(0.5)
                 try:
                     billing_agreement = BillingAgreement.find(user.paypal_subscription_id)
                     if not billing_agreement.id:
