@@ -1,3 +1,4 @@
+from .blocks import VideoBlock
 from django.db import models
 from wagtail.core import blocks
 from wagtail.core.models import Page
@@ -25,6 +26,7 @@ class TutorialPage(Page):
 		('paragraph', blocks.RichTextBlock()),
 		('image', ImageChooserBlock()),
 		('code', CodeBlock(label='Code', default_language='python')),
+		('video', VideoBlock()),
 	])
 	tags = ClusterTaggableManager(through=TutorialPageTag, blank=True)
 

@@ -1,0 +1,7 @@
+{% load wagtailcore_tags wagtailembeds_tags %}
+
+{% block content %}
+<div class="embed-responsive embed-responsive-16by9">
+	<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ self.video }}?rel=0" allowfullscreen></iframe>
+</div>
+{% endblock %}
