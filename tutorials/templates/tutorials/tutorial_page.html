@@ -6,8 +6,6 @@
 
 {% block head %}
 		{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro  %}
-		
-		{% with title=page.title %}{{ block.super }}{% endwith%}
 {% endblock %}
 
 {% block content %}
@@ -15,6 +13,11 @@
 		<div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
 			<header>
 				<h1 class="big-title mb-3 text-center">{{ page.title }}</h1>
+				<p class="text-center">Written by Resident Baller:</p>
+				{% if page.owner.pic %}
+					<img class="mx-auto d-block" height="150px" src="{{ page.owner.pic.url }}">
+				{% endif %}
+				<h3 class="text-center">{{ page.owner.username }}</h3>
 				<div class="wrapper d-flex justify-content-center mb-5">
 					<span class="mr-3"><i class="far fa-clock mr-1"></i> {{ page.get_read_time }}</span>
 					<span><i class="far fa-calendar mr-1"></i> {{ page.date|date:"M j, Y" }}</span>
