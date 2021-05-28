@@ -8,6 +8,8 @@
 		{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro  %}
 {% endblock %}
 
+{% block title %}{{ page.title }} | ZappyCode{% endblock %}
+
 {% block content %}
 	<article class="row justify-content-around align-items-center">
 		<div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
