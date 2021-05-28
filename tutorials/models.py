@@ -49,6 +49,7 @@ class TutorialPage(Page):
 			FieldPanel('intro'),
 			ImageChooserPanel('promo_image'),
 			FieldPanel('tags'),
+			FieldPanel('owner')
 		], heading="Tutorial Info"),
 		StreamFieldPanel('body'),
 	]
