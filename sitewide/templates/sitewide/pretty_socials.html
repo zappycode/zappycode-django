@@ -37,6 +37,14 @@
     <meta property="og:image:width" content="{{ image.width }}">
     <meta property="og:image:height" content="{{ image.height }}">
     <meta name="twitter:image" content="https://ZappyCode.com{{ image.url }}">
+{% elif wagtail_image %}
+    {% load wagtailimages_tags %}
+    {% image wagtail_image fill-1200x630 format-png as tmp_image %}
+    <meta property="og:image" content="{{ tmp_image.url }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="{{ tmp_image.width }}">
+    <meta property="og:image:height" content="{{ tmp_image.height }}">
+    <meta name="twitter:image" content="{{ tmp_image.url }}">
 {% elif vimeo %}
     <meta property="og:image" content="https://i.vimeocdn.com/video/{{ vimeo }}_640.png">
     <meta property="og:image:type" content="image/png">

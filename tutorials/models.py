@@ -6,6 +6,7 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.search import index
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtailcodeblock.blocks import CodeBlock
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -22,6 +23,13 @@ class TutorialPageTag(TaggedItemBase):
 class TutorialPage(Page):
 	date = models.DateField("Post date")
 	intro = models.CharField(max_length=250)
+	promo_image = models.ForeignKey(
+		'wagtailimages.Image',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
 	body = StreamField([
 		('paragraph', blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'h5', 'bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'code', 'superscript', 'subscript', 'strikethrough', 'blockquote'])),
 		('image', ImageChooserBlock()),
@@ -39,6 +47,7 @@ class TutorialPage(Page):
 		MultiFieldPanel([
 			FieldPanel('date'),
 			FieldPanel('intro'),
+			ImageChooserPanel('promo_image'),
 			FieldPanel('tags'),
 		], heading="Tutorial Info"),
 		StreamFieldPanel('body'),
