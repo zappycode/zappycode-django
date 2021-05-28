@@ -23,7 +23,7 @@ class TutorialPage(Page):
 	date = models.DateField("Post date")
 	intro = models.CharField(max_length=250)
 	body = StreamField([
-		('paragraph', blocks.RichTextBlock()),
+		('paragraph', blocks.RichTextBlock(features=['h2', 'h3', 'h4', 'h5', 'bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'code', 'superscript', 'subscript', 'strikethrough', 'blockquote'])),
 		('image', ImageChooserBlock()),
 		('code', CodeBlock(label='Code', default_language='python')),
 		('video', VideoBlock()),
