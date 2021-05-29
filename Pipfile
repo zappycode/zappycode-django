@@ -29,7 +29,6 @@ django-tinymce = "*"
 paypalrestsdk = "*"
 sentry-sdk = "*"
 wagtail = "*"
-wagtailcodeblock = "*"
 
 [requires]
 python_version = "3.6.9"
