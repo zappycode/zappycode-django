@@ -32,6 +32,7 @@ class DateTools:
 
 def zappy_footer(request):
     # try in case no objects in database
+    
     try:
         last_known_commit = LastCommit.objects.first()
     except:
@@ -42,9 +43,8 @@ def zappy_footer(request):
         last_known_commit.save()
 
     timediff = timezone.now() - last_known_commit.last_checked
-
+    
     if timediff.seconds > 300:
-
         last_known_commit.last_checked = timezone.now()
         last_known_commit.save()
 
@@ -57,7 +57,7 @@ def zappy_footer(request):
             last_commit = commits.json()[0]
 
             # convert date string to datetime format
-            last_known_commit.commit_time = datetime.strptime(last_commit['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ')
+            last_known_commit.commit_time = timezone.make_aware(datetime.strptime(last_commit['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ'))
             last_known_commit.commit_url = last_commit['html_url']
 
             # save to db new data
