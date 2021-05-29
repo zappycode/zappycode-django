@@ -122,7 +122,9 @@ WAGTAIL_APPEND_SLASH = False
 WAGTAIL_CODE_BLOCK_THEME = 'okaidia'
 WAGTAIL_CODE_BLOCK_LANGUAGES = (
   ('python', 'Python'),
+  ('django', 'Django'),
   ('swift', 'Swift'),
+  ('shell', 'Shell'),
   ('json', 'JSON'),
   ('css', 'CSS'),
   ('html', 'HTML'),
