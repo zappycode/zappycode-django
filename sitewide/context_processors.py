@@ -5,6 +5,7 @@ from money.models import Month
 from django.db.models import Avg
 from django.template.defaultfilters import pluralize
 from django.utils import timezone
+from dateutil import tz
 import environ
 
 env = environ.Env()
@@ -57,7 +58,10 @@ def zappy_footer(request):
             last_commit = commits.json()[0]
 
             # convert date string to datetime format
-            last_known_commit.commit_time = timezone.make_aware(datetime.strptime(last_commit['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ'))
+            from_zone = tz.tzutc()
+            to_zone = tz.tzlocal()
+            last_known_commit.commit_time = datetime.strptime(last_commit['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=from_zone).astimezone(to_zone)
+            
             last_known_commit.commit_url = last_commit['html_url']
 
             # save to db new data
