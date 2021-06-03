@@ -28,55 +28,57 @@
     <meta name="theme-color" content="#ffffff">
 
     {% if not debug %}
-        <script async defer data-domain="zappycode.com" src="https://plausible.io/js/plausible.js"></script>
+    <script async defer data-domain="zappycode.com" src="https://plausible.io/js/plausible.js"></script>
     {% endif %}
 
 
     {% block head %}{% endblock %}
-    
+
     <meta name="apple-itunes-app" content="app-id=1523733753">
 </head>
 
 <body class="h-100 bg-primary">
-<div class="container-fluid">
-    <nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-primary" id="navbar-main">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'sitewide/ZappyCodeLogo2.svg' %}" width="40" height="40"
-                     class="d-inline-block align-middle" alt="ZappyCode Logo">
-                <span id="logo_text">ZappyCode</span>
-            </a>
+    <div class="container-fluid">
+        <nav class="navbar navbar-main navbar-expand-lg navbar-dark bg-primary" id="navbar-main">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="{% static 'sitewide/ZappyCodeLogo2.svg' %}" width="40" height="40" class="d-inline-block align-middle" alt="ZappyCode Logo">
+                    <span id="logo_text">ZappyCode</span>
+                </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <div class="collapse navbar-collapse text-center" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'all_courses' %}">Courses</a>
-                    </li>
-                    {% if not user.active_membership %}
+                <div class="collapse navbar-collapse text-center" id="navbarNav">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'all_courses' %}">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/tutorials">Tutorials</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Open
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="https://github.com/zappycode/zappycode-django" rel="noopener" target="_blank">Code</a>
+                                <a class="dropdown-item" href="{% url 'money:home' %}">Money</a>
+                                <a class="dropdown-item" href="https://plausible.io/zappycode.com" rel="noopener" target="_blank">Analytics</a>
+                            </div>
+                        </li>
+                        {% if not user.active_membership %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
                         </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/zappycode/zappycode-django" rel="noopener" target="_blank">Code</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'money:home' %}">Money</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://plausible.io/zappycode.com" rel="noopener" target="_blank">Analytics</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://chitchat.zappycode.com" rel="noopener" target="_blank">Chit Chat</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    {% if user.is_authenticated %}
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://chitchat.zappycode.com" rel="noopener" target="_blank">Chit Chat</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a href="{% url 'account' %}" class="nav-link">
                                 <i class="fas fa-cog"></i><span>Account</span>
@@ -92,98 +94,98 @@
                                 <button id="signOutBtn" type="submit">Logout</button>
                             </form>
                         </li>
-                    {% else %}
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_login' %}">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
                         </li>
-                    {% endif %}
-                </ul>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    {% if messages %}
+        </nav>
+        {% if messages %}
         <div id="messages" class="row justify-content-around align-items-center bg-primary">
             <div class="col-lg-7 col-md-8 col-11 text-center">
                 <div class="alert alert-success">
                     {% for message in messages %}
-                        {% if forloop.last %}
-                            {{ message }}
+                    {% if forloop.last %}
+                    {{ message }}
                         {% else %}
-                            {{ message }}
-                            <br><br>
-                        {% endif %}
+                    {{ message }}
+                    <br><br>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </div>
-    {% endif %}
+        {% endif %}
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 
-    {#  wrap in block footer to allow override if will be necessity #}
-    {% block footer %}
+        {#  wrap in block footer to allow override if will be necessity #}
+        {% block footer %}
         {% include 'sitewide/footer.html' %}
-    {% endblock %}
+        {% endblock %}
 
-    <script src="{% static "sitewide/jquery.min.js" %}"></script>
-    <script src="{% static "sitewide/bootstrap.bundle.min.js" %}"></script>
+        <script src="{% static "sitewide/jquery.min.js" %}"></script>
+        <script src="{% static "sitewide/bootstrap.bundle.min.js" %}"></script>
 
-    <!-- Hide Messages -->
-    {% if messages %}
+        <!-- Hide Messages -->
+        {% if messages %}
         <script>
-            window.setTimeout(function () {
-                $("#messages").slideUp(500, function () {
+            window.setTimeout(function() {
+                $("#messages").slideUp(500, function() {
                     $(this).remove();
                 });
             }, 3000);
         </script>
-    {% endif %}
+        {% endif %}
 
-    {% block javascript %}{% endblock %}
-</div>
+        {% block javascript %}{% endblock %}
+    </div>
 
-<script>
-    window.intercomSettings = {
-        app_id: "h8tsn00g"
-    };
-</script>
-<script>
-    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/h8tsn00g'
-    (function () {
-        var w = window;
-        var ic = w.Intercom;
-        if (typeof ic === "function") {
-            ic('reattach_activator');
-            ic('update', w.intercomSettings);
-        } else {
-            var d = document;
-            var i = function () {
-                i.c(arguments);
-            };
-            i.q = [];
-            i.c = function (args) {
-                i.q.push(args);
-            };
-            w.Intercom = i;
-            var l = function () {
-                var s = d.createElement('script');
-                s.type = 'text/javascript';
-                s.async = true;
-                s.src = 'https://widget.intercom.io/widget/h8tsn00g';
-                var x = d.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
-            };
-            if (w.attachEvent) {
-                w.attachEvent('onload', l);
+    <script>
+        window.intercomSettings = {
+            app_id: "h8tsn00g"
+        };
+    </script>
+    <script>
+        // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/h8tsn00g'
+        (function() {
+            var w = window;
+            var ic = w.Intercom;
+            if (typeof ic === "function") {
+                ic('reattach_activator');
+                ic('update', w.intercomSettings);
             } else {
-                w.addEventListener('load', l, false);
+                var d = document;
+                var i = function() {
+                    i.c(arguments);
+                };
+                i.q = [];
+                i.c = function(args) {
+                    i.q.push(args);
+                };
+                w.Intercom = i;
+                var l = function() {
+                    var s = d.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://widget.intercom.io/widget/h8tsn00g';
+                    var x = d.getElementsByTagName('script')[0];
+                    x.parentNode.insertBefore(s, x);
+                };
+                if (w.attachEvent) {
+                    w.attachEvent('onload', l);
+                } else {
+                    w.addEventListener('load', l, false);
+                }
             }
-        }
-    })();
-</script>
+        })();
+    </script>
 
 </body>
 
