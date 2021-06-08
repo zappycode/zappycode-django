@@ -118,23 +118,23 @@ def account(request):
 
         if user.stripe_subscription_id and membership_warning:
             stripe_sub = user.check_stripe()
-
-            if stripe_sub[0] == 'active':
-                membership = {
-                   "type": "stripe",
-                   "expiration_date": stripe_sub[1]
-                }
-                membership_warning = None
+            if stripe_sub:
+                if stripe_sub[0] == 'active':
+                    membership = {
+                       "type": "stripe",
+                       "expiration_date": stripe_sub[1]
+                    }
+                    membership_warning = None
 
         if user.paypal_subscription_id and membership_warning:
             paypal_sub = user.check_paypal()
-
-            if paypal_sub[0] == "active" or (paypal_sub[0] == "cancelled" and paypal_sub[1] >= datetime.now()):
-                membership = {
-                     "type": "paypal",
-                     "expiration_date": paypal_sub[1]
-                }
-                membership_warning = None
+            if paypal_sub:
+                if paypal_sub[0] == "active" or (paypal_sub[0] == "cancelled" and paypal_sub[1] >= datetime.now()):
+                    membership = {
+                         "type": "paypal",
+                         "expiration_date": paypal_sub[1]
+                    }
+                    membership_warning = None
 
         if membership_warning:
             if Invite.has_invite(request.user):
