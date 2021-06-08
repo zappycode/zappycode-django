@@ -34,9 +34,10 @@ class DateTools:
 def zappy_footer(request):
     # try in case no objects in database
     
-    try:
-        last_known_commit = LastCommit.objects.first()
-    except:
+    
+    last_known_commit = LastCommit.objects.first()
+
+    if last_known_commit == None:
         last_known_commit = LastCommit()
         last_known_commit.commit_time = timezone.now()
         last_known_commit.last_checked = timezone.now()

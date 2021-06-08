@@ -59,3 +59,11 @@ class TutorialPage(Page):
 		string = str(self.body)
 		result = readtime.of_html(string)
 		return result
+		
+class HomePage(Page):
+	 
+	 def get_context(self, request):
+		 context = super().get_context(request)
+		 tutorials = TutorialPage.objects.live().order_by('-first_published_at')
+		 context['tutorials'] = tutorials
+		 return context

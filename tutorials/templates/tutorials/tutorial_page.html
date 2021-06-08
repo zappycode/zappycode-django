@@ -2,8 +2,6 @@
 
 {% load wagtailcore_tags wagtailimages_tags %}
 
-{% block body_class %}template-tutorialpage{% endblock %}
-
 {% block head %}
 		{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro wagtail_image=page.promo_image  %}
 {% endblock %}
