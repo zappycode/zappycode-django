@@ -120,7 +120,7 @@ def iap_renew(request):
             existing_user = ZappyUser.objects.filter(apple_receipt=receipt).first()
             send_mail(
                 'This Receipt has already been used',
-                'Existing user email that used this receipt: ' + existing_user.email + '\nThe email that tried to reuse this receipt: ' + data['email'] + '\nReceipt: ' + receipt,
+                'Existing user email that used this receipt: ' + existing_user.email + '\nReceipt: ' + receipt,
                 'nick@zappycode.com',
                 ['nick@zappycode.com'],
                 fail_silently=False,
@@ -167,9 +167,7 @@ def iap_renew(request):
             user.active_membership = True
             user.apple_receipt = receipt
             user.save()
-            token = Token.objects.create(user=user)
 
-            
             return JsonResponse({'token': str(token)}, status=201)
         except IntegrityError:
             sentry_sdk.capture_message("PSomething is wrong fam1", level="error")
