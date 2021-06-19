@@ -108,6 +108,82 @@ def iap_signup(request):
             return JsonResponse({'error': 'Something went wrong. Please contact nick@ZappyCode.com', 'kick_out': True},
                                 status=400)
 
+@csrf_exempt
+def iap_renew(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        token_str = data['token']
+        if not Token.objects.filter(key=token_str).exists():
+            return JsonResponse({'error': 'Unable to connect this to a user. Please contact nick@ZappyCode.com', 'kick_out': True}, status=400)
+        receipt = data['receipt']
+        if ZappyUser.objects.filter(apple_receipt=receipt).exists():
+            existing_user = ZappyUser.objects.filter(apple_receipt=receipt).first()
+            send_mail(
+                'This Receipt has already been used',
+                'Existing user email that used this receipt: ' + existing_user.email + '\nThe email that tried to reuse this receipt: ' + data['email'] + '\nReceipt: ' + receipt,
+                'nick@zappycode.com',
+                ['nick@zappycode.com'],
+                fail_silently=False,
+            )
+            return JsonResponse({'error': 'This In App Purchase has already been used. Please contact nick@ZappyCode.com', 'kick_out': True}, status=400)
+            
+        verify_url = 'https://buy.itunes.apple.com/verifyReceipt'
+        
+        receipt_json = json.dumps(
+            {"receipt-data": receipt, 'password': env.str('APP_SHARED_SECRET', default='')})
+        response = requests.request(
+            method='POST',
+            url=verify_url,
+            headers={'Content-Type': 'application/x-www-form-urlencoded'},
+            data=receipt_json
+        )
+        
+        res_json = response.json()
+        
+        if res_json['status'] == 21007:
+            # Apple docs say try prod and if no dice, then do sandbox https://developer.apple.com/library/archive/technotes/tn2413/_index.html#//apple_ref/doc/uid/DTS40016228-CH1-RECEIPTURL
+            response = requests.request(
+                method='POST',
+                url='https://sandbox.itunes.apple.com/verifyReceipt',
+                headers={'Content-Type': 'application/x-www-form-urlencoded'},
+                data=receipt_json
+            )
+
+        res_json = response.json()
+        try:
+            token = Token.objects.get(key=token_str)
+            user = token.user
+            
+            send_mail(
+                'A member renewed in the iOS app!',
+                str(user.email) + ' ' + str(res_json),
+                'nick@zappycode.com',
+                ['nick@zappycode.com'],
+                fail_silently=False,
+            )
+            
+            user.apple_product_id = res_json['latest_receipt_info'][-1]['product_id']
+            user.apple_expires_date = datetime.datetime.fromtimestamp(int(res_json['latest_receipt_info'][-1]['expires_date_ms']) / 1000)
+            user.active_membership = True
+            user.apple_receipt = receipt
+            user.save()
+            token = Token.objects.create(user=user)
+
+            
+            return JsonResponse({'token': str(token)}, status=201)
+        except IntegrityError:
+            sentry_sdk.capture_message("PSomething is wrong fam1", level="error")
+            return JsonResponse({'error': 'That email has already been taken'},
+                                status=400)
+        except KeyError:
+            sentry_sdk.capture_message("PSomething is wrong fam2", level="error")
+            return JsonResponse({'error': 'We had problems verifying the receipt. Please contact nick@ZappyCode.com', 'kick_out': True},
+                                status=400)
+        except Exception as e:
+            print(e)
+            sentry_sdk.capture_message("PSomething is wrong fam3", level="error")
+            return JsonResponse({'error': 'Something went wrong. Please contact nick@ZappyCode.com', 'kick_out': True},
+                                status=400)
 
 @csrf_exempt
 def login(request):
