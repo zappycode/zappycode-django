@@ -133,6 +133,9 @@ WAGTAIL_CODE_BLOCK_LANGUAGES = (
   ('java', 'Java'),
 )
 
+# Taggit
+TAGGIT_CASE_INSENSITIVE = True
+
 # Logging and Performance
 
 import sentry_sdk

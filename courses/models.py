@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.urls import reverse
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 import requests
 import environ
 
@@ -23,6 +24,7 @@ class Course(models.Model):
     download_link = models.URLField(blank=True)
     published = models.BooleanField(default=True)
     total_video_time = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title

@@ -35,6 +35,13 @@
 							{% include_block block %}
 					{% endif %}
 				{% endfor %}
+				<br>
+				<h3>Here's some courses you might like:</h3>
+				<ul>
+					{% for course in courses %}
+					<a href="{% url 'course_landing_page' course.slug %}"><li>{{ course.title }}</li></a>
+					{% endfor %}
+				</ul>
 			</main>
 		</div>
 	</article>

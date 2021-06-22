@@ -11,6 +11,7 @@ from wagtailcodeblock.blocks import CodeBlock
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
+from courses.models import Course
 import readtime
 
 class TutorialPageTag(TaggedItemBase):
@@ -53,6 +54,15 @@ class TutorialPage(Page):
 		], heading="Tutorial Info"),
 		StreamFieldPanel('body'),
 	]
+	
+	def get_context(self, request):
+		context = super().get_context(request)
+
+		courses = Course.objects.filter(tags__name__in=self.tags.all())
+		context['courses'] = courses
+		context['butt'] = 'eggs'
+		
+		return context
 	
 	def get_read_time(self):
 		''' Returns the read time of the Content body '''
