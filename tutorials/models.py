@@ -58,9 +58,8 @@ class TutorialPage(Page):
 	def get_context(self, request):
 		context = super().get_context(request)
 
-		courses = Course.objects.filter(tags__name__in=self.tags.all())
+		courses = Course.objects.filter(tags__name__in=self.tags.all()).distinct()
 		context['courses'] = courses
-		context['butt'] = 'eggs'
 		
 		return context
 	

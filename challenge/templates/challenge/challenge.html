@@ -26,6 +26,16 @@
             <div class="text-center">
                 <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#answer" aria-expanded="false" aria-controls="answer">Show Answer</button>
             </div>
+            
+            {% if courses %}
+                <br>
+                <h3>Here's some courses you might like:</h3>
+                <ul>
+                    {% for course in courses %}
+                    <a href="{% url 'course_landing_page' course.slug %}"><li>{{ course.title }}</li></a>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
