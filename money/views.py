@@ -15,6 +15,8 @@ from paypalrestsdk import BillingAgreement, ResourceNotFound
 from .models import Month
 from sitewide.models import ZappyUser
 
+import environ
+import requests
 import time
 
 def home(request):
@@ -63,8 +65,6 @@ class Paypal(SuperuserRequiredMixin, View):
         })
 
     def post(self, request, *args, **kwargs):
-        self.paypal_user_list = sorted(self.get_active_paypal_users(), key=itemgetter('username'))
-        self.price_chart = self.get_subs_chart()
         return render(request, "money/paypal_mrr.html", {
             "active_users": self.paypal_user_list,
             "chart": self.price_chart,
@@ -76,15 +76,22 @@ class Paypal(SuperuserRequiredMixin, View):
         """returns all active paypal users"""
         paypal_users = ZappyUser.objects.filter(paypal_subscription_id__isnull=False)
         paypal_active_users = []
+        
+        env = environ.Env()
+        environ.Env.read_env()
+        
+        token = env.str('PAYPAL_TOKEN', default='')
+        
+        headers = {
+           'Content-Type': 'application/json',
+           'Authorization': f'Bearer {token}',
+           }
 
         for user in paypal_users:
             # in case there is empty string instead PayPal sub id
             if user.paypal_subscription_id:
-                time.sleep(0.5)
                 try:
-                    billing_agreement = BillingAgreement.find(user.paypal_subscription_id)
-                    if not billing_agreement.id:
-                        continue
+                    response = requests.get(f'https://api-m.paypal.com/v1/billing/subscriptions/{user.paypal_subscription_id}', headers=headers)
                 except ResourceNotFound:
                     print("Billing Agreement Not Found")
                     continue
@@ -92,8 +99,10 @@ class Paypal(SuperuserRequiredMixin, View):
                     print("Billing Agreement Not Found")
                     continue
 
-                if billing_agreement.state.lower() == 'active':
-                    if billing_agreement.plan.payment_definitions[0].frequency == 'MONTH':
+                if response.json()['status'].lower() == 'active':
+                    plan_id = response.json()['plan_id']
+                    billing_response = requests.get(f'https://api-m.paypal.com/v1/billing/plans/{plan_id}', headers=headers)
+                    if billing_response.json()['billing_cycles'][0]['frequency']['interval_unit'] == 'MONTH':
                         sub_type = 'monthly'
                     else:
                         sub_type = 'yearly'
@@ -101,7 +110,7 @@ class Paypal(SuperuserRequiredMixin, View):
                     paypal_user = {
                         'username': user.username,
                         'email': user.email,
-                        'sub_price': float(billing_agreement.plan.payment_definitions[0].amount.value),
+                        'sub_price': float(response.json()['billing_info']['last_payment']['amount']['value']),
                         'sub_type': sub_type,
                     }
                     paypal_active_users.append(paypal_user)
@@ -128,7 +137,7 @@ class Paypal(SuperuserRequiredMixin, View):
         if chart['monthly']:
             monthly = monthly_sum/sum([v for v in chart['monthly'].values()])
 
-        combined = (yearly/12 + monthly)/2
+        combined = yearly/12 + monthly
 
         chart['avg'] = {
             'yearly': yearly,
