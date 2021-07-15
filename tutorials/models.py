@@ -73,6 +73,6 @@ class HomePage(Page):
 	 
 	 def get_context(self, request):
 		 context = super().get_context(request)
-		 tutorials = TutorialPage.objects.live().order_by('-first_published_at')
+		 tutorials = TutorialPage.objects.live().order_by('-date')
 		 context['tutorials'] = tutorials
 		 return context
