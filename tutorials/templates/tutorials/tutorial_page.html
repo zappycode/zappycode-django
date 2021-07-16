@@ -1,51 +1,87 @@
 {% extends "sitewide/base.html" %}
 
+{% load static %}
+
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block head %}
-		{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro wagtail_image=page.promo_image  %}
+{% include "sitewide/pretty_socials.html" with title=page.title description=page.intro wagtail_image=page.promo_image  %}
 {% endblock %}
 
 {% block title %}{{ page.title }} | ZappyCode{% endblock %}
 
 {% block content %}
-	<article class="row justify-content-around align-items-center">
-		<div class="col-xl-8 col-11 pt-4 pb-5 bg-light">
+<article>
+	<div class="row justify-content-around align-items-center">
+		<div class="col-xl-7 col-sm-11 col-12 pt-4 pb-3 bg-light">
 			<header>
-				<h1 class="big-title mb-3 text-center">{{ page.title }}</h1>
-				<h4 class="text-center text-muted"><i>{{ page.intro }}</i></h4>
-				<p class="text-center">Written by Resident Baller:</p>
-				{% if page.owner.pic %}
-					<img class="mx-auto d-block" height="150px" src="{{ page.owner.pic.url }}">
-				{% endif %}
-				<h3 class="text-center">{{ page.owner.username }}</h3>
-				<div class="wrapper d-flex justify-content-center mb-5">
-					<span class="mr-3"><i class="far fa-clock mr-1"></i> {{ page.get_read_time }}</span>
-					<span><i class="far fa-calendar mr-1"></i> {{ page.date|date:"M j, Y" }}</span>
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-sm-10 col-12 bg-light">
+						<h1 class="mb-3 text-center">{{ page.title }}</h1>
+						{% image page.promo_image width-1000 class="img-fluid py-3" %}
+						<h5 class="text-muted"><i>{{ page.intro }}</i></h5>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-md-5 col-sm-7 col-9">
+						<div class="row mt-3" style="background-color: #6e00ff; border-top-left-radius: 25px; border-top-right-radius: 25px;">
+							<div class="col-4 text-center mt-3" style="border-right: 1px solid white;">
+								{% if page.owner.pic %}
+									<img class="img-fluid rounded-circle px-3" src="{{ page.owner.pic.url }}">
+								{% else %}
+
+								{% endif %}
+							</div>
+							<div class="col-4 text-center mt-3" style="border-right: 1px solid white;">
+								<img class="img-fluid px-3" src="{% static 'tutorials/reading-book.svg' %}">
+							</div>
+							<div class="col-4 text-center mt-3">
+								<img class="img-fluid px-3" src="{% static 'tutorials/calendar.svg' %}">
+							</div>
+						</div>
+						<div class="row mb-3 pt-2" style="background-color: #6e00ff; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;">
+							<div class="col-4 text-center text-white">
+								<h5 class="">{{ page.owner.username }}</h5>
+							</div>
+							<div class="col-4 text-center text-white">
+								<h5>{{ page.get_read_time }}</h5>
+							</div>
+							<div class="col-4 text-center text-white">
+								<h5>{{ page.date|date:"M j, Y" }}</h5>
+							</div>
+						</div>
+					</div>
 				</div>
 			</header>
 
-			<main class="main-content px-2 px-md-5">
-				{% for block in page.body %}
-					{% if block.block_type == 'image' %}
-					
-						{% image block.value width-1000 class="img-fluid" %}
-						
-					{% else %}
-							{% include_block block %}
-					{% endif %}
-				{% endfor %}
-				{% if courses %}
-					<br>
-					<h3>Here's some courses you might like:</h3>
-					<ul>
-						{% for course in courses %}
-						<a href="{% url 'course_landing_page' course.slug %}"><li>{{ course.title }}</li></a>
+			<div class="row justify-content-around align-items-center">
+				<div class="col-12 pt-2 bg-light">
+					<main class="main-content px-2 px-md-5 bg-light">
+						{% for block in page.body %}
+							{% if block.block_type == 'image' %}
+								<div class="text-center">
+									{% image block.value width-1000 class="img-fluid pb-2" %}
+								</div>
+							{% else %}
+								{% include_block block %}
+							{% endif %}
 						{% endfor %}
-					</ul>
-				{% endif %}
-			</main>
+						{% if courses %}
+							<br>
+							<h3>Here's some courses you might like:</h3>
+							<ul>
+								{% for course in courses %}
+									<a href="{% url 'course_landing_page' course.slug %}">
+										<li>{{ course.title }}</li>
+									</a>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</main>
+				</div>
+			</div>
 		</div>
-	</article>
+	</div>
+</article>
 
 {% endblock %}
