@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 import stripe
 from stripe.error import InvalidRequestError
 import environ
+import courses.models
 
 env = environ.Env()
 environ.Env.read_env()
@@ -49,6 +50,14 @@ class ZappyUser(AbstractUser):
             status = None
         return status
 
+    def user_history_courses(self):
+        __courses = courses.models.Course.objects.filter(userhistory__user=self.id).order_by('title')
+        return __courses
+
+    def get_lectures_from_id(self):
+        __lecture_link = courses.models.Lecture.objects.filter(userhistory__user=self.id)
+        return __lecture_link
+
 
 # model for archive reasons of subscription cancellations
 class CancellationReasons(models.Model):
@@ -62,3 +71,4 @@ class LastCommit(models.Model):
     commit_url = models.URLField()
     commit_time = models.DateTimeField()
     last_checked = models.DateTimeField()
+

@@ -18,8 +18,13 @@
 
             <div class="text-right mt-3 mt-xl-5">
               <a class="btn btn-primary"
-                href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
-                role="button">Start Course <i class="fas fa-play-circle"></i></a>
+                {% if historyuser %}
+                  href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
+                  role="button">Continue Course <i class="fas fa-play-circle"></i></a>
+                {% else %}
+                  href="{% url 'view_lecture' course.first_lecture.section.course.slug course.first_lecture.id course.first_lecture.slug %}"
+                  role="button">Start Course <i class="fas fa-play-circle"></i></a>
+                {% endif %}
               {% if user.active_membership %}
                 <a class="btn btn-success" href="{{ course.download_link }}" role="button" target="_blank">Download <i class="fas fa-cloud-download-alt"></i></a>
               {% else %}
