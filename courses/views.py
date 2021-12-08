@@ -82,6 +82,8 @@ def course_landing_page(request, course_slug):
     # collect ids for choosing random courses (for right side snippets)
     ids = Course.objects.values_list('id', flat=True)
     records_number = 4
+    if len(ids) < 4:
+        records_number = len(ids)
     # pull random ids
     rand_ids = random.sample(list(ids), records_number)
     # collect random records
