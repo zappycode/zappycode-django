@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from taggit.managers import TaggableManager
 import requests
 import environ
+from sitewide.models import ZappyUser
 
 env = environ.Env()
 environ.Env.read_env()
@@ -150,3 +151,9 @@ class Lecture(models.Model):
 
     def lecture_url(self):
         return 'https://ZappyCode.com' + reverse('view_lecture', kwargs={'course_slug': self.section.course.slug, 'lecturepk': self.id, 'lecture_slug': self.slug()})
+
+
+class UserHistory(models.Model):
+    course = models.ManyToManyField(Course)
+    last_lecture = models.ForeignKey(Lecture, on_delete=models.CASCADE)
+    user = models.ForeignKey(ZappyUser, on_delete=models.CASCADE)
