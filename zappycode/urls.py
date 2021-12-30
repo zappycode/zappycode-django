@@ -82,6 +82,7 @@ urlpatterns = [
                   path('tutorials/', include(wagtail_urls)),
 
                   # These are all direct links
+                  path('python3-nxytd8x9cn78204nb6/', RedirectView.as_view(url='https://www.udemy.com/course/django-3-make-websites-with-python-tutorial-beginner-learn-bootstrap/?couponCode=66D7FA18AAE42881BE4B')),
                   path('do/', RedirectView.as_view(url='https://m.do.co/c/1d911d0ac384')),
                   path('binance/', RedirectView.as_view(url='https://www.binance.com/?ref=18195758')),
                   path('coinbase/', RedirectView.as_view(url='https://www.coinbase.com/join/54c17a1cc5f6ec44cb000050')),
