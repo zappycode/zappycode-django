@@ -7,7 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>ZappyCode</title>
+    <title>
+        {% block title %}ZappyCode{% endblock %}
+    </title>
 
     <link rel="stylesheet" href="{% static "sitewide/fontawesome-free/css/all.min.css" %}">
 
@@ -57,20 +59,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'all_courses' %}">Courses</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tutorials">Tutorials</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Open
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="https://github.com/zappycode/zappycode-django" rel="noopener" target="_blank">⌨️ Code</a>
+                            <a class="dropdown-item" href="{% url 'money:home' %}">💰 Money</a>
+                            <a class="dropdown-item" href="https://plausible.io/zappycode.com" rel="noopener" target="_blank">📈 Analytics</a>
+                        </div>
+                    </li>
                     {% if not user.active_membership %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pricing' %}">Pricing</a>
+                    </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/zappycode/zappycode-django" rel="noopener" target="_blank">Code</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'money:home' %}">Money</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://plausible.io/zappycode.com" rel="noopener" target="_blank">Analytics</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://chitchat.zappycode.com" rel="noopener" target="_blank">Chit Chat</a>
                     </li>
