@@ -30,24 +30,28 @@ def get_topics(course_slug=''):
     table_title = 'Recent Chit Chat Issues'
     category_details = None
 
-    if 'django'.lower() in course_slug.lower() or 'python'.lower() in course_slug.lower():
-        response = requests.get(DISCOURSE_BASE_URL + '/c/6.json', headers)
-        table_title = 'Recent Django Issues'
-    elif 'kotlin'.lower() in course_slug.lower():
-        response = requests.get(DISCOURSE_BASE_URL + '/c/7.json', headers)
-        table_title = 'Recent Kotlin Issues'
-    elif 'swift'.lower() in course_slug.lower() or 'swiftui'.lower() in course_slug.lower() \
-            or 'ios'.lower() in course_slug.lower():
-        response = requests.get(DISCOURSE_BASE_URL + '/c/8.json', headers)
-        table_title = 'Recent Swift Issues'
-    elif course_slug == 'last':
-        response = requests.get(DISCOURSE_BASE_URL + '/latest.json', headers)
-        number_of_topics = 4
-    else:
-        response = requests.get(DISCOURSE_BASE_URL + '/top/quarterly.json', headers)
-        table_title = 'Most Popular Issues'
-        course_slug = 'top'
-        number_of_topics = 5
+    try:
+        if 'django'.lower() in course_slug.lower() or 'python'.lower() in course_slug.lower():
+            response = requests.get(DISCOURSE_BASE_URL + '/c/6.json', headers)
+            table_title = 'Recent Django Issues'
+        elif 'kotlin'.lower() in course_slug.lower():
+            response = requests.get(DISCOURSE_BASE_URL + '/c/7.json', headers)
+            table_title = 'Recent Kotlin Issues'
+        elif 'swift'.lower() in course_slug.lower() or 'swiftui'.lower() in course_slug.lower() \
+                or 'ios'.lower() in course_slug.lower():
+            response = requests.get(DISCOURSE_BASE_URL + '/c/8.json', headers)
+            table_title = 'Recent Swift Issues'
+        elif course_slug == 'last':
+            response = requests.get(DISCOURSE_BASE_URL + '/latest.json', headers)
+            number_of_topics = 4
+        else:
+            response = requests.get(DISCOURSE_BASE_URL + '/top/quarterly.json', headers)
+            table_title = 'Most Popular Issues'
+            course_slug = 'top'
+            number_of_topics = 5
+    except:
+        return None, None
+                
 
     if response.status_code == 200:
         topics_list = response.json()['topic_list']['topics'][:number_of_topics]
