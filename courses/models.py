@@ -76,7 +76,7 @@ class Lecture(models.Model):
     text = models.TextField(blank=True)
     preview = models.BooleanField(default=False)
     thumbnail_url = models.URLField(blank=True, null=True)
-    download_url = models.URLField(blank=True, null=True)
+    download_url = models.URLField(max_length=500, blank=True, null=True)
 
     def slug(self):
         return slugify(self.title)
@@ -143,12 +143,12 @@ class Lecture(models.Model):
             print(f'Couldn\'t get url for {self.title}')
             return None
 
-    # Get all download URLs
+# Get all download URLs
 
-    # from courses.models import Lecture
-    # lectures = Lecture.objects.all()
-    # for lecture in lectures:
-    #     lecture.get_download_url()
+# from courses.models import Lecture
+# lectures = Lecture.objects.all()
+# for lecture in lectures:
+#     lecture.get_download_url()
 
     def lecture_url(self):
         return 'https://ZappyCode.com' + reverse('view_lecture', kwargs={'course_slug': self.section.course.slug, 'lecturepk': self.id, 'lecture_slug': self.slug()})
