@@ -44,16 +44,35 @@ class Course(models.Model):
                                   + str(self.vimeo_promo_video_id) + '/?fields=files', headers=headers)
         try:
             download_url = video_data.json()['files'][0]['link']
+            video1080 = -1
+            video720 = -1
+            video540 = -1
+            index = 0
+            for file in video_data.json()['files']:
+                if file["rendition"] == "1080p":
+                    video1080 = index
+                if file["rendition"] == "720p":
+                    video720 = index
+                if file["rendition"] == "540p":
+                    video540 = index
+                index += 1
+            if video1080 != -1:
+                download_url = video_data.json()['files'][video1080]['link']
+            elif video720 != -1:
+                download_url = video_data.json()['files'][video720]['link']
+            elif video540 != -1:
+                download_url = video_data.json()['files'][video540]['link']
+                    
             self.promo_download_url = download_url
             self.save()
             return download_url
         except KeyError:
             return None
 
-        # from courses.models import Course
-        # courses = Course.objects.all()
-        # for course in courses:
-        #     course.get_download_url()
+# from courses.models import Course
+# courses = Course.objects.all()
+# for course in courses:
+#     course.get_download_url()
 
 
 class Section(models.Model):
@@ -145,10 +164,10 @@ class Lecture(models.Model):
 
 # Get all download URLs
 
-# from courses.models import Lecture
-# lectures = Lecture.objects.all()
-# for lecture in lectures:
-#     lecture.get_download_url()
+from courses.models import Lecture
+lectures = Lecture.objects.all()
+for lecture in lectures:
+    lecture.get_download_url()
 
     def lecture_url(self):
         return 'https://ZappyCode.com' + reverse('view_lecture', kwargs={'course_slug': self.section.course.slug, 'lecturepk': self.id, 'lecture_slug': self.slug()})
