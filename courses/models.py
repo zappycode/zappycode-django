@@ -138,8 +138,8 @@ class Lecture(models.Model):
                 download_url = video_data.json()['files'][video720]['link']
             elif video540 != -1:
                 download_url = video_data.json()['files'][video540]['link']
-                    
-            self.promo_download_url = download_url
+               
+            self.download_url = download_url
             self.save()
             return download_url
         except KeyError:
@@ -149,10 +149,15 @@ class Lecture(models.Model):
 
 # Get all download URLs
 
+# lecture = Lecture.objects.get(pk=591)
+# lecture.get_download_url()
+# 
 # from courses.models import Lecture
-# lectures = Lecture.objects.all()
+# lectures = Lecture.objects.all().order_by('id')
 # for lecture in lectures:
 #     lecture.get_download_url()
+#     print(lecture.id)
+
 
     def lecture_url(self):
         return 'https://ZappyCode.com' + reverse('view_lecture', kwargs={'course_slug': self.section.course.slug, 'lecturepk': self.id, 'lecture_slug': self.slug()})
