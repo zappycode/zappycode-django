@@ -140,6 +140,7 @@ class Lecture(models.Model):
             self.save()
             return download_url
         except KeyError:
+            print(f'Couldn\'t get url for {self.title}')
             return None
 
     # Get all download URLs
