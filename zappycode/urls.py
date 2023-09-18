@@ -101,5 +101,6 @@ urlpatterns = [
                   path('terminal/', RedirectView.as_view(url='https://zappycode.com/posts/17/terminal-tutorial')),
                   path('swift/', RedirectView.as_view(url='https://zappycode.com/tutorials/resources-for-swift-and-making-apple-apps-ios-xcode-macos-watchos-tvos-ipados')),
                   path('django4/', RedirectView.as_view(url='https://zappycode.com/tutorials/django-4-course-resources')),
+                  path('ios17stuff/', RedirectView.as_view(url='https://zappycode.com/tutorials/ios-17-course-stuff')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL,
                                                                                          document_root=settings.STATIC_ROOT)
