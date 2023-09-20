@@ -19,10 +19,10 @@
                 <li class="border-0 border-left-0 border-right-0 list-group-item list-group-item-action {% cycle "list-group-item-danger" "list-group-item-info" "list-group-item-secondary" "list-group-item-primary" "list-group-item-warning" "list-group-item-dark" "list-group-item-success" %}
                            {% if lecture.id == listed_lecture.id %}active{% endif %}
                            {% if last_lecture.first.id == listed_lecture.id %}active{% endif %}">
-                    {{ listed_lecture.number }} - {{ listed_lecture.title }}{% if listed_lecture.preview %}
-
-                    {{ last_lecture.first.id }} {{ listed_lecture.id }}
-                        <span class="badge badge-primary">Preview</span>{% endif %}
+                    {{ listed_lecture.number }} - {{ listed_lecture.title }}
+                    {% if listed_lecture.preview %}
+                        <span class="badge badge-primary">Preview</span>
+                        {% endif %}
                 </li>
               </a>
             {% endfor %}
