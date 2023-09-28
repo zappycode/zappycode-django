@@ -53,12 +53,12 @@ def view_lecture(request, course_slug, lecturepk, lecture_slug):
             user_history.update(last_lecture_id=lecture.id)
 
     #  get issues from specific category to fill chit chat q&a box
-    topics = get_topics(course_slug)
+    #topics = get_topics(course_slug)
     return render(request, 'courses/view_lecture.html', {
         'lecture': lecture,
-        'topics': topics[0],
-        'table_title': topics[1],
-        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+        #'topics': topics[0],
+        #'table_title': topics[1],
+        #'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
     })
 
 
@@ -97,15 +97,15 @@ def course_landing_page(request, course_slug):
             last_lecture = all_course_lectures.filter(pk=user_history.first().last_lecture_id)
 
     # get most popular issues to fill chit chat box
-    topics = get_topics('top')
+    #topics = get_topics('top')
     return render(request, 'courses/course_landing_page.html', {
         'last_lecture': last_lecture,
         'rand_courses': random_records,
         'videos_number': videos_number,
         'course': course,
-        'topics': topics[0],
-        'table_title': topics[1],
-        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+        #'topics': topics[0],
+        #'table_title': topics[1],
+        #'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
     })
 
 
