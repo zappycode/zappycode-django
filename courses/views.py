@@ -117,7 +117,7 @@ def all_courses(request):
 
     return render(request, 'courses/all_courses.html', {
         'courses': courses,
-        'topics': topics[0],
+        #'topics': topics[0],
         #'table_title': topics[1],
-        'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
+        #'discourse_url': DISCOURSE_BASE_URL[(DISCOURSE_BASE_URL.find('://') + 3):]
     })
