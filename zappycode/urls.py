@@ -33,6 +33,7 @@ urlpatterns = [
                   path('api', include('api.urls')),
                   path('posts', include('posts.urls')),
                   path('money', include('money.urls')),
+                  path('send', include('send.urls')),
                   path('somebodylovesyou', include('invites.urls')),
                   path('account', sitewide.views.account, name='account'),
                   path('pricing', sitewide.views.pricing, name='pricing'),
