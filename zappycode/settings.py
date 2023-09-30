@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'invites',
     'chit_chat',
     'tutorials',
+    'send',
 
     # 3rd Party
     'djcelery_email',
